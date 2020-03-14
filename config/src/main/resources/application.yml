@@ -4,7 +4,7 @@ spring:
   application:
     name: config
   profiles:
-    active: dev
+    active: @profile.active@
 ---
 spring:
   profiles: dev
@@ -13,6 +13,6 @@ spring:
       label: master
       server:
         git:
-          uri: https://github.com/Hayaking/spring-cloud-com.example.shiro.config.git
-          search-paths: src/main/resources/static
+          uri: https://github.com/Hayaking/spring-cloud-heat.git
+          search-paths: /config/src/main/resources/static
 
