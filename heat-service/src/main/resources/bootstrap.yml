@@ -6,16 +6,34 @@ spring:
   profiles: dev
   cloud:
     config:
-      name: eureka
+      name: heat-service
       profile: dev
       label: master
       uri: http://127.0.0.1:8888
+  datasource:
+    phoenix:
+      enable: true
+      url: jdbc:phoenix:hadoop-master:2181
+      driver-class-name: org.apache.phoenix.jdbc.PhoenixDriver
+      username:
+      password:
+      default-auto-commit: true
+
+mybatis-plus:
+  # xml文件位置
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    # 关闭驼峰转下划线
+    map-underscore-to-camel-case: false
+    # 关闭二级缓存
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 ---
 spring:
   profiles: prod
   cloud:
     config:
-      name: eureka
+      name: heat-service
       profile: prod
       label: master
       uri: http://config:8888

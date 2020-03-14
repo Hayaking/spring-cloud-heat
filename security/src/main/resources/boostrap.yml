@@ -6,16 +6,19 @@ spring:
   profiles: dev
   cloud:
     config:
-      name: eureka
+      name: security
       profile: dev
       label: master
       uri: http://127.0.0.1:8888
+
+
+
 ---
 spring:
   profiles: prod
   cloud:
     config:
-      name: eureka
+      name: security
       profile: prod
       label: master
       uri: http://config:8888

@@ -1,21 +1,24 @@
+server:
+  port: 7999
+eureka:
+  instance:
+    preferIpAddress: true
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:8080/eureka
 spring:
-  profiles:
-    active: @profile.active@
----
-spring:
-  profiles: dev
-  cloud:
-    config:
-      name: user-service
-      profile: dev
-      label: master
-      uri: http://127.0.0.1:8888
+  application:
+    name: security
   datasource:
     mysql:
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql:///heat?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
       username: root
       password: 1024
+#feign:
+#  hystrix:
+#    enabled: true
 
 mybatis-plus:
   # xml文件位置
@@ -26,13 +29,3 @@ mybatis-plus:
     # 关闭二级缓存
     cache-enabled: false
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
----
-spring:
-  profiles: prod
-  cloud:
-    config:
-      name: user-service
-      profile: prod
-      label: master
-      uri: http://config:8888
-
