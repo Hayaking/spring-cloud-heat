@@ -1,0 +1,18 @@
+server:
+  port: 8888
+spring:
+  application:
+    name: config
+  profiles:
+    active: dev
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+      label: master
+      server:
+        git:
+          uri: https://github.com/Hayaking/spring-cloud-com.example.shiro.config.git
+          search-paths: src/main/resources/static
+
