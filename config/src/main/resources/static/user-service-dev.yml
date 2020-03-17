@@ -10,7 +10,23 @@ eureka:
 spring:
   application:
     name: user-service
+  datasource:
+    mysql:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql:///heat?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      username: root
+      password: 1024
 
 feign:
   hystrix:
     enabled: true
+
+mybatis-plus:
+  # xml文件位置
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    # 关闭驼峰转下划线
+    map-underscore-to-camel-case: false
+    # 关闭二级缓存
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
