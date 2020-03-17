@@ -11,11 +11,10 @@ spring:
   application:
     name: user-service
   datasource:
-    mysql:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql:///heat?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-      username: root
-      password: 1024
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///heat?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: 1024
 
 feign:
   hystrix:
