@@ -10,6 +10,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:8080/eureka
+
 zuul:
   routes:
     api-a:
@@ -17,4 +18,4 @@ zuul:
       serviceId: service-consumer
     security:
       path: /security/**
-      serviceId: service-oauth2
+      serviceId: security
