@@ -12,6 +12,7 @@ eureka:
       defaultZone: http://${eureka.instance.hostname}:8080/eureka
 
 zuul:
+  sensitiveHeaders=:
   routes:
     api-a:
       path: /A/**
