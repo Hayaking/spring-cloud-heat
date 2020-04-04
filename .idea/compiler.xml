@@ -10,9 +10,9 @@
         <module name="zuul" />
         <module name="common" />
         <module name="security" />
-        <module name="springcloudheat" />
         <module name="eureka" />
         <module name="heat-service" />
+        <module name="springcloudheat" />
         <module name="user-service" />
         <module name="config" />
       </profile>

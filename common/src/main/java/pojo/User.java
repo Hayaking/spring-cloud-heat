@@ -16,17 +16,17 @@ import java.util.Date;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@TableName("customer")
-public class Customer extends Model<Customer> {
+@TableName("user")
+public class User extends Model<User> {
     @TableId(type = IdType.AUTO)
-    private String id;
-    private String name;
-    private String address;
-    private Long createTime;
-    private Integer configId;
-    private Integer creatorId;
+    private int id;
+    private String username;
+    private String password;
+    private String phone;
+    private String email;
+    private Integer roleId;
+    private Date createTime;
+
     @TableField(exist = false)
-    private User creator;
-    @TableField(exist = false)
-    private CustomerConfig config;
+    private Role role;
 }

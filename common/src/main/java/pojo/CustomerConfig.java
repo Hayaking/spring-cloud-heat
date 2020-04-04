@@ -1,5 +1,6 @@
 package pojo;
 
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -17,16 +18,21 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("customer")
-public class Customer extends Model<Customer> {
+public class CustomerConfig extends Model<CustomerConfig> {
     @TableId(type = IdType.AUTO)
     private String id;
-    private String name;
-    private String address;
+    private String gprsId;
+    private BigDecimal tempRange;
+    private BigDecimal tempUpper;
+    private BigDecimal tempLower;
+    private BigDecimal presRange;
+    private BigDecimal presUpper;
+    private BigDecimal presLower;
+    private BigDecimal flowRange;
+    private BigDecimal flowUpper;
+    private BigDecimal flowLower;
+    private BigDecimal flowMulti;
     private Long createTime;
-    private Integer configId;
-    private Integer creatorId;
     @TableField(exist = false)
-    private User creator;
-    @TableField(exist = false)
-    private CustomerConfig config;
+    private Grps grps;
 }

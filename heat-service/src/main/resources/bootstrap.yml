@@ -15,8 +15,6 @@ spring:
       enable: true
       url: jdbc:phoenix:hadoop-master:2181
       driver-class-name: org.apache.phoenix.jdbc.PhoenixDriver
-      username:
-      password:
       default-auto-commit: true
 
 mybatis-plus:

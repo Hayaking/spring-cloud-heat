@@ -1,4 +1,4 @@
-package com.haya.userservice.config;
+package com.security.security.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
@@ -19,13 +19,11 @@ import javax.sql.DataSource;
 @Configuration
 public class MySQLConfig {
     @Bean(name = "mysqlDataSource")
-    @Primary
     @ConfigurationProperties(prefix = "spring.datasource.mysql")
     public DataSource dataSource() {
         return new DruidDataSource();
     }
 
-    @Primary
     @Bean(name = "mysqlSqlSessionFactory")
     public SqlSessionFactory sqlSessionFactory(@Qualifier("mysqlDataSource") DataSource dataSource) throws Exception {
         return new MybatisSqlSessionFactoryBean() {{
@@ -33,13 +31,11 @@ public class MySQLConfig {
         }}.getObject();
     }
 
-    @Primary
     @Bean(name = "mysqlTransactionManager")
     public DataSourceTransactionManager transactionManager(@Qualifier("mysqlDataSource") DataSource dataSource) {
         return new DataSourceTransactionManager( dataSource );
     }
 
-    @Primary
     @Bean(name = "mysqlSqlSessionTemplate")
     public SqlSessionTemplate sqlSessionTemplate(@Qualifier("mysqlSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate( sqlSessionFactory );

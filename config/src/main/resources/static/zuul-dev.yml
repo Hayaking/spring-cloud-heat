@@ -12,11 +12,9 @@ eureka:
       defaultZone: http://${eureka.instance.hostname}:8080/eureka
 
 zuul:
+  # 转发request不清空header
   sensitiveHeaders:
   routes:
-    api-a:
-      path: /A/**
-      serviceId: service-consumer
     security:
       path: /security/**
       serviceId: security
