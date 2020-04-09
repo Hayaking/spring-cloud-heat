@@ -1,0 +1,16 @@
+server:
+  port: 7997
+eureka:
+  instance:
+    preferIpAddress: true
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:8080/eureka
+spring:
+  application:
+    name: spark-streaming
+
+feign:
+  hystrix:
+    enabled: true
