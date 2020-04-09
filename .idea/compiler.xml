@@ -7,19 +7,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="heat-service" />
+        <module name="user" />
         <module name="zuul" />
         <module name="common" />
         <module name="security" />
         <module name="config" />
         <module name="eureka" />
-        <module name="streaming" />
-        <module name="scala-spring-boot" />
-        <module name="user-service" />
+        <module name="spark" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="heat-service" target="1.8" />
       <module name="spark-streaming" target="1.8" />
+      <module name="streaming" target="1.5" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -28,10 +28,10 @@
       <module name="config" options="-parameters" />
       <module name="eureka" options="-parameters" />
       <module name="heat-service" options="-parameters" />
-      <module name="scala-spring-boot" options="-parameters" />
       <module name="security" options="-parameters" />
+      <module name="spark" options="-parameters" />
       <module name="spark-streaming" options="-parameters" />
-      <module name="user-service" options="-parameters" />
+      <module name="user" options="-parameters" />
       <module name="zuul" options="-parameters" />
     </option>
   </component>

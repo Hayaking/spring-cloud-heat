@@ -6,6 +6,6 @@
         <parameter value="-target:jvm-1.5" />
       </parameters>
     </profile>
-    <profile name="Maven 2" modules="scala-spring-boot,spark-streaming" />
+    <profile name="Maven 2" modules="scala-spring-boot,spark,spark-streaming" />
   </component>
 </project>

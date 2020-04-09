@@ -14,8 +14,6 @@
         <option value="$PROJECT_DIR$/zuul/pom.xml" />
         <option value="$PROJECT_DIR$/security/pom.xml" />
         <option value="$PROJECT_DIR$/user-service/pom.xml" />
-        <option value="$PROJECT_DIR$/heat-service/pom.xml" />
-        <option value="$PROJECT_DIR$/streaming/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
