@@ -44,13 +44,13 @@ boostport/hbase-phoenix-all-in-one
 
 github：https://github.com/Hayaking/spring-cloud-heat
 
-![image-20200418155255199](https://github.com/Hayaking/spring-cloud-heat/blob/master/zuul/image-20200418155255199.png)
+![image-20200418155255199](https://github.com/Hayaking/spring-cloud-heat/blob/master/img/image-20200418155255199.png)
 
 ## 2.2  项目模块
 
 后端：
 
-![image-20200418155321623](https://github.com/Hayaking/spring-cloud-heat/blob/master/zuul/image-20200418155321623.png)
+![image-20200418155321623](https://github.com/Hayaking/spring-cloud-heat/blob/master/img/image-20200418155321623.png)
 
 - common：公共模块，放实体类的地方
 - config：配置中心，统一其它存放模块的配置文件
@@ -71,7 +71,7 @@ github：https://github.com/Hayaking/spring-cloud-heat
 - MySQL：
 heat_data.sql
 
-![image-20200418163138386](https://github.com/Hayaking/spring-cloud-heat/blob/master/zuul/image-20200418163138386.png)
+![image-20200418163138386](https://github.com/Hayaking/spring-cloud-heat/blob/master/img/image-20200418163138386.png)
 
 - HBase：
 
