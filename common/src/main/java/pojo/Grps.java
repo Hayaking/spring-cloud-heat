@@ -1,5 +1,7 @@
 package pojo;
 
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -16,5 +18,9 @@ public class Grps extends Model<Grps> {
     private String no;
     private String describe;
     private boolean isOnline;
-    private Long createTime;
+    private Long createDate;
+    @TableLogic
+    private Integer deleted;
+    @Version
+    private Integer version;
 }

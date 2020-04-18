@@ -11,9 +11,10 @@
         <module name="zuul" />
         <module name="common" />
         <module name="security" />
-        <module name="config" />
-        <module name="eureka" />
         <module name="spark" />
+        <module name="eureka" />
+        <module name="user-service" />
+        <module name="config" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -32,6 +33,7 @@
       <module name="spark" options="-parameters" />
       <module name="spark-streaming" options="-parameters" />
       <module name="user" options="-parameters" />
+      <module name="user-service" options="-parameters" />
       <module name="zuul" options="-parameters" />
     </option>
   </component>

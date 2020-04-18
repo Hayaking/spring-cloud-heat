@@ -1,9 +1,6 @@
 package pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,8 +22,11 @@ public class User extends Model<User> {
     private String phone;
     private String email;
     private Integer roleId;
-    private Date createTime;
-
+    private Date createDate;
+    @TableLogic
+    private Integer deleted;
+    @Version
+    private Integer version;
     @TableField(exist = false)
     private Role role;
 }

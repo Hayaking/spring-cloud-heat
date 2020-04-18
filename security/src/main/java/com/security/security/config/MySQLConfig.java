@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author haya
@@ -38,6 +40,7 @@ public class MySQLConfig {
 
     @Bean(name = "mysqlSqlSessionTemplate")
     public SqlSessionTemplate sqlSessionTemplate(@Qualifier("mysqlSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
+        new ConcurrentHashMap<>()
         return new SqlSessionTemplate( sqlSessionFactory );
     }
 

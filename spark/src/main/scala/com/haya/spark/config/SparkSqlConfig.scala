@@ -24,5 +24,19 @@ class SparkSqlConfig {
     .sqlContext
     .read
     .format("org.apache.phoenix.spark")
-    .options(Map("table" -> "us_population", "zkUrl" -> "39.105.163.41:2181"))
+    .options(Map("table" -> "us_population", "zkUrl" -> "hbase:2181"))
+
+  @Bean
+  def heatDataReader: DataFrameReader = sparkSession
+    .sqlContext
+    .read
+    .format("org.apache.phoenix.spark")
+    .options(Map("table" -> "HeatData", "zkUrl" -> "hbase:2181"))
+
+  @Bean
+  def heatDataWriter: DataFrameReader = sparkSession
+    .sqlContext
+    .read
+    .format("org.apache.phoenix.spark")
+    .options(Map("table" -> "HeatData", "zkUrl" -> "hbase:2181"))
 }

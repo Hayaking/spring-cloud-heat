@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.{GetMapping, RestController}
 class HelloController {
 
   @Autowired
-  val  dfr:DataFrameReader = null
+  val  heatDataReader:DataFrameReader = null
 
   @GetMapping(value = Array("hello"))
   def hello(): String = {
-    dfr.load().printSchema()
-    return "hello,scala"
+    heatDataReader.load().printSchema()
+    "hello,scala"
   }
 }
