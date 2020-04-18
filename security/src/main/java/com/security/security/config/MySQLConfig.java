@@ -40,7 +40,6 @@ public class MySQLConfig {
 
     @Bean(name = "mysqlSqlSessionTemplate")
     public SqlSessionTemplate sqlSessionTemplate(@Qualifier("mysqlSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
-        new ConcurrentHashMap<>()
         return new SqlSessionTemplate( sqlSessionFactory );
     }
 

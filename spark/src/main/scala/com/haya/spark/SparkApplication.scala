@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan
 //@EnableDiscoveryClient
 //@EnableFeignClients
 //@EnableHystrixDashboard
-@ComponentScan(value = Array("com.haya"))
+//@ComponentScan(value = Array("com.haya.spark"))
 @SpringBootApplication
 class SparkApplication
 
