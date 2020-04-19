@@ -1,0 +1,28 @@
+spring:
+  profiles:
+    active: @profile.active@
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+      name: consumer-service
+      profile: dev
+      label: master
+      uri: http://127.0.0.1:8888
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+---
+spring:
+  profiles: prod
+  cloud:
+    config:
+      name: consumer-service
+      profile: prod
+      label: master
+      uri: http://config:8888
+

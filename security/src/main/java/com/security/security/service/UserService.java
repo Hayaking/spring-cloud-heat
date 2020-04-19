@@ -11,6 +11,6 @@ import pojo.User;
  */
 @FeignClient(value = "user-service",fallback = UserServiceHystrix.class)
 public interface UserService {
-    @GetMapping(value = "security/get/{name}/{password}")
+    @GetMapping(value = "user/{name}/{password}")
     User get(@PathVariable String name, @PathVariable String password);
 }

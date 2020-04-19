@@ -1,4 +1,4 @@
-package com.haya.user.config;
+package com.consumer.consumer.config;
 
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
