@@ -35,9 +35,4 @@ public class GrpsController {
         return grpsService.removeById( id );
     }
 
-
-    @DeleteMapping(value = "/grps/{id}")
-    public Object updateRole(@PathVariable Integer id) {
-        return grpsService.removeById( id );
-    }
 }

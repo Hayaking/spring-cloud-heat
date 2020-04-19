@@ -12,6 +12,7 @@
         <module name="common" />
         <module name="security" />
         <module name="spark" />
+        <module name="consumer-service" />
         <module name="eureka" />
         <module name="user-service" />
         <module name="config" />
@@ -27,6 +28,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="common" options="" />
       <module name="config" options="-parameters" />
+      <module name="consumer-service" options="-parameters" />
       <module name="eureka" options="-parameters" />
       <module name="heat-service" options="-parameters" />
       <module name="security" options="-parameters" />
