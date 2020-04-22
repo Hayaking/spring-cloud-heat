@@ -1,40 +1,6 @@
 # 一、环境搭建
 
-## 1.1 安装Docker
-
-虚拟机分配内存大于等于2G。
-
-教程地址：https://www.runoob.com/docker/centos-docker-install.html
-
-## 1.2 安装HBase
-
-启动docker，使用```docker pull boostport/hbase-phoenix-all-in-one ```下载镜像
-
-使用如下命令创建并启动docker容器
-
-```shell
-docker run -itd --name hbase \
- --hostname hbase \
- -p 2181:2181 \
- -p 16000:16000 \
- -p 16010:16010 \
- -p 16020:16020 \
- -p 16030:16030 \
-boostport/hbase-phoenix-all-in-one
-```
-
-## 1.3 安装Kafka
-
-下载镜像：```docker pull spotify/kafka``` 
-
-创建并启动镜像：
-
-```shell
-  docker run -itd \
- --name kafka \
- --hostname kafka \
- -p 9092:9092 spotify/kafka
-```
+## 阿里云上部署好了HBase和Kafka
 
 
 
@@ -58,7 +24,8 @@ github：https://github.com/Hayaking/spring-cloud-heat
 - zuul：网关，前端请求网关，网管负责将请求转发给其它模块
 - security：安全模块，负责登录、登出、鉴权
 - spark：负责HBase和Kafka的操作
-- 。。。。其它业务模块带扩展
+- user-service：用户管理服务
+- consumer-service：热力消费者、这店管理服务
 
 前端：
 

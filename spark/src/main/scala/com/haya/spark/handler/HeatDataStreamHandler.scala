@@ -4,15 +4,17 @@ import javax.annotation.PostConstruct
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.streaming.dstream.InputDStream
-import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.{Autowired, Value}
 import org.springframework.stereotype.Component
 
 @Component
 class HeatDataStreamHandler {
   @Autowired
-  var context: Map[String, InputDStream[ConsumerRecord[String, String]]] = null
+  var context: Map[String, InputDStream[ConsumerRecord[String, String]]] = _
   @Autowired
   var sparkSession: SparkSession = _
+  @Value("${host.hbase}")
+  var hBaseHost: String = _
 
   @PostConstruct
   def handle(): Object = {
@@ -28,21 +30,9 @@ class HeatDataStreamHandler {
           item(2).toDouble,
           item(3).toDouble,
           item(4).toDouble,
-          item(5).toLong)        )
+          item(5).toLong))
         .toDF("ID", "CONSUMERID", "TEMPERATURE", "PRESSURE", "FLOW", "CREATEDATE")
-        //      df.schema.add(DataTypes.createStructField("id", DataTypes.IntegerType, false))
-        //        .add(DataTypes.createStructField("consumerId", DataTypes.IntegerType, false))
-        //        .add(DataTypes.createStructField("temperature", DataTypes.DoubleType, false))
-        //        .add(DataTypes.createStructField("pressure", DataTypes.DoubleType, false))
-        //        .add(DataTypes.createStructField("flow", DataTypes.DoubleType, false))
-        //        .add(DataTypes.createStructField("createDate", DataTypes.LongType, true))
-        .saveToPhoenix(Map("table" -> "heatData", "zkUrl" -> "hbase:2181"))
-      //        .write
-      //        .format("org.apache.phoenix.spark")
-      //        .mode(SaveMode.Overwrite)
-      //        .option("table", "heatData")
-      //        .option("zkUrl","hbase:2181" )
-      //        .save()
+        .saveToPhoenix(Map("table" -> "heatData", "zkUrl" -> hBaseHost))
     })
     null
   }

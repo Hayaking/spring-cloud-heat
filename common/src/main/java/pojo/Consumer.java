@@ -12,7 +12,7 @@ import java.util.Date;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@TableName("customer")
+@TableName("consumer")
 public class Consumer extends Model<Consumer> {
     @TableId(type = IdType.AUTO)
     private String id;

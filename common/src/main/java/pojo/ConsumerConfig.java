@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@TableName("customer")
+@TableName("consumer_config")
 public class ConsumerConfig extends Model<ConsumerConfig> {
     @TableId(type = IdType.AUTO)
     private String id;

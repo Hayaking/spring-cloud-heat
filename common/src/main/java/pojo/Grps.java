@@ -1,6 +1,7 @@
 package pojo;
 
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
@@ -13,6 +14,7 @@ import java.util.Date;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@TableName("grps")
 public class Grps extends Model<Grps> {
     private int id;
     private String no;
