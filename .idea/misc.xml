@@ -18,6 +18,7 @@
         <option value="$PROJECT_DIR$/security/pom.xml" />
         <option value="$PROJECT_DIR$/user-service/pom.xml" />
         <option value="$PROJECT_DIR$/consumer-service/pom.xml" />
+        <option value="$PROJECT_DIR$/spark/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

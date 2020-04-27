@@ -3,13 +3,15 @@ package com.consumer.consumer.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.consumer.consumer.service.GrpsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pojo.Grps;
 
 /**
  * @author haya
  */
-@RestController
+@Controller
 public class GrpsController {
     @Autowired
     private GrpsService grpsService;
@@ -35,4 +37,8 @@ public class GrpsController {
         return grpsService.removeById( id );
     }
 
+    @GetMapping(value = "/grps/list")
+    public String deleteById(Model model) {
+        return "board";
+    }
 }

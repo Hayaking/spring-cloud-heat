@@ -33,7 +33,6 @@
         <module>zuul</module>
         <module>user</module>
         <module>security</module>
-        <module>spark</module>
     </modules>
     <dependencies>
 

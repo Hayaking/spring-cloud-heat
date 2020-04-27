@@ -20,6 +20,16 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+
+        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>net.sourceforge.nekohtml</groupId>-->
+<!--            <artifactId>nekohtml</artifactId>-->
+<!--            <version>1.9.22</version>-->
+<!--        </dependency>-->
+        <dependency>
             <groupId>com.haya</groupId>
             <artifactId>common</artifactId>
             <version>1.0-SNAPSHOT</version>
@@ -78,6 +88,8 @@
                 <!--可以在此配置过滤文件  -->
                 <includes>
                     <include>**/*.yml</include>
+                    <include>static/**</include>
+                    <include>templates/**</include>
                 </includes>
                 <!--开启filtering功能  -->
                 <filtering>true</filtering>

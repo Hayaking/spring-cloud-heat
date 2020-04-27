@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <groupId>com.haya</groupId>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>spark</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>spark</name>
 
-    <parent>
-        <groupId>com.haya</groupId>
-        <artifactId>spring-cloud-heat</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
-    </parent>
+<!--    <parent>-->
+<!--        <groupId>com.haya</groupId>-->
+<!--        <artifactId>spring-cloud-heat</artifactId>-->
+<!--        <version>1.0-SNAPSHOT</version>-->
+<!--        <relativePath>../pom.xml</relativePath>-->
+<!--    </parent>-->
 
     <properties>
         <scala.version>2.11.0</scala.version>
@@ -37,23 +38,7 @@
             <version>1.18.10</version>
             <scope>provided</scope>
         </dependency>
-        <!--spring cloud-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.netflix.hystrix</groupId>-->
-<!--            <artifactId>hystrix-javanica</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-netflix-hystrix-dashboard</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-openfeign</artifactId>-->
-<!--        </dependency>-->
+
         <!--spark-->
         <dependency>
             <groupId>org.scala-lang</groupId>
@@ -89,6 +74,17 @@
             <artifactId>spark-sql_2.11</artifactId>
             <version>${spark.version}</version>
         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.18</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.protobuf</groupId>
+                    <artifactId>protobuf-java</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.phoenix</groupId>
@@ -96,26 +92,15 @@
             <version>5.0.0-HBase-2.0</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.specs</groupId>
-            <artifactId>specs</artifactId>
-            <version>1.2.5</version>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.specs</groupId>-->
+<!--            <artifactId>specs</artifactId>-->
+<!--            <version>1.2.5</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>${project.basedir}/src/main/resources</directory>
-                <!--可以在此配置过滤文件  -->
-                <includes>
-                    <include>**/*.yml</include>
-                </includes>
-                <!--开启filtering功能  -->
-                <filtering>true</filtering>
-            </resource>
-        </resources>
         <sourceDirectory>${project.basedir}/src/main/scala</sourceDirectory>
         <testSourceDirectory>${project.basedir}/src/test/scala</testSourceDirectory>
         <plugins>
@@ -132,10 +117,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+
         </plugins>
     </build>
     <reporting>

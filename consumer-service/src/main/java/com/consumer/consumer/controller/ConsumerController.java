@@ -11,6 +11,7 @@ import pojo.Consumer;
  */
 @RestController
 public class ConsumerController {
+
     @Autowired
     public ConsumerService consumerService;
     @Autowired
