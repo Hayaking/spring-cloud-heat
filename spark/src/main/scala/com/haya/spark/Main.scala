@@ -14,6 +14,7 @@ object Main {
   )
 
   def main(args: Array[String]): Unit = {
+
     new SparkStater(hBaseHost, kafkaHost)
       .ready()
       .setMySQLConfig(mySQlConfig)
