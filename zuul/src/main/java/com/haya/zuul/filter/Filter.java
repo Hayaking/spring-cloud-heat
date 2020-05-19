@@ -30,6 +30,7 @@ public class Filter extends ZuulFilter {
         System.out.println(uri);
         boolean res = executor.exec( uri, context );
         context.setSendZuulResponse( res );
+//        restTemplate.
 //        context.setResponseStatusCode( 200 );
         return null;
 //        String username = request.getParameter( "username" );// 获取请求的参数

@@ -18,9 +18,13 @@ public class Log extends Model<Log> {
     @TableId
     private int id;
     private int userId;
-    private String ip;
-    private Date createDate;
-    private String type;
-    private String remarks;
     private String operation;
+    private String type;
+    private String method;
+    private String params;
+    private String remarks;
+    private String ip;
+    private Long time;
+    private Date createDate;
+
 }

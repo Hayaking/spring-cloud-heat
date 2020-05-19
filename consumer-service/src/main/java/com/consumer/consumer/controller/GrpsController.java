@@ -1,10 +1,10 @@
 package com.consumer.consumer.controller;
 
+import annotation.LogInfo;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.consumer.consumer.service.GrpsService;
 import msg.MessageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pojo.Grps;
@@ -22,6 +22,7 @@ public class GrpsController {
         return grpsService.list();
     }
 
+    @LogInfo(value = "分页获取站点信息")
     @GetMapping(value = "/grps/page/{pageNo}/{pageSize}")
     public Object page(@PathVariable Integer pageNo, @PathVariable Integer pageSize) {
         return MessageFactory.message( true, grpsService.page( new Page<>( pageNo, pageSize ) ) );
