@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * @author haya
  */
-@Component
+//@Component
 public class Filter extends ZuulFilter {
     @Autowired
     private RestTemplate restTemplate;
@@ -27,7 +27,7 @@ public class Filter extends ZuulFilter {
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest request = context.getRequest();
         String uri = request.getRequestURI();
-
+        System.out.println(uri);
         boolean res = executor.exec( uri, context );
         context.setSendZuulResponse( res );
 //        context.setResponseStatusCode( 200 );

@@ -8,4 +8,6 @@ import pojo.Role;
  * @author haya
  */
 public interface ConsumerService extends IService<Consumer> {
+
+    boolean snedWarnEmail(String message);
 }

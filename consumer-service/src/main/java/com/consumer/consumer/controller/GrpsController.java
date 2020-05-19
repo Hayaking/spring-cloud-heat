@@ -2,6 +2,7 @@ package com.consumer.consumer.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.consumer.consumer.service.GrpsService;
+import msg.MessageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +12,7 @@ import pojo.Grps;
 /**
  * @author haya
  */
-@Controller
+@RestController
 public class GrpsController {
     @Autowired
     private GrpsService grpsService;
@@ -22,8 +23,8 @@ public class GrpsController {
     }
 
     @GetMapping(value = "/grps/page/{pageNo}/{pageSize}")
-    public Object getByPage(@PathVariable Integer pageNo, @PathVariable Integer pageSize) {
-        return grpsService.page( new Page<>( pageNo, pageSize ) );
+    public Object page(@PathVariable Integer pageNo, @PathVariable Integer pageSize) {
+        return MessageFactory.message( true, grpsService.page( new Page<>( pageNo, pageSize ) ) );
     }
 
     @PostMapping(value = "/grps")

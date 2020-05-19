@@ -10,6 +10,7 @@ import lombok.EqualsAndHashCode;
 /**
  * @author haya
  */
+//@EqualsAndHashCode(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("role")

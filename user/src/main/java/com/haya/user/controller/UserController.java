@@ -2,6 +2,7 @@ package com.haya.user.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.haya.user.service.UserService;
+import msg.MessageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pojo.User;
@@ -27,9 +28,9 @@ public class UserController {
         return userService.list();
     }
 
-    @GetMapping(value = "/user/page/{pageNo}/{pageSize}")
+    @GetMapping(value = "/page/{pageNo}/{pageSize}")
     public Object getByPage(@PathVariable Integer pageNo, @PathVariable Integer pageSize) {
-        return userService.page( new Page<>( pageNo, pageSize ) );
+        return MessageFactory.message( true, userService.page( new Page<>( pageNo, pageSize ) ) );
     }
 
     /**

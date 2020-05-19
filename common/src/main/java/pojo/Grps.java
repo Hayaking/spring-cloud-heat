@@ -18,9 +18,10 @@ import java.util.Date;
 public class Grps extends Model<Grps> {
     private int id;
     private String no;
-    private String describe;
+    private String des;
     private boolean isOnline;
-    private Long createDate;
+    private Date createDate;
+
     @TableLogic
     private Integer deleted;
     @Version

@@ -1,34 +1,71 @@
 spring:
+  application:
+    name: consumer-service
   profiles:
-    active: @profile.active@
-  thymeleaf:
-    cache: false
-    prefix: classpath:/templates/
-    suffix: .html
-    encoding: UTF-8
-    mode: HTML
----
-spring:
-  profiles: dev
-  cloud:
-    config:
-      name: consumer-service
-      profile: dev
-      label: master
-      uri: http://127.0.0.1:8888
+#    active: @profile.active@
+  kafka:
+    bootstrap-servers: kafka:9092
+    consumer:
+      enable-auto-commit: false
+      auto-commit-interval: 100ms
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        session.timeout.ms: 15000
+  mail:
+    username: 1028779917@qq.com
+    password: cmmvhnsldjjvbdgb
+    host: smtp.qq.com
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///heat_data?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+
+server:
+  port: 8084
+eureka:
+  instance:
+    preferIpAddress: true
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:8080/eureka
 
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
----
-spring:
-  profiles: prod
-  cloud:
-    config:
-      name: consumer-service
-      profile: prod
-      label: master
-      uri: http://config:8888
+  global-config:
+    db-config:
+      logic-delete-field: flag  #全局逻辑删除字段值 3.3.0开始支持，详情看下面。
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+feign:
+  hystrix:
+    enabled: true
+#---
+#spring:
+#  profiles: dev
+#  cloud:
+#    config:
+#      name: consumer-service
+#      profile: dev
+#      label: master
+#      uri: http://127.0.0.1:8888
+#
+#mybatis-plus:
+#  configuration:
+#    map-underscore-to-camel-case: true
+#    cache-enabled: false
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#---
+#spring:
+#  profiles: prod
+#  cloud:
+#    config:
+#      name: consumer-service
+#      profile: prod
+#      label: master
+#      uri: http://config:8888
 

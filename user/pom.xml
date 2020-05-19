@@ -13,7 +13,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <properties>
-        <mybatis.plus.version>3.2.0</mybatis.plus.version>
+        <mybatis.plus.version>3.3.0</mybatis.plus.version>
     </properties>
     <dependencies>
         <dependency>

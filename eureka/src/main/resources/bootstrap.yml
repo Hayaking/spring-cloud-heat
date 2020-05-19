@@ -1,21 +1,33 @@
 spring:
   profiles:
     active: @profile.active@
----
-spring:
-  profiles: dev
-  cloud:
-    config:
-      name: eureka
-      profile: dev
-      label: master
-      uri: http://127.0.0.1:8888
----
-spring:
-  profiles: prod
-  cloud:
-    config:
-      name: eureka
-      profile: prod
-      label: master
-      uri: http://config:8888
+
+server:
+  port: 8080
+eureka:
+  instance:
+    preferIpAddress: true
+    hostname: localhost
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+#---
+#spring:
+#  profiles: dev
+#  cloud:
+#    config:
+#      name: eureka
+#      profile: dev
+#      label: master
+#      uri: http://127.0.0.1:8888
+#---
+#spring:
+#  profiles: prod
+#  cloud:
+#    config:
+#      name: eureka
+#      profile: prod
+#      label: master
+#      uri: http://config:8888

@@ -1,21 +1,52 @@
 spring:
   profiles:
     active: @profile.active@
----
-spring:
-  profiles: dev
-  cloud:
-    config:
-      name: security
-      profile: dev
-      label: master
-      uri: http://127.0.0.1:8888
----
-spring:
-  profiles: prod
-  cloud:
-    config:
-      name: security
-      profile: prod
-      label: master
-      uri: http://config:8888
+  application:
+    name: security
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///heat_data?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+
+server:
+  port: 7999
+eureka:
+  instance:
+#    preferIpAddress: true
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:8080/eureka
+
+
+feign:
+  hystrix:
+    enabled: true
+
+#mybatis-plus:
+#  # xml文件位置
+#  mapper-locations: classpath:/mapper/*.xml
+#  configuration:
+#    # 关闭驼峰转下划线
+#    map-underscore-to-camel-case: false
+#    # 关闭二级缓存
+#    cache-enabled: false
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#---
+#spring:
+#  profiles: dev
+#  cloud:
+#    config:
+#      name: security
+#      profile: dev
+#      label: master
+#      uri: http://127.0.0.1:8888
+#---
+#spring:
+#  profiles: prod
+#  cloud:
+#    config:
+#      name: security
+#      profile: prod
+#      label: master
+#      uri: http://config:8888
