@@ -8,10 +8,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresGuest;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pojo.User;
 
 import java.io.Serializable;
@@ -30,10 +27,10 @@ public class SecurityController {
     @LogInfo(value = "登录",type = "POST")
     @PostMapping(value = "/login")
     public Object login(@RequestBody UsernamePasswordToken token) {
-//        System.out.println( token );
         Subject subject = SecurityUtils.getSubject();
         subject.login( token );
-        pool.put( SecurityUtils.getSubject().getSession().getId(), SecurityUtils.getSubject().getPrincipal() );
+        pool.put( SecurityUtils.getSubject().getSession().getId(),
+                SecurityUtils.getSubject().getPrincipal() );
         return MessageFactory.message( true, SecurityUtils.getSubject().getSession().getId() );
     }
 
@@ -52,4 +49,9 @@ public class SecurityController {
         return MessageFactory.message( true, principal );
     }
 
+    @LogInfo(value = "登录",type = "POST")
+    @GetMapping(value = "/cookie/{cookie}")
+    public Object getByCookie(@PathVariable String cookie) {
+        return MessageFactory.message( true, pool.get( cookie ) );
+    }
 }

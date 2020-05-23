@@ -2,21 +2,29 @@ package com.security.security.config;
 
 import annotation.LogInfo;
 import com.security.security.mapper.LogMapper;
+import msg.Message;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import pojo.Log;
+import pojo.User;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author haya
@@ -26,6 +34,8 @@ import java.util.Date;
 public class LogAspect {
     @Resource
     private LogMapper logMapper;
+    @Autowired
+    private Map<Serializable, Object> pool;
 
     @Pointcut("@annotation(annotation.LogInfo)")
     public void pointcut() {
@@ -80,14 +90,20 @@ public class LogAspect {
 
         log.setIp( getIpAddr( request ) );
         // 模拟一个用户名
-
-        log.setUserId(0);
+        for (Cookie cookie : request.getCookies()) {
+            if ("JSESSIONID".equals( cookie.getName() ) && cookie.getValue() != null){
+                if (pool.get( cookie.getValue() ) != null) {
+                    System.out.println( pool.get( cookie.getValue() ) );
+                    User user = (User) pool.get( cookie.getValue() );
+                    log.setUserId( user.getId() );
+                }
+            }
+        }
+//        log.setUserId(0);
         log.setTime( time );
         log.setCreateDate( new Date() );
         // 保存系统日志
-//        log.insertOrUpdate();
         logMapper.insert( log );
-//        sysLogDao.saveSysLog(sysLog);
     }
 
     public static HttpServletRequest getHttpServletRequest() {
