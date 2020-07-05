@@ -1,5 +1,6 @@
 package com.consumer.consumer.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.consumer.consumer.mapper.ConsumerConfigMapper;
 import com.consumer.consumer.service.ConsumerConfigService;
@@ -22,5 +23,13 @@ public class ConsumerConfigServiceImpl extends ServiceImpl<ConsumerConfigMapper,
     @Override
     public List<ConsumerConfig> getListWithConsumer() {
         return consumerConfigMapper.getListWithConsumer();
+    }
+
+    @Override
+    public ConsumerConfig getByConsumerId(Integer id) {
+        QueryWrapper<ConsumerConfig> wrapper = new QueryWrapper<>();
+        wrapper.eq( "consumer_id", id );
+        return consumerConfigMapper.selectOne( wrapper );
+
     }
 }

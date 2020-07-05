@@ -2,7 +2,7 @@ package com.haya.spark.stater
 
 import java.util.Properties
 
-import com.haya.spark.Checker
+import com.haya.spark.{Checker, DataSender}
 import com.haya.spark.handle.{Handler, HeatHandler}
 import com.haya.spark.util.StreamUtils
 import org.apache.kafka.clients.consumer.ConsumerRecord
@@ -42,6 +42,7 @@ class SparkStater(hBase: String, kafka: String) extends Serializable {
       .handle()
     // 消息队列生产者，用于发送消息
     kafkaProducer = new KafkaProducer[String, String](kafkaProducerConfig)
+    DataSender.kafkaProducer = kafkaProducer
     Checker.kafkaProducer = kafkaProducer
     this
   }
@@ -59,7 +60,7 @@ class SparkStater(hBase: String, kafka: String) extends Serializable {
       .load()
     // 读取consumer_config表, 存入Map[consumer_id,data_range]
     df.collect().foreach(row => {
-      rangeCache += (row.getInt(11) -> List(
+      rangeCache += (row.getInt(0) -> List(
         row.getDecimal(1),
         row.getDecimal(2),
         row.getDecimal(3),

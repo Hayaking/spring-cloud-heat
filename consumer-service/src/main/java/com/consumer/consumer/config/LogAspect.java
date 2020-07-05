@@ -64,18 +64,21 @@ public class LogAspect {
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = signature.getName();
         log.setMethod( className + "." + methodName + "()" );
-        // 请求的方法参数值
-        Object[] args = joinPoint.getArgs();
-        // 请求的方法参数名称
-        LocalVariableTableParameterNameDiscoverer u = new LocalVariableTableParameterNameDiscoverer();
-        String[] paramNames = u.getParameterNames( method );
-        if (args != null && paramNames != null) {
-            String params = "";
-            for (int i = 0; i < args.length; i++) {
-                params += "  " + paramNames[i] + ": " + args[i];
+        if (logInfo.getParam()) {
+            // 请求的方法参数值
+            Object[] args = joinPoint.getArgs();
+            // 请求的方法参数名称
+            LocalVariableTableParameterNameDiscoverer u = new LocalVariableTableParameterNameDiscoverer();
+            String[] paramNames = u.getParameterNames( method );
+            if (args != null && paramNames != null) {
+                String params = "";
+                for (int i = 0; i < args.length; i++) {
+                    params += "  " + paramNames[i] + ": " + args[i];
+                }
+                log.setParams( params );
             }
-            log.setParams( params );
         }
+
         // 获取request
         HttpServletRequest request = getHttpServletRequest();
         // 设置IP地址

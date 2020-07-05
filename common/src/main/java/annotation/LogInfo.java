@@ -16,4 +16,6 @@ public @interface LogInfo {
     String type() default "GET";
 
     String remark() default "";
+
+    boolean getParam() default true;
 }

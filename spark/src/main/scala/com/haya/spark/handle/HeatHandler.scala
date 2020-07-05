@@ -1,7 +1,9 @@
 package com.haya.spark.handle
 
-import com.haya.spark.Checker
+import com.haya.spark.{Checker, DataSender}
+import com.haya.spark.Checker.{kafkaProducer, topic}
 import org.apache.kafka.clients.consumer.ConsumerRecord
+import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.spark.rdd.RDD
 import org.apache.spark.streaming.Seconds
 
@@ -26,8 +28,16 @@ class HeatHandler extends Handler with Serializable {
     }
     import org.apache.phoenix.spark._
     import sqlContext.implicits._
-
-    stream.map(_.value().split(",")).map(item => {
+    /*
+    * 0. id
+    * 1.
+    * 2. pres
+    * 3. temp
+    * 4. flow
+    * 5. date
+    * */
+    stream.map(_.value().split(","))
+      .map(item => {
       (
         item(0).toInt,
         item(1).toInt,
@@ -43,15 +53,20 @@ class HeatHandler extends Handler with Serializable {
       Checker.checkFlow(row._2, row._5)
       Checker.checkTemp(row._2, row._3)
       Checker.checkPres(row._2, row._4)
-      (row._2.toInt, (row._2.toDouble, row._3.toDouble, row._4.toDouble, 1))
-    }).updateStateByKey[(Double, Double, Double, Int)](updateFuc)
+      (row._2.toInt, (row._3.toDouble, row._4.toDouble, row._5.toDouble, 1))
+//      (row._2, row._2)
+    })
+//      .reduceByKeyAndWindow( (a:Int, b:Int)=> a+b,Seconds(10),Seconds(5),2)
+      .updateStateByKey[(Double, Double, Double, Int)](updateFuc)
       .map(item => {
         val value = item._2
-        (item._1,
+        val v = (item._1,
           value._1 / value._4,
           value._2 / value._4,
           value._3 / value._4,
           value._4)
+        DataSender.send(v.toString())
+        v
       }).print()
     this
   }

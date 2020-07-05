@@ -33,7 +33,10 @@ public class SocketIoConfig {
         config.setPingTimeout(6000000);
         config.setPingInterval(25000);
         SocketIOServer socketIOServer = new SocketIOServer( config );
+//        socketIOServer.addNamespace( "data" );
+//        socketIOServer.addNamespace( "data_avg" );
         socketIOServer.start();
+
         return socketIOServer;
     }
     @Bean

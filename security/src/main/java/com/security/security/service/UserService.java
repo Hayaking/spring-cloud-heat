@@ -4,6 +4,8 @@ import com.security.security.service.hystrix.UserServiceHystrix;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import pojo.User;
 
 /**
@@ -11,6 +13,18 @@ import pojo.User;
  */
 @FeignClient(value = "user-service",fallback = UserServiceHystrix.class)
 public interface UserService {
+
     @GetMapping(value = "user/{name}/{password}")
     User get(@PathVariable String name, @PathVariable String password);
+
+    @GetMapping(value = "user/{username}/{email}")
+    Boolean findPwd(@PathVariable String username, @PathVariable String email);
+
+    @PostMapping(value = "/user")
+    Object save(@RequestBody User user);
+
+    @PostMapping(value = "/user/{id}/{np}/{op}")
+    boolean setPassword(@PathVariable Integer id,
+                              @PathVariable String np,
+                              @PathVariable String op);
 }

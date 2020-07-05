@@ -20,7 +20,7 @@ import java.util.Date;
 public class ConsumerConfig extends Model<ConsumerConfig> {
     @TableId(type = IdType.AUTO)
     private String id;
-    private Integer gprsId;
+    private Integer grpsId;
     private BigDecimal tempUpper;
     private BigDecimal tempLower;
     private BigDecimal presUpper;

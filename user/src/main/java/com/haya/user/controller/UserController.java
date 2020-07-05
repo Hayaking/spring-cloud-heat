@@ -1,5 +1,7 @@
 package com.haya.user.controller;
 
+import annotation.LogInfo;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.haya.user.service.UserService;
 import msg.MessageFactory;
@@ -8,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import pojo.User;
 
 import javax.ws.rs.POST;
+
+import static org.bouncycastle.asn1.x500.style.RFC4519Style.uid;
 
 /**
  * @author haya
@@ -33,13 +37,8 @@ public class UserController {
         return MessageFactory.message( true, userService.page( new Page<>( pageNo, pageSize ) ) );
     }
 
-    /**
-     * 添加或更新
-     * @param user
-     * @return
-     */
     @PostMapping(value = "/user")
-    public Object save(@RequestBody User user) {
+    public Boolean save(@RequestBody User user) {
         return userService.saveOrUpdate( user );
     }
 
@@ -61,5 +60,27 @@ public class UserController {
     @PostMapping(value = "/user/{id}/{roleId}")
     public Object updateRole(@PathVariable Integer id) {
         return userService.removeById( id );
+    }
+
+
+    @PostMapping(value = "/user/{id}/{np}/{op}")
+    public Boolean setPassword(@PathVariable Integer id,
+                              @PathVariable String np,
+                              @PathVariable String op) {
+        return userService.setNewPassword(id, op, np);
+    }
+
+
+    @GetMapping(value = "/{username}/{email}")
+    public Boolean findPwd(@PathVariable String username,
+                               @PathVariable String email) {
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq( "username", username )
+                .eq( "email", email );
+        User user = userService.getOne( wrapper );
+        if (user != null) {
+            return userService.setPassword(user.getId(), email);
+        }
+        return false;
     }
 }

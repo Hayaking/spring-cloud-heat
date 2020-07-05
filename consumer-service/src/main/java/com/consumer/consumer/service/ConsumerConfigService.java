@@ -12,4 +12,6 @@ import java.util.List;
 @Mapper
 public interface ConsumerConfigService extends IService<ConsumerConfig> {
     List<ConsumerConfig> getListWithConsumer();
+
+    ConsumerConfig getByConsumerId(Integer id);
 }
