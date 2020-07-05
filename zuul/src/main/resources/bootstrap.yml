@@ -26,6 +26,9 @@ zuul:
     zuul:
       path: /user/**
       serviceId: user-service
+  host:
+    connect-timeout-millis: 200000
+    socket-timeout-millis: 100000
 #---
 #spring:
 #  profiles: dev

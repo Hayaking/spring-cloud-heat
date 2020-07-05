@@ -24,12 +24,12 @@ public class Filter extends ZuulFilter {
 
     @Override
     public Object run() throws ZuulException {
-        RequestContext context = RequestContext.getCurrentContext();
-        HttpServletRequest request = context.getRequest();
-        String uri = request.getRequestURI();
-        System.out.println(uri);
-        boolean res = executor.exec( uri, context );
-        context.setSendZuulResponse( res );
+//        RequestContext context = RequestContext.getCurrentContext();
+//        HttpServletRequest request = context.getRequest();
+//        String uri = request.getRequestURI();
+//        System.out.println(uri);
+//        boolean res = executor.exec( uri, context );
+//        context.setSendZuulResponse( res );
 //        restTemplate.
 //        context.setResponseStatusCode( 200 );
         return null;

@@ -24,7 +24,7 @@ public class SecurityController {
     @Autowired
     private Map<Serializable, Object> pool;
 
-    @LogInfo(value = "登录",type = "POST")
+//    @LogInfo(value = "登录",type = "POST")
     @PostMapping(value = "/login")
     public Object login(@RequestBody UsernamePasswordToken token) {
         Subject subject = SecurityUtils.getSubject();
@@ -41,7 +41,7 @@ public class SecurityController {
         return MessageFactory.message( true );
     }
 
-    @LogInfo(value = "获取个人信息")
+//    @LogInfo(value = "获取个人信息")
     @GetMapping(value = "/user")
     public Object login() {
         Subject subject = SecurityUtils.getSubject();
@@ -56,7 +56,7 @@ public class SecurityController {
         return MessageFactory.message( true, userService.save(user) );
     }
 
-    @LogInfo(value = "登录",type = "POST")
+//    @LogInfo(value = "登录",type = "POST")
     @GetMapping(value = "/cookie/{cookie}")
     public Object getByCookie(@PathVariable String cookie) {
         return MessageFactory.message( true, pool.get( cookie ) );

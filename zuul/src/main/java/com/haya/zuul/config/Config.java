@@ -23,10 +23,10 @@ public class Config {
         return new RestTemplate( requestFactory );
     }
 
-    @Bean
-    public Map<String, Handler> handlerMap() {
-        return new HashMap<String, Handler>() {{
-            put( "security", new SecurityHandler() );
-        }};
-    }
+//    @Bean
+//    public Map<String, Handler> handlerMap() {
+//        return new HashMap<String, Handler>() {{
+//            put( "security", new SecurityHandler() );
+//        }};
+//    }
 }
