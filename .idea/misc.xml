@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/eureka" />
     <file type="web" url="file://$PROJECT_DIR$/streaming" />
+    <file type="web" url="file://$PROJECT_DIR$/zuul" />
   </component>
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
@@ -19,6 +21,8 @@
         <option value="$PROJECT_DIR$/user-service/pom.xml" />
         <option value="$PROJECT_DIR$/consumer-service/pom.xml" />
         <option value="$PROJECT_DIR$/spark/pom.xml" />
+        <option value="$PROJECT_DIR$/heat-collector/pom.xml" />
+        <option value="$PROJECT_DIR$/heat-sensor/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

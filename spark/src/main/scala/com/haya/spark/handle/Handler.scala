@@ -1,11 +1,9 @@
 package com.haya.spark.handle
 
-import java.beans.Transient
-
 import com.haya.spark.stater.SparkStater
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.clients.producer.KafkaProducer
-import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.apache.spark.sql.SparkSession
 import org.apache.spark.streaming.dstream.InputDStream
 
 trait Handler {

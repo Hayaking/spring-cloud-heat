@@ -34,8 +34,8 @@ import java.util.Optional;
 public class LogAspect {
     @Resource
     private LogMapper logMapper;
-    @Autowired
-    private Map<Serializable, Object> pool;
+//    @Autowired
+//    private Map<Serializable, Object> pool;
 
     @Pointcut("@annotation(annotation.LogInfo)")
     public void pointcut() {
@@ -90,15 +90,15 @@ public class LogAspect {
 
         log.setIp( getIpAddr( request ) );
         // 模拟一个用户名
-        for (Cookie cookie : request.getCookies()) {
-            if ("JSESSIONID".equals( cookie.getName() ) && cookie.getValue() != null){
-                if (pool.get( cookie.getValue() ) != null) {
-                    System.out.println( pool.get( cookie.getValue() ) );
-                    User user = (User) pool.get( cookie.getValue() );
-                    log.setUserId( user.getId() );
-                }
-            }
-        }
+//        for (Cookie cookie : request.getCookies()) {
+//            if ("JSESSIONID".equals( cookie.getName() ) && cookie.getValue() != null){
+//                if (pool.get( cookie.getValue() ) != null) {
+//                    System.out.println( pool.get( cookie.getValue() ) );
+//                    User user = (User) pool.get( cookie.getValue() );
+//                    log.setUserId( user.getId() );
+//                }
+//            }
+//        }
 //        log.setUserId(0);
         log.setTime( time );
         log.setCreateDate( new Date() );

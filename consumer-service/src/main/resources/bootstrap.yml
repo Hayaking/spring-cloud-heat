@@ -4,6 +4,8 @@ spring:
   profiles:
 #    active: @profile.active@
   kafka:
+
+#    bootstrap-servers: kafka:9092
     bootstrap-servers: kafka:9092
 #    bootstrap-servers: 39.105.163.41:9092
     consumer:

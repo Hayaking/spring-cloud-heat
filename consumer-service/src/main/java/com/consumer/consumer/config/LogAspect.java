@@ -30,8 +30,7 @@ public class LogAspect {
     private LogMapper logMapper;
 
     @Pointcut("@annotation(annotation.LogInfo)")
-    public void pointcut() {
-    }
+    public void pointcut() { }
 
     @Around("pointcut()")
     public Object around(ProceedingJoinPoint point) {
@@ -89,10 +88,7 @@ public class LogAspect {
         log.setUserId(0);
         log.setTime( time );
         log.setCreateDate( new Date() );
-        // 保存系统日志
-//        log.insertOrUpdate();
         logMapper.insert( log );
-//        sysLogDao.saveSysLog(sysLog);
     }
 
     public static HttpServletRequest getHttpServletRequest() {

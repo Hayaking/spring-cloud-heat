@@ -3,7 +3,7 @@ package com.haya.user.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import pojo.Dbbak;
+import com.haya.user.common.pojo.Dbbak;
 
 import java.io.FileInputStream;
 import java.io.IOException;

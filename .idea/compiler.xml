@@ -7,15 +7,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="user" />
-        <module name="zuul" />
-        <module name="common" />
         <module name="security" />
+        <module name="common" />
         <module name="spark" />
-        <module name="consumer-service" />
         <module name="eureka" />
+        <module name="heat-sensor" />
+        <module name="heat-collector" />
+        <module name="zuul" />
         <module name="user-service" />
+        <module name="user" />
         <module name="config" />
+        <module name="consumer-service" />
       </profile>
     </annotationProcessing>
   </component>
@@ -25,6 +27,8 @@
       <module name="config" options="-parameters" />
       <module name="consumer-service" options="-parameters" />
       <module name="eureka" options="-parameters" />
+      <module name="heat-collector" options="-parameters" />
+      <module name="heat-sensor" options="" />
       <module name="security" options="-parameters" />
       <module name="spark" options="" />
       <module name="user-service" options="-parameters" />

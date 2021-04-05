@@ -3,14 +3,13 @@ package com.haya.user.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.haya.user.common.pojo.Log;
 import com.haya.user.mapper.LogMapper;
 import com.haya.user.service.LogService;
 import org.springframework.stereotype.Service;
-import pojo.Log;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**

@@ -1,13 +1,13 @@
 package com.haya.user.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.haya.user.common.pojo.Dbbak;
 import com.haya.user.service.DbbakService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pojo.Dbbak;
 
 import java.io.FileInputStream;
 import java.io.IOException;

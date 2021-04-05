@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: heat-collector
+  kafka:
+    bootstrap-servers: kafka:9092
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql:///heat_data?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+logging:
+  level:
+    root: info
+server:
+  port: 9617
+
+
+
+
+

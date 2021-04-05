@@ -21,7 +21,6 @@ public class SocketIoConfig {
     @Bean
     public SocketIOServer socketIOServer() {
         SocketConfig socketConfig = new SocketConfig();
-
         com.corundumstudio.socketio.Configuration config = new com.corundumstudio.socketio.Configuration();
         config.setSocketConfig(socketConfig);
         config.setHostname("localhost");
@@ -33,10 +32,7 @@ public class SocketIoConfig {
         config.setPingTimeout(6000000);
         config.setPingInterval(25000);
         SocketIOServer socketIOServer = new SocketIOServer( config );
-//        socketIOServer.addNamespace( "data" );
-//        socketIOServer.addNamespace( "data_avg" );
         socketIOServer.start();
-
         return socketIOServer;
     }
     @Bean

@@ -5,14 +5,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.haya.user.common.pojo.Dbbak;
 import com.haya.user.mapper.DbbakMapper;
 import com.haya.user.service.DbbakService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ClassUtils;
-import pojo.Dbbak;
-import pojo.User;
 
 import java.io.*;
 import java.text.SimpleDateFormat;

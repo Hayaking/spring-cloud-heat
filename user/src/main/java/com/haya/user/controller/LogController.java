@@ -1,8 +1,8 @@
 package com.haya.user.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.haya.user.common.msg.MessageFactory;
 import com.haya.user.service.LogService;
-import msg.MessageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

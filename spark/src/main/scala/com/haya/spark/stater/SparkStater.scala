@@ -19,7 +19,8 @@ class SparkStater(hBase: String, kafka: String) extends Serializable {
     .master("local[2]")
     .getOrCreate()
   val sparkContext: SparkContext = sparkSession.sparkContext
-  val streamingContext: StreamingContext = new StreamingContext(sparkContext, Seconds(1))
+  // 批处理时间设置为60s
+  val streamingContext: StreamingContext = new StreamingContext(sparkContext, Seconds(60))
   var hBaseHost: String = hBase
   var kafkaHost: String = kafka
   var handlerList: List[Handler] = List()

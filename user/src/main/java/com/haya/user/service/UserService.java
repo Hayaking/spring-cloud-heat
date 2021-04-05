@@ -1,7 +1,7 @@
 package com.haya.user.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import pojo.User;
+import com.haya.user.common.pojo.User;
 
 /**
  * @author haya

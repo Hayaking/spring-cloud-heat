@@ -1,9 +1,9 @@
 package com.haya.user.controller;
 
+import com.haya.user.common.pojo.Role;
 import com.haya.user.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pojo.Role;
 
 /**
  * @author haya

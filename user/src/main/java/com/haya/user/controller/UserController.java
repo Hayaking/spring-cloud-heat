@@ -1,17 +1,12 @@
 package com.haya.user.controller;
 
-import annotation.LogInfo;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.haya.user.common.msg.MessageFactory;
+import com.haya.user.common.pojo.User;
 import com.haya.user.service.UserService;
-import msg.MessageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pojo.User;
-
-import javax.ws.rs.POST;
-
-import static org.bouncycastle.asn1.x500.style.RFC4519Style.uid;
 
 /**
  * @author haya

@@ -16,12 +16,13 @@
         <mybatis.plus.version>3.3.0</mybatis.plus.version>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>com.haya</groupId>
-            <artifactId>common</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>import</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.haya</groupId>-->
+<!--            <artifactId>common</artifactId>-->
+<!--            <version>1.0-SNAPSHOT</version>-->
+<!--            <scope>import</scope>-->
+<!--&lt;!&ndash;            <type>pom</type>&ndash;&gt;-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
@@ -62,6 +63,12 @@
             <artifactId>mybatis-plus-extension</artifactId>
             <version>${mybatis.plus.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.10</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -69,6 +76,61 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!-- 跳过单元测试 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+
+            <!--使用docker-maven-plugin插件-->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+
+                <configuration>
+                    <!-- 镜像名称  guoweixin/exam-->
+                    <imageName>haya/${project.artifactId}</imageName>
+                    <!--指定标签-->
+                    <imageTags>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                    <!-- 基础镜像jdk 1.8-->
+                    <baseImage>java</baseImage>
+                    <!-- 制作者提供本人信息 -->
+                    <maintainer>wangchao wangchao@aliyun.com</maintainer>
+                    <!--切换到/ROOT目录 -->
+                    <workdir>/ROOT</workdir>
+                    <cmd>["java", "-version"]</cmd>
+                    <entryPoint>["java", "-jar", "${project.build.finalName}.jar"]</entryPoint>
+
+                    <!--指定远程 docker api地址-->
+                    <dockerHost>http://192.168.75.11:2375</dockerHost>
+
+                    <!-- 这里是复制 jar 包到 docker 容器指定目录配置 -->
+                    <resources>
+                        <resource>
+                            <targetPath>/ROOT</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>build-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
             </plugin>
         </plugins>
         <resources>

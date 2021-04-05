@@ -17,7 +17,7 @@ import java.util.Map;
 @Configuration
 public class Config {
     @Bean
-    @LoadBalanced
+//    @LoadBalanced
     public RestTemplate restTemplate() {
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
         return new RestTemplate( requestFactory );

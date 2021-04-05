@@ -2,11 +2,11 @@ package com.haya.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.haya.user.common.pojo.User;
 import com.haya.user.mapper.UserMapper;
 import com.haya.user.service.UserService;
 import com.haya.user.utils.SendEmailUtils;
 import org.springframework.stereotype.Service;
-import pojo.User;
 
 import javax.annotation.Resource;
 import java.util.UUID;

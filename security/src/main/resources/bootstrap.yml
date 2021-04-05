@@ -1,19 +1,21 @@
 spring:
-  profiles:
-    active: @profile.active@
   application:
     name: security
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql:///heat_data?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
+  redis:
+    host: 192.168.75.11
+    port: 6379
 
 server:
   port: 7999
 eureka:
   instance:
-#    preferIpAddress: true
-    hostname: localhost
+    preferIpAddress: true
+    hostname: 127.0.0.1
+    ip-address: 127.0.0.1
   client:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:8080/eureka
