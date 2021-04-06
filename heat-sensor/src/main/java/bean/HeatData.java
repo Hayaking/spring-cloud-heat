@@ -22,7 +22,7 @@ public class HeatData implements Serializable {
     private Integer sensorId;
     private String metricName;
     private Double metricValue;
-    private String type;
+    private Integer type;
     private String area;
     private String street;
     // 经度

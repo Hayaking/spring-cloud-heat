@@ -23,7 +23,7 @@ public class HeatData implements Serializable {
     private Integer sensorId;
     private String metricName;
     private Double metricValue;
-    private String type;
+    private Integer type;
     private String area;
     private String street;
     // 经度
@@ -31,7 +31,7 @@ public class HeatData implements Serializable {
     // 纬度
     private Double lat;
 
-    public HeatData(Date time, Integer id, Integer stationId, Integer sensorId, String metricName, Double metricValue, String type, String area, String street, Double lon, Double lat) {
+    public HeatData(Date time, Integer id, Integer stationId, Integer sensorId, String metricName, Double metricValue, Integer type, String area, String street, Double lon, Double lat) {
         this.time = time;
         this.id = id;
         this.stationId = stationId;

@@ -9,16 +9,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
+import static io.netty.channel.ChannelHandler.Sharable;
 
 /**
  * @author haya
  */
 @Component
+@Sharable
 @Slf4j
 public class Handler extends ChannelInboundHandlerAdapter {
     @Autowired
     private MetricHandle metricHandle;
+
     /**
      * 客户端连接会触发
      */
@@ -32,8 +34,8 @@ public class Handler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        List<HeatData> heatData = JSON.parseArray( msg.toString(), HeatData.class );
-        metricHandle.handle(heatData);
+        HeatData heatData = JSON.parseObject( String.valueOf( msg ), HeatData.class );
+        metricHandle.handle( heatData );
         ctx.flush();
     }
 

@@ -1,15 +1,8 @@
 package client;
 
-import bean.HeatData;
-import com.alibaba.fastjson.JSON;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
-
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.Random;
 
 @Slf4j
 public class Handle extends ChannelInboundHandlerAdapter {
