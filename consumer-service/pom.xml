@@ -65,8 +65,39 @@
             <artifactId>druid</artifactId>
             <version>1.1.21</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.75</version>
+            <scope>compile</scope>
+        </dependency>
 
-
+        <dependency>
+            <groupId>io.github.openfeign</groupId>
+            <artifactId>feign-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.calcite.avatica</groupId>
+            <artifactId>avatica</artifactId>
+            <version>1.17.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.calcite.avatica</groupId>
+            <artifactId>avatica-server</artifactId>
+            <version>1.17.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-annotation</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -78,12 +109,17 @@
         </plugins>
         <resources>
             <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
                 <directory>src/main/resources</directory>
                 <!--可以在此配置过滤文件  -->
                 <includes>
                     <include>**/*.yml</include>
-                    <include>static/**</include>
-                    <include>templates/**</include>
+                    <include>**/*.xml</include>
                 </includes>
                 <!--开启filtering功能  -->
                 <filtering>true</filtering>

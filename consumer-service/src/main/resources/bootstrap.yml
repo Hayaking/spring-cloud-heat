@@ -1,13 +1,8 @@
 spring:
   application:
     name: consumer-service
-  profiles:
-#    active: @profile.active@
   kafka:
-
-#    bootstrap-servers: kafka:9092
-    bootstrap-servers: kafka:9092
-#    bootstrap-servers: 39.105.163.41:9092
+    bootstrap-servers: 192.168.75.11:9092
     consumer:
       enable-auto-commit: false
       auto-commit-interval: 100ms
@@ -20,9 +15,16 @@ spring:
     password: cmmvhnsldjjvbdgb
     host: smtp.qq.com
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql:///heat_data?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: root
+    mysql:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql:///heat_data?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+      username: root
+    druid:
+      # 连接池信息
+      url: jdbc:avatica:remote:url=http://192.168.75.11:8082/druid/v2/sql/avatica/
+      # 驱动信息
+      driver-class-name: org.apache.calcite.avatica.remote.Driver
+
 
 server:
   port: 8084
@@ -35,6 +37,7 @@ eureka:
       defaultZone: http://${eureka.instance.hostname}:8080/eureka
 
 mybatis-plus:
+  mapper-locations: classpath:/com/consumer/consumer/mapper/druid/*.xml
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
@@ -47,28 +50,4 @@ mybatis-plus:
 feign:
   hystrix:
     enabled: true
-#---
-#spring:
-#  profiles: dev
-#  cloud:
-#    config:
-#      name: consumer-service
-#      profile: dev
-#      label: master
-#      uri: http://127.0.0.1:8888
-#
-#mybatis-plus:
-#  configuration:
-#    map-underscore-to-camel-case: true
-#    cache-enabled: false
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-#---
-#spring:
-#  profiles: prod
-#  cloud:
-#    config:
-#      name: consumer-service
-#      profile: prod
-#      label: master
-#      uri: http://config:8888
 

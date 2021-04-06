@@ -1,14 +1,12 @@
 package com.consumer.consumer.config;
 
 import annotation.LogInfo;
-import com.consumer.consumer.mapper.LogMapper;
-import org.apache.catalina.security.SecurityUtil;
+import com.consumer.consumer.mapper.mysql.LogMapper;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.cloud.netflix.ribbon.apache.HttpClientUtils;
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
