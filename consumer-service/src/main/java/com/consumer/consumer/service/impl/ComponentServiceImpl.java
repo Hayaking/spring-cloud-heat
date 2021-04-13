@@ -46,6 +46,10 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
     public Page<ComponentVO> getComponentPage(ComponentFilter filter) {
         QueryWrapper<Component> wrapper = new QueryWrapper<>();
         wrapper.in("type", asList(filter.getType()));
+        if (!StringUtils.isEmpty(filter.getName())) {
+            wrapper.eq("name", filter.getName());
+        }
+
         Page<Component> page = new Page<>(filter.getPageNum(), filter.getPageSize());
         Page<Component> componentPage = componentMapper.selectPage(page, wrapper);
         Page<ComponentVO> resultPage = new Page<ComponentVO>() {{
@@ -65,15 +69,8 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
         List<ComponentVO> resultList = componentList.stream()
                 .map(component -> {
                     ComponentVO vo = new ComponentVO();
-                    vo.setId(component.getId());
-                    vo.setType(component.getType());
-                    vo.setLat(component.getLat());
-                    vo.setLon(component.getLon());
-                    vo.setName(component.getName());
+                    BeanUtils.copyProperties(component, vo);
                     vo.setAliasName(StringUtils.isEmpty(component.getName()) ? "--" : component.getName());
-                    vo.setArea(component.getArea());
-                    vo.setStreet(component.getStreet());
-                    vo.setNote(component.getNote());
                     List<HeatDataDTO> metricDataList = dataMap.get(component.getId());
                     if (!CollectionUtils.isEmpty(metricDataList)) {
                         List<HeatDataDTO> values = MapUtil.getLastTimeMetric(metricDataList);
@@ -86,6 +83,18 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
                                 vo.setTemperature(DoubleFormatUtil.halfUp(metricValue));
                             } else if (pipeline_water_pressure.name().equals(metricName)) {
                                 vo.setPressure(DoubleFormatUtil.halfUp(metricValue));
+                            } else if (station_water_temperature.name().equals(metricName)) {
+                                vo.setTemperature(DoubleFormatUtil.halfUp(metricValue));
+                            } else if (station_water_flow.name().equals(metricName)) {
+                                vo.setFlow(DoubleFormatUtil.halfUp(metricValue));
+                            } else if (station_water_pressure.name().equals(metricName)) {
+                                vo.setPressure(DoubleFormatUtil.halfUp(metricValue));
+                            } else if (pump_watt.name().equals(metricName)) {
+                                vo.setWatt(DoubleFormatUtil.halfUp(metricValue));
+                            } else if (pump_voltage.name().equals(metricName)) {
+                                vo.setVoltage(DoubleFormatUtil.halfUp(metricValue));
+                            } else if (pump_state.name().equals(metricName)) {
+                                vo.setState(metricValue.intValue());
                             }
                         });
                     }

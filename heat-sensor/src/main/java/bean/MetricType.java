@@ -6,6 +6,9 @@ public enum MetricType {
     SUPPLY_SECONDARY_PIPE( 3, "二次供水管道" ),
     BACK_SECONDARY_PIPE( 4, "二次回水管道" ),
     CIRCULATION_PIPE( 5, "循环管道" ),
+    STATION(6, "热交换站"),
+    CIRCLE_PUMP(7, "循环泵"),
+    MAKE_PUMP(8, "补水泵"),
     ;
 
     private int type;

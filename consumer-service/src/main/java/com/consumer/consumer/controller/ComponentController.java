@@ -1,5 +1,6 @@
 package com.consumer.consumer.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.consumer.consumer.bean.ComponentFilter;
@@ -42,12 +43,21 @@ public class ComponentController {
         return MessageFactory.message(true, list);
     }
 
+    @GetMapping("/list/name/{name}")
+    public Message getComponentList(@PathVariable String name) {
+        QueryWrapper<Component> wrapper = new QueryWrapper<>();
+        wrapper.like("name", name);
+        return MessageFactory.message(true, componentService.list(wrapper));
+    }
+
     @PostMapping("/update")
     public Message update(@RequestBody ComponentVO componentVO) {
         UpdateWrapper<Component> wrapper = new UpdateWrapper<>();
         wrapper.eq("id", componentVO.getId());
         wrapper.set("name", componentVO.getName());
         wrapper.set("note", componentVO.getNote());
+        wrapper.set("area", componentVO.getArea());
+        wrapper.set("street", componentVO.getStreet());
         boolean isUpdate = componentService.update(wrapper);
         return MessageFactory.message(isUpdate);
     }
