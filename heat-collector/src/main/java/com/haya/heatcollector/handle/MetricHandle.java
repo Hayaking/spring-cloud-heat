@@ -26,6 +26,7 @@ public class MetricHandle {
     private ThreadPoolExecutor taskExecutePoll;
 
     public void handle(HeatData heatData) {
+        System.out.println(heatData);
         Component component = componentService.selectElseInsert( heatData );
         heatData.setId( component.getId() );
         heatData.setArea( component.getArea() );

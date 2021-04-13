@@ -1,4 +1,4 @@
-package com.consumer.consumer.bean;
+package com.consumer.consumer.bean.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

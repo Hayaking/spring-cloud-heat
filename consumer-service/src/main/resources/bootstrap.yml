@@ -1,3 +1,6 @@
+logging:
+  level:
+    com.consumer.consumer.mapper: debug
 spring:
   application:
     name: consumer-service
@@ -19,11 +22,15 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       url: jdbc:mysql:///heat_data?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
       username: root
+      validationQuery: SELECT 1
+      testWhileIdle: true
     druid:
       # 连接池信息
-      url: jdbc:avatica:remote:url=http://192.168.75.11:8082/druid/v2/sql/avatica/
+      url: jdbc:avatica:remote:url=http://192.168.75.11:8082/druid/v2/sql/avatica/;timeZone=GMT+8
       # 驱动信息
       driver-class-name: org.apache.calcite.avatica.remote.Driver
+      validationQuery: SELECT 1
+      testWhileIdle: true
 
 
 server:

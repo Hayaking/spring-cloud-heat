@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.consumer.consumer.mapper.druid.DruidMapper">
+    <sql id="rangeDateTime">
+        AND __time >= MILLIS_TO_TIMESTAMP(${startDateTime})
+        AND __time &lt; CURRENT_TIMESTAMP
+    </sql>
+    <sql id="range5Minute">
+        AND __time >= CURRENT_TIMESTAMP + INTERVAL '8' hour - INTERVAL '5' Minute
+	    AND __time &lt;  CURRENT_TIMESTAMP + INTERVAL '8' hour
+    </sql>
+    <sql id="range30Minute">
+        AND __time >= CURRENT_TIMESTAMP + INTERVAL '8' hour - INTERVAL '30' Minute
+	    AND __time &lt;  CURRENT_TIMESTAMP + INTERVAL '8' hour
+    </sql>
+
+    <select id="test" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
+        select * from data1
+    </select>
+
+    <select id="selectByComponentIdList" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
+        select __time,id,metricName,avg(metricValue/counter) as metricValue
+        FROM data_minute
+        where 1=1
+        <if test="type!=null and type.length > 0">
+            and type in
+            <foreach item="item" index="index" collection="type" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="idList!=null and idList.size > 0">
+            and id in
+            <foreach item="item" index="index" collection="idList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <include refid="range5Minute"/>
+        group by __time,id,metricName
+    </select>
+
+    <select id="getPipeLineWaterFlow" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
+        select __time,id,metricName,avg(metricValue/counter) as metricValue
+        FROM data_minute
+        where 1=1
+        and id = #{druidParam.id}
+        and metricName = #{druidParam.metricName}
+        <include refid="range30Minute"/>
+        group by __time,id,metricName
+    </select>
+    <select id="getPipeLineBaseInfo" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
+        select __time,id,metricName,(metricValue/counter) as metricValue
+        FROM data_minute
+        where 1=1
+        and id = #{id}
+        and metricName in(
+            'pipeline_water_temperature',
+            'pipeline_water_flow',
+            'pipeline_water_pressure',
+            'pipeline_water_level'
+        )
+        <include refid="range5Minute"/>
+    </select>
+</mapper>

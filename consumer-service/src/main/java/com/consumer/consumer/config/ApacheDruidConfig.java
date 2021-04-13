@@ -3,6 +3,7 @@ package com.consumer.consumer.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import org.apache.ibatis.session.LocalCacheScope;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,12 +32,14 @@ public class ApacheDruidConfig {
     }
 
     @Bean(name = "druidSqlSessionFactory")
+
     public SqlSessionFactory sqlSessionFactory(@Qualifier("druidDataSource") DataSource dataSource) throws Exception {
         return new MybatisSqlSessionFactoryBean() {{
             MybatisConfiguration config = new MybatisConfiguration();
-            config.setMapUnderscoreToCamelCase( false );
-            setDataSource( dataSource );
-            setConfiguration( config );
+            config.setMapUnderscoreToCamelCase(false);
+            config.setLocalCacheScope(LocalCacheScope.STATEMENT);
+            setDataSource(dataSource);
+            setConfiguration(config);
         }}.getObject();
     }
 

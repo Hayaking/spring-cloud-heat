@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.consumer.consumer.mapper.druid.MinuteMapper">
-
-    <select id="test" resultType="com.consumer.consumer.bean.HeatDataDTO">
-        select * from data1
-    </select>
-</mapper>
