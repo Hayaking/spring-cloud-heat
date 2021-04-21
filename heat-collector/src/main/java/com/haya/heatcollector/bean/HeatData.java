@@ -1,6 +1,7 @@
 package com.haya.heatcollector.bean;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,8 @@ import java.util.Date;
 /**
  * @author haya
  */
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Builder
 public class HeatData implements Serializable {
@@ -24,24 +27,13 @@ public class HeatData implements Serializable {
     private String metricName;
     private Double metricValue;
     private Integer type;
+    private Integer childType;
     private String area;
     private String street;
     // 经度
     private Double lon;
     // 纬度
     private Double lat;
+    private String componentName;
 
-    public HeatData(Date time, Integer id, Integer stationId, Integer sensorId, String metricName, Double metricValue, Integer type, String area, String street, Double lon, Double lat) {
-        this.time = time;
-        this.id = id;
-        this.stationId = stationId;
-        this.sensorId = sensorId;
-        this.metricName = metricName;
-        this.metricValue = metricValue;
-        this.type = type;
-        this.area = area;
-        this.street = street;
-        this.lon = lon;
-        this.lat = lat;
-    }
 }

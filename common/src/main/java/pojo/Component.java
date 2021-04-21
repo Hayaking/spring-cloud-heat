@@ -19,6 +19,7 @@ public class Component extends Model<Component> {
     private Integer stationId;
     private Integer sensorId;
     private Integer type;
+    private Integer up;
     private String area;
     private String street;
     private String note;

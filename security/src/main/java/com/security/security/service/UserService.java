@@ -1,29 +1,38 @@
 package com.security.security.service;
 
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.IService;
 import pojo.User;
+
+import java.util.List;
 
 /**
  * @author haya
  */
-@FeignClient(value = "user-service")
-public interface UserService {
+public interface UserService extends IService<User> {
+    Boolean isExist(String username, String password);
 
-    @GetMapping(value = "user/{name}/{password}")
-    User get(@PathVariable String name, @PathVariable String password);
+    User getUser(String username, String password);
 
-    @GetMapping(value = "user/{username}/{email}")
-    Boolean findPwd(@PathVariable String username, @PathVariable String email);
+    User getUserByEmail(String username, String email);
 
-    @PostMapping(value = "/user")
-    Object save(@RequestBody User user);
+    /**
+     * 设置新密码
+     *
+     * @param id          用户id
+     * @param oldPassword 旧密码
+     * @param newPassword 新密码
+     * @return
+     */
+    boolean setNewPassword(Integer id, String oldPassword, String newPassword);
 
-    @PostMapping(value = "/user/{id}/{np}/{op}")
-    boolean setPassword(@PathVariable Integer id,
-                              @PathVariable String np,
-                              @PathVariable String op);
+    boolean setPassword(int id, String email);
+
+    IPage<User> getUserPage(IPage<User> page, String key);
+
+    Boolean setUserEnable(Integer id);
+
+    List<User> getAlarmUserList();
+
 }

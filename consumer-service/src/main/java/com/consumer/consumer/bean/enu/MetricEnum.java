@@ -2,6 +2,7 @@ package com.consumer.consumer.bean.enu;
 
 public enum MetricEnum {
 
+    component_up("健康度"),
     pipeline_water_temperature("管道温度"),
     pipeline_water_flow("管道流量"),
     pipeline_water_pressure("管道压力"),

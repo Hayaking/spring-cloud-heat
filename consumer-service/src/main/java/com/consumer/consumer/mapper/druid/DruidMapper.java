@@ -22,4 +22,7 @@ public interface DruidMapper extends BaseMapper<HeatDataDTO> {
 
     List<HeatDataDTO> getPipeLineBaseInfo(@Param("id") Integer id);
 
+    List<HeatDataDTO> getComponentUP(@Param("druidParam") DruidParam druidParam);
+
+    List<HeatDataDTO> getStationChartDataList(@Param("druidParam") DruidParam druidParam);
 }

@@ -17,6 +17,11 @@ spring:
     username: 1028779917@qq.com
     password: cmmvhnsldjjvbdgb
     host: smtp.qq.com
+  redis:
+    host: 192.168.75.11
+    port: 6379
+    database: 0
+    password:
   datasource:
     mysql:
       driver-class-name: com.mysql.cj.jdbc.Driver
@@ -56,5 +61,5 @@ mybatis-plus:
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
 feign:
   hystrix:
-    enabled: true
+    enabled: false
 

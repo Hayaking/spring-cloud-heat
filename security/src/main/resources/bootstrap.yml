@@ -3,8 +3,9 @@ spring:
     name: security
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql:///heat_data?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: root
+    url: jdbc:mysql://127.0.0.1:3306/heat_data?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: haya
+    password: 1024
   redis:
     host: 192.168.75.11
     port: 6379

@@ -2,8 +2,6 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-<!--    <groupId>com.security</groupId>-->
     <artifactId>security</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>security</name>
@@ -22,16 +20,18 @@
             <version>1.0-SNAPSHOT</version>
             <scope>import</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
         <!--mybatis-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.14</version>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.2.0</version>
         </dependency>
         <!--eureka-->
         <dependency>
@@ -39,24 +39,11 @@
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
         <!--feign -->
-<!--        <dependency>-->
-<!--            <groupId>com.netflix.hystrix</groupId>-->
-<!--            <artifactId>hystrix-javanica</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-netflix-hystrix-dashboard</artifactId>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
         <!--shiro-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.shiro</groupId>-->
-<!--            <artifactId>shiro-spring-boot-starter</artifactId>-->
-<!--            <version>1.4.1</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
@@ -83,6 +70,8 @@
                 <!--可以在此配置过滤文件  -->
                 <includes>
                     <include>**/*.yml</include>
+                    <include>**/*.bat</include>
+                    <include>**/*.sh</include>
                 </includes>
                 <!--开启filtering功能  -->
                 <filtering>true</filtering>

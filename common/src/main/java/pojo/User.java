@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -23,6 +22,7 @@ public class User extends Model<User> {
     private String email;
     private Integer roleId;
     private Date createDate;
+    private Boolean enable;
     @TableLogic
     private Integer deleted;
     @Version

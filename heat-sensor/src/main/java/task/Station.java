@@ -1,57 +1,67 @@
 package task;
 
+import bean.Component;
 import bean.HeatData;
-import com.alibaba.fastjson.JSON;
+import bean.Metric;
+import config.Common;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Random;
+import java.util.List;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import static bean.MetricType.STATION;
+import static bean.MetricType.*;
+import static java.util.Arrays.asList;
 
+/**
+ * @author haya
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Slf4j
-public class Station extends MetricTask {
-    private final LinkedHashMap<Double, Double> position = new LinkedHashMap<Double, Double>() {{
-        put(113.63986, 34.72427);
-        put(113.63186, 34.71207);
-    }};
-    private final String[] tubeMetricNameArr = {
-            "station_water_temperature",
-            "station_water_flow",
-            "station_water_pressure",
-            "station_water_tassels",
-            "station_temperature_increase",
-            "station_water_pressure_increase",
-            "station_temperature",
-            "station_valve_state"
-    };
+public class Station extends Thread {
+    private final BlockingQueue<HeatData> queue = Common.getQueue();
+    private final List<Component> componentList = asList(
+            new Component(113.63986, 34.72427, STATION.getType(), asList(SUPPLY_PIPE.getType(), BACK_PIPE.getType())),
+            new Component(113.63186, 34.71207, STATION.getType(), asList(SUPPLY_SECONDARY_PIPE.getType(), BACK_SECONDARY_PIPE.getType()))
+    );
+    private final List<Metric> metricList = asList(
+            new Metric("station_water_temperature", 50d, 100d),
+            new Metric("station_water_flow", 50d, 100d),
+            new Metric("station_water_pressure", 50d, 100d),
+            new Metric("station_water_tassels", 50d, 100d),
+            new Metric("station_temperature_increase", 50d, 100d),
+            new Metric("station_water_pressure_increase", 50d, 100d),
+            new Metric("station_temperature", 50d, 100d),
+            new Metric("station_valve_state", 0d, 0d, Integer.class),
+            new Metric("component_up", 0d, 0d, Integer.class)
+    );
 
     @SneakyThrows
     @Override
     public void run() {
         while (true) {
-            position.forEach((lon, lat) -> {
-                for (String item : tubeMetricNameArr) {
-                    HeatData data = HeatData.builder()
-                            .time(new Date())
-                            .lon(lon)
-                            .lat(lat)
-                            .type(STATION.getType())
-                            .metricName(item)
-                            .metricValue(Math.abs(new Random().nextDouble() * 9999 % 100))
-                            .build();
-                    channel.write(JSON.toJSONString(data));
-                    channel.writeAndFlush("$");
+            for (Component component : componentList) {
+                List<Integer> typeList = component.getChildType();
+                for (Integer childType : typeList) {
+                    for (Metric metric : metricList) {
+                        queue.add(HeatData.builder()
+                                .time(new Date())
+                                .lon(component.getLon())
+                                .lat(component.getLat())
+                                .type(component.getType())
+                                .childType(childType)
+                                .metricName(metric.getName())
+                                .metricValue(metric.getRandomNumber())
+                                .build());
+                    }
                 }
-            });
-
+            }
+            System.out.println("热站发送完");
             TimeUnit.MINUTES.sleep(1);
         }
     }

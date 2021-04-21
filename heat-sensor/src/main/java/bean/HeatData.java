@@ -23,12 +23,13 @@ public class HeatData implements Serializable {
     private String metricName;
     private Double metricValue;
     private Integer type;
+    private Integer childType;
     private String area;
     private String street;
     // 经度
     private Double lon;
     // 纬度
     private Double lat;
-
+    private String componentName;
 
 }

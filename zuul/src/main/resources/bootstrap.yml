@@ -39,7 +39,10 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 6000 # 熔断超时时长：6000ms
+            timeoutInMilliseconds: 600000 # 熔断超时时长：6000ms
 
+feign:
+  hystrix:
+    enabled: false
 
 

@@ -1,9 +1,11 @@
 package com.consumer.consumer.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -25,12 +27,17 @@ public class MySQLConfig {
         return new DruidDataSource();
     }
 
+    @Autowired
+    private PaginationInterceptor paginationInterceptor;
+
     @Primary
     @Bean(name = "mysqlSqlSessionFactory")
     public SqlSessionFactory sqlSessionFactory(@Qualifier("mysqlDataSource") DataSource dataSource) throws Exception {
-        return new MybatisSqlSessionFactoryBean() {{
-            setDataSource( dataSource );
-        }}.getObject();
+        MybatisSqlSessionFactoryBean sqlSessionFactoryBean = new MybatisSqlSessionFactoryBean() {{
+            setDataSource(dataSource);
+        }};
+        sqlSessionFactoryBean.setPlugins(paginationInterceptor);
+        return sqlSessionFactoryBean.getObject();
     }
 
     @Primary

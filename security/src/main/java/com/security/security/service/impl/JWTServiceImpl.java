@@ -1,59 +1,68 @@
-package com.security.security.utils;
+package com.security.security.service.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.security.security.service.JWTService;
+import org.springframework.stereotype.Service;
 import pojo.User;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
-public class JWTUtil {
+@Service
+public class JWTServiceImpl implements JWTService {
     private static final ThreadLocal<User> userContext = new ThreadLocal<>();
     // 秘钥
     private static final String SECRET = "HEAT_QWR!#$DXE!@$TFSEASDSAF";
     /**
      * 过期时间 单位为秒
      **/
-    private static final long EXPIRATION = 1800L;
+    private static final long EXPIRATION = 60 * 60 * 24 * 7;
 
-    public static String createToken(User user) {
+    @Override
+    public String createToken(User user) {
         //过期时间
         Date expireDate = new Date(System.currentTimeMillis() + EXPIRATION * 1000);
         Map<String, Object> map = new HashMap<>();
         map.put("alg", "HS256");
         map.put("typ", "JWT");
         return JWT.create()
-                .withHeader(map)// 添加头部
+                // 添加头部
+                .withHeader(map)
                 //可以将基本信息放到claims中
-                .withClaim("id", user.getId())//userId
-                .withClaim("userName", user.getUsername())//userName
-                .withExpiresAt(expireDate) //超时设置,设置过期的日期
-                .withIssuedAt(new Date()) //签发时间
-                .sign( Algorithm.HMAC256(SECRET));
+                //userId
+                .withClaim("id", user.getId())
+                //userName
+                .withClaim("userName", user.getUsername())
+                .withClaim("roleId", user.getRoleId())
+                //签发时间
+                .withIssuedAt(new Date())
+                .withExpiresAt(expireDate)
+                .sign(Algorithm.HMAC256(SECRET));
     }
 
     /**
      * 校验token并解析token
      */
-    public static Map<String, Claim> verifyToken(String token) {
-        DecodedJWT jwt = null;
+    @Override
+    public Map<String, Claim> verifyToken(String token) {
+        DecodedJWT jwt;
         JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
         jwt = verifier.verify(token);
         return jwt.getClaims();
     }
 
-    public static User getInfo() {
+    @Override
+    public User getInfo() {
         return userContext.get();
     }
 
-    public static void setInfo(User user) {
+    @Override
+    public void setInfo(User user) {
         userContext.set( user );
     }
-
 }

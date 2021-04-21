@@ -23,6 +23,7 @@ import org.springframework.util.StringUtils;
 import pojo.Component;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -37,6 +38,14 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
     @Autowired
     private DruidMapper druidMapper;
 
+    private static final Map<Integer, String> childTypeMap = new HashMap<Integer, String>() {{
+        put(1, "一次供水管道");
+        put(2, "一次回水管道");
+        put(3, "二次供水管道");
+        put(4, "二次回水管道");
+        put(5, "循环管道");
+    }};
+
     @Override
     public void drawChart() {
 
@@ -47,7 +56,7 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
         QueryWrapper<Component> wrapper = new QueryWrapper<>();
         wrapper.in("type", asList(filter.getType()));
         if (!StringUtils.isEmpty(filter.getName())) {
-            wrapper.eq("name", filter.getName());
+            wrapper.like("name", filter.getName());
         }
 
         Page<Component> page = new Page<>(filter.getPageNum(), filter.getPageSize());
@@ -133,7 +142,11 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
     @Override
     public ChartResponse druid(DruidParam druidParam) {
         String metricName = druidParam.getMetricName();
-        if (pipeline_water_flow.name().equals(metricName)) {
+        if (component_up.name().equals(metricName)) {
+            return drawComponentUp(druidParam);
+        } else if (metricName.startsWith("station_")) {
+            return drawStationChart(druidParam);
+        } else if (pipeline_water_flow.name().equals(metricName)) {
             return draw(druidParam, null);
         } else if (pipeline_water_temperature.name().equals(metricName)) {
             return draw(druidParam, Collections.singletonList(
@@ -150,6 +163,37 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
         } else {
             return draw(druidParam, null);
         }
+    }
+
+    private ChartResponse drawStationChart(DruidParam druidParam) {
+        ChartResponse response = new ChartResponse();
+        List<HeatDataDTO> dataList = druidMapper.getStationChartDataList(druidParam);
+        Map<Integer, List<HeatDataDTO>> dataMap = dataList.stream().collect(Collectors.groupingBy(HeatDataDTO::getChildType));
+        dataMap.forEach((childType,list)->{
+            ChartResponse.Serie serie = response.addSerie(childTypeMap.get(childType), ChartResponse.SerieType.line);
+            list.forEach(data -> serie.addData(data.get__time().getTime(), DoubleFormatUtil.halfUp(data.getMetricValue())));
+        });
+        return response;
+    }
+
+    private ChartResponse drawComponentUp(DruidParam druidParam) {
+        ChartResponse response = new ChartResponse();
+        response.setYAxis(asList(ChartResponse.YAxis.addTickUnit("").setMax(1L)));
+        List<HeatDataDTO> dataList = druidMapper.getComponentUP(druidParam);
+        ChartResponse.Serie serie = response.addSerie(MetricEnum.getMetricChName(druidParam.getMetricName()), ChartResponse.SerieType.column);
+        HashMap<Double, String> colorMap = new HashMap<Double, String>() {{
+            put(0d, "#07F531");
+            put(1d, "#FFF000");
+            put(2d, "#FF0000");
+        }};
+        dataList.forEach(data -> {
+            serie.addData(
+                    data.get__time().getTime(),
+                    1D,
+                    colorMap.get(data.getMetricValue())
+            );
+        });
+        return response;
     }
 
     // 管道流量

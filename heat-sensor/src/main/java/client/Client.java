@@ -1,12 +1,13 @@
 package client;
 
+import config.Producer;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import task.MetricTask;
+
+import java.util.List;
 
 /**
  * @author haya
@@ -14,7 +15,7 @@ import task.MetricTask;
 
 public class Client {
 
-    public void start(String ip, Integer port, MetricTask task) {
+    public void start(String ip, Integer port, List<Thread> tasksList) {
         EventLoopGroup group = new NioEventLoopGroup();
         Bootstrap bootstrap = new Bootstrap()
                 .group( group )
@@ -22,9 +23,10 @@ public class Client {
                 .handler( new Initializer() );
         try {
             ChannelFuture future = bootstrap.connect( ip, port ).sync();
-            task.setChannel( future.channel() );
-            task.start();
-            task.join();
+            Producer producer = new Producer();
+            producer.setChannel(future.channel());
+            producer.start();
+            tasksList.forEach(Thread::start);
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();

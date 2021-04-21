@@ -7,13 +7,15 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
+
 /**
  * @author haya
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("component")
-public class Component extends Model<Component> {
+public class Component extends Model<Component> implements Serializable {
     @TableId(type = IdType.AUTO)
     private Integer id;
     private String name;
@@ -22,6 +24,7 @@ public class Component extends Model<Component> {
     private Integer stationId;
     private Integer sensorId;
     private Integer type;
+    private Integer up;
     private String area;
     private String street;
 
