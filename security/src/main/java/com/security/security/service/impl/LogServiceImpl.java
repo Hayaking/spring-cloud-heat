@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 import pojo.Log;
 
 import javax.annotation.Resource;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 /**
@@ -24,10 +25,10 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements LogSe
 
     @Override
     public IPage<Log> getPageByDateRange(Page<Log> page, String startDate, String endDate) {
-        List<Log> list = logMapper.getPageByDateRange( page,
-                LocalDate.parse( startDate ).atStartOfDay(),
-                LocalDate.parse( endDate ).atStartOfDay() );
-        page.setRecords( list );
+        LocalDateTime start =LocalDateTime.ofEpochSecond(Long.parseLong(startDate),0, ZoneOffset.ofHours(8));
+        LocalDateTime end =LocalDateTime.ofEpochSecond(Long.parseLong(endDate),0, ZoneOffset.ofHours(8));
+        List<Log> list = logMapper.getPageByDateRange(page, start, end);
+        page.setRecords(list);
         return page;
     }
 

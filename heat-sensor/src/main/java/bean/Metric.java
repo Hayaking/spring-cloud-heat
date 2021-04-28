@@ -1,6 +1,7 @@
 package bean;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +10,7 @@ import java.util.Random;
 /**
  * @author haya
  */
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -18,11 +20,26 @@ public class Metric {
     private Double min;
     private Double max;
     private Class clazz = Double.class;
+    private String sensorId;
 
     public Metric(String name, Double min, Double max) {
         this.name = name;
         this.min = min;
         this.max = max;
+    }
+
+    public Metric(String name, Double min, Double max, Class clazz) {
+        this.name = name;
+        this.min = min;
+        this.max = max;
+        this.clazz = clazz;
+    }
+
+    public Metric(String name, Double min, Double max, String sensorId) {
+        this.name = name;
+        this.min = min;
+        this.max = max;
+        this.sensorId = sensorId;
     }
 
     public Double getRandomNumber() {
@@ -32,10 +49,10 @@ public class Metric {
                 return 0d;
             }
             return RANDOM.nextInt(max.intValue()) % (max - min) + min;
-        } else if (clazz == Double.class) {
+        } else  {
             return (RANDOM.nextDouble()*10000) % (max - min) + min;
         }
-        return 0D;
+
     }
 
     public static void main(String[] args) {

@@ -60,7 +60,7 @@ public class SecurityController {
     @PostMapping(value = "/pwd")
     public Object findPwd(@RequestParam(value = "username") String username,
                           @RequestParam(value = "email") String email) {
-        return MessageFactory.message(true, userService.getUserByEmail(username, email));
+        return MessageFactory.message( userService.getUserByEmail(username, email));
     }
 
     @GetMapping(value = "/verify")

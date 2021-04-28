@@ -21,7 +21,7 @@ public class HeatDataDTO implements Serializable {
     // 热站id
     private Integer stationId;
     // 传感器id
-    private Integer sensorId;
+    private String sensorId;
     private String metricName;
     private Double metricValue;
     private Integer type;

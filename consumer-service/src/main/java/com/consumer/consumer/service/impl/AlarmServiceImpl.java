@@ -58,9 +58,11 @@ public class AlarmServiceImpl extends ServiceImpl<AlarmMapper, Alarm> implements
             Metric metric = metricService.getById(item.getMetricId());
 //            vo.setLevel(config.getLevel());
             vo.setMetricName(metric.getName());
-            vo.setComponentId(component.getId());
-            vo.setComponentType(component.getType());
-            vo.setComponentName(component.getName());
+            if (component != null) {
+                vo.setComponentId(component.getId());
+                vo.setComponentType(component.getType());
+                vo.setComponentName(component.getName());
+            }
             return vo;
         }).collect(Collectors.toList());
         result.setRecords(collect);

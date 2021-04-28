@@ -30,7 +30,7 @@ public class JWTFilter implements Filter {
 
         response.setCharacterEncoding("UTF-8");
         String uri = request.getRequestURI();
-        if (uri.startsWith("/base/login")) {
+        if (uri.startsWith("/base/login") || uri.startsWith("/base/pwd")) {
             chain.doFilter(request, response);
             return;
         }
@@ -58,7 +58,6 @@ public class JWTFilter implements Filter {
                 setRoleId(roleId);
             }};
             jwtService.setInfo(user);
-
         }
         chain.doFilter(request, response);
     }

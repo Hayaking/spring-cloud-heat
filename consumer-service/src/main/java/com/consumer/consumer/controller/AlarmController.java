@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pojo.AlarmConfig;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/alarm")
 public class AlarmController {
@@ -21,9 +23,9 @@ public class AlarmController {
 
     @GetMapping(value = "/list/{pageNum}/{pageSize}/{id}")
     public Message getListById(@PathVariable Integer pageNum,
-                           @PathVariable Integer pageSize,
-                           @PathVariable Integer id) {
-        Page<AlarmVO> page = alarmService.getAlarmPage(new Page<>(pageNum, pageSize),id);
+                               @PathVariable Integer pageSize,
+                               @PathVariable Integer id) {
+        Page<AlarmVO> page = alarmService.getAlarmPage(new Page<>(pageNum, pageSize), id);
         return MessageFactory.message(true, page);
     }
 
@@ -47,10 +49,15 @@ public class AlarmController {
         return MessageFactory.message(isSave);
     }
 
-    @DeleteMapping(value = "/config/{id}")
-    public Message delete(@PathVariable Integer id) {
-       ;
-        boolean isDelete =  alarmConfigService.removeWithCacheById(id);
+    @DeleteMapping(value = "/config/batch")
+    public Message delete(@RequestBody List<Integer> idList) {
+        boolean isDelete = alarmConfigService.removeByIds(idList);
+        return MessageFactory.message(isDelete);
+    }
+
+    @DeleteMapping(value = "/batch")
+    public Message batch(@RequestBody List<Integer> idList) {
+        boolean isDelete = alarmService.removeByIds(idList);
         return MessageFactory.message(isDelete);
     }
 }

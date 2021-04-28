@@ -102,7 +102,22 @@ public class UserController {
 
     @GetMapping(value = "/list/alarm")
     public Message getAlarmUserList() {
-        List<User> list = userService.getAlarmUserList();
+        List<User> list = userService.list();
         return MessageFactory.message(true, list);
     }
+
+    @GetMapping(value = "/self")
+    public Message self() {
+        User info = jwtService.getInfo();
+        int id = info.getId();
+        User user = userService.getById(id);
+        return MessageFactory.message(true, user);
+    }
+
+    @DeleteMapping(value = "/batch")
+    public Message deleteBatch(@RequestBody List<Integer> idList) {
+        boolean flag = userService.removeByIds(idList);
+        return MessageFactory.message(flag);
+    }
+
 }

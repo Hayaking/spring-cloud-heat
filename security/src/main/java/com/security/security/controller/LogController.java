@@ -1,7 +1,10 @@
 package com.security.security.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.security.security.service.LogService;
+import msg.Message;
 import msg.MessageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,36 +15,39 @@ import java.util.List;
 /**
  * @author haya
  */
+@RequestMapping(value = "log")
 @RestController
 public class LogController {
     @Autowired
     private LogService logService;
 
-    @DeleteMapping(value = "/log/delete/all")
+    @DeleteMapping(value = "/delete/all")
     public Object clean() {
         return null;
     }
 
-    @DeleteMapping(value = "/log/delete")
-    public Object deleteByIds(@RequestBody List<Integer> ids) {
-        return MessageFactory.message( logService.removeByIds( ids ) );
+    @DeleteMapping(value = "/batch")
+    public Message deleteByIds(@RequestBody List<Integer> idList) {
+        return MessageFactory.message( logService.removeByIds( idList ) );
     }
 
-    @GetMapping(value = "/log/page/{pageNum}/{pageSize}")
+    @GetMapping(value = "/page/{pageNum}/{pageSize}")
     public Object page(@PathVariable Integer pageNum, @PathVariable Integer pageSize) {
-        Page<Log> page = logService.page(new Page<>(pageNum, pageSize));
+        QueryWrapper<Log> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("create_date");
+        Page<Log> page = logService.page(new Page<>(pageNum, pageSize), wrapper);
+        page.setSize(pageSize);
         return MessageFactory.message(true, page);
     }
 
-    @GetMapping(value = "/log/page/{pageSize}/{pageNum}/{startDate}/{endDate}")
-    public Object pageDateRange(@PathVariable Integer pageSize,
-                       @PathVariable Integer pageNum,
+    @GetMapping(value = "/page/{pageNum}/{pageSize}/{startDate}/{endDate}")
+    public Object pageDateRange(@PathVariable Integer pageNum,
+                       @PathVariable Integer pageSize,
                        @PathVariable String startDate,
                        @PathVariable String endDate) {
-        return MessageFactory.message( true,logService.getPageByDateRange(
-                new Page<>( pageNum, pageSize ),
-                startDate,
-                endDate ) );
+        IPage<Log> page = logService.getPageByDateRange(new Page<>(pageNum, pageSize), startDate, endDate);
+        page.setSize(pageSize);
+        return MessageFactory.message( true, page);
     }
 
 }

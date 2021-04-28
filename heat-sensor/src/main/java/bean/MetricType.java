@@ -9,6 +9,9 @@ public enum MetricType {
     STATION(6, "热交换站"),
     CIRCLE_PUMP(7, "循环泵"),
     MAKE_PUMP(8, "补水泵"),
+    SENSOR_PRESS(9,"压力传感器"),
+    SENSOR_TEMP(10,"温度传感器"),
+    SENSOR_FLOW(11,"流量传感器"),
     ;
 
     private int type;

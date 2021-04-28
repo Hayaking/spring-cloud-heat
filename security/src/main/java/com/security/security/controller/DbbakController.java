@@ -3,6 +3,8 @@ package com.security.security.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.security.security.service.DbbakService;
+import msg.Message;
+import msg.MessageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.List;
 
 
 @RequestMapping(value = "dbback")
@@ -35,6 +38,11 @@ public class DbbakController {
         return dbbakService.listDbbak(pageNum, pageSize);
     }
 
+    @DeleteMapping(value = "/batch")
+    public Message delete(@RequestBody List<Integer> idList) {
+        boolean isDelete = dbbakService.removeByIds(idList);
+        return MessageFactory.message(isDelete);
+    }
 
     @PostMapping(value = "/{id}/download")
     public ResponseEntity<byte[]> download(@PathVariable String id) {

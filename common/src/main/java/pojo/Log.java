@@ -18,6 +18,7 @@ public class Log extends Model<Log> {
     @TableId
     private int id;
     private int userId;
+    private String userName;
     private String operation;
     private String type;
     private String method;

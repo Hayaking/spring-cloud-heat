@@ -1,7 +1,6 @@
 package com.consumer.consumer.controller;
 
 
-
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.consumer.consumer.service.PicService;
 import com.consumer.consumer.service.SecurityClient;
@@ -26,12 +25,12 @@ public class PicController {
 
     @GetMapping(value = "/project/{id}")
     public List<Pic> getImagePathByProjectId(@PathVariable("id") int pid) {
-        return picService.getImagePath( pid );
+        return picService.getImagePath(pid);
     }
 
     @GetMapping(value = "/path/{id}")
     public Pic getImagePathById(@PathVariable("id") int pid) {
-        return picService.getImagePathById( pid );
+        return picService.getImagePathById(pid);
     }
 
     // 获取分页
@@ -39,18 +38,19 @@ public class PicController {
     public Object getAllByPage(@PathVariable Integer pageNum,
                                @PathVariable Integer pageSize,
                                @PathVariable Integer pid) {
-        return picService.getPicsList( new Page<>( pageNum, pageSize ), pid );
+        return picService.getPicsList(new Page<>(pageNum, pageSize), pid);
     }
 
     // 删除
     @DeleteMapping(value = "/{id}")
     public Object deleteById(@PathVariable("id") Integer id) {
-        return MessageFactory.message( picService.deleteById( id ) );
+        return MessageFactory.message(picService.deleteById(id));
     }
+
     // 上传
     @PostMapping(value = "/uploadFiles/{projectId}")
     public Object uploadFiles(MultipartFile[] upfile, @PathVariable("projectId") int projectId) {
         User user = securityClient.getUserInfo();
-        return MessageFactory.message( picService.uploadImage( projectId, upfile, user ) );
+        return MessageFactory.message(picService.uploadImage(projectId, upfile, user));
     }
 }

@@ -6,6 +6,7 @@ import com.haya.heatcollector.bean.HeatData;
 import com.haya.heatcollector.entity.Component;
 import com.haya.heatcollector.mapper.ComponentMapper;
 import com.haya.heatcollector.service.ComponentService;
+import com.haya.heatcollector.utils.ComponentUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
@@ -44,11 +45,22 @@ public class ComponentServiceImpl
         Component res = componentMapper.selectOne( wrapper );
         if (res == null) {
             Component component = new Component();
-            component.setLat( data.getLat() );
-            component.setLon( data.getLon() );
-            component.setType( data.getType() );
-            componentMapper.insert( component );
-            res = componentMapper.selectOne( wrapper );
+            component.setLat(data.getLat());
+            component.setLon(data.getLon());
+            component.setType(data.getType());
+            if (ComponentUtil.isSensor(data.getType())) {
+                component.setSensorId(data.getSensorId());
+            }
+            componentMapper.insert(component);
+            res = componentMapper.selectOne(wrapper);
+        } else {
+            res.setLat(data.getLat());
+            res.setLon(data.getLon());
+            res.setType(data.getType());
+            if (ComponentUtil.isSensor(data.getType())) {
+                res.setSensorId(data.getSensorId());
+            }
+            componentMapper.updateById(res);
         }
         return res;
     }

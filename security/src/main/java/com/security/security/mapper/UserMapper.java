@@ -13,4 +13,8 @@ import pojo.User;
 public interface UserMapper extends BaseMapper<User> {
     @Update("update user set enable = !enable where id = #{id}")
     int setUserEnable(@Param("id") Integer id);
+    @Update("update user set password = #{password} where username = #{username} and email = #{email}")
+    int updateByUserNameAndEmail(@Param("username") String username,
+                                 @Param("email") String email,
+                                 @Param("password") String password);
 }

@@ -17,10 +17,11 @@ public class Component extends Model<Component> {
     private Double lon;
     private Double lat;
     private Integer stationId;
-    private Integer sensorId;
+    private String sensorId;
     private Integer type;
     private Integer up;
     private String area;
     private String street;
     private String note;
+    private Integer nextId;
 }

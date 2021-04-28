@@ -26,6 +26,10 @@ public enum MetricEnum {
     pump_voltage("电压"),
     pump_state("状态"),
 
+    sensor_e_quantity("电量"),
+    sensor_state("状态"),
+    sensor_frequency("上报频率"),
+    sensor_up_time("运行时长"),
     ;
 
     private final String describe;

@@ -10,6 +10,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql:///heat_data?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
+  mail:
+    username: 1028779917@qq.com
+    password: cmmvhnsldjjvbdgb
+    host: smtp.qq.com
   redis:
     host: 192.168.75.11
     port: 6379

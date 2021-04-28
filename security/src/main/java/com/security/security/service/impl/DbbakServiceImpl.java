@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
 
 /**
  * <p>
@@ -87,10 +86,9 @@ public class DbbakServiceImpl extends ServiceImpl<DbbakMapper, Dbbak> implements
 
     @Override
     public IPage<Dbbak> listDbbak(int pageNum, int pageSize) {
-        Page<Dbbak> page = new Page<>( pageNum, pageSize );
-        List<Dbbak> list = dbbakMapper.getListWithUserName( page );
-        page.setRecords( list );
-        return page;
+        QueryWrapper<Dbbak> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("createTime");
+        return dbbakMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
     }
 
     @Override

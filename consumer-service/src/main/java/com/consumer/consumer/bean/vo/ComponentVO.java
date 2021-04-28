@@ -13,5 +13,7 @@ public class ComponentVO extends Component {
     private Double pressure;
     private Double watt;
     private Double voltage;
+    private Double eQuantity;
+    private Long upTime;
     private Integer state;
 }

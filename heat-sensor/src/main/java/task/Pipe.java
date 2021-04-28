@@ -26,23 +26,24 @@ import static java.util.Arrays.asList;
 public class Pipe extends Thread {
     private final BlockingQueue<HeatData> queue = Common.getQueue();
     private final List<Component> componentList = asList(
-            new Component(113.60017, 34.74740, SUPPLY_PIPE.getType()),
-            new Component(113.59426, 34.74733, BACK_PIPE.getType()),
-            new Component(113.59131, 34.74740, SUPPLY_SECONDARY_PIPE.getType()),
-            new Component(113.58899, 34.74692, BACK_SECONDARY_PIPE.getType()),
-            new Component(113.58491, 34.74740, CIRCULATION_PIPE.getType())
+            Component.builder().lon(113.60017).lat(34.74740).type(SUPPLY_PIPE.getType()).sensorSuffix(1).build(),
+            Component.builder().lon(113.59426).lat(34.74733).type(BACK_PIPE.getType()).sensorSuffix(2).build(),
+            Component.builder().lon(113.59131).lat(34.74740).type(SUPPLY_SECONDARY_PIPE.getType()).sensorSuffix(3).build(),
+            Component.builder().lon(113.58899).lat(34.74692).type(BACK_SECONDARY_PIPE.getType()).sensorSuffix(4).build(),
+            Component.builder().lon(113.58491).lat(34.74740).type(CIRCULATION_PIPE.getType()).sensorSuffix(5).build()
     );
+
     private final List<Metric> metricList = asList(
-            new Metric("pipeline_water_temperature", 50d, 100d),
-            new Metric("pipeline_water_flow", 50d, 100d),
-            new Metric("pipeline_water_pressure", 50d, 100d),
-            new Metric("pipeline_water_tassels", 50d, 100d),
-            new Metric("pipeline_water_temperature_increase", 50d, 100d),
-            new Metric("pipeline_water_pressure_increase", 50d, 100d),
-            new Metric("pipeline_water_level", 50d, 100d),
-            new Metric("pipeline_out_temperature", 50d, 100d),
-            new Metric("pipeline_valve_state", 0d, 3d, Integer.class),
-            new Metric("component_up", 0D, 0d, Integer.class)
+            Metric.builder().name("pipeline_water_temperature").min(50d).max(100d).sensorId("temperature").build(),
+            Metric.builder().name("pipeline_water_flow").min(50d).max(100d).sensorId("flow").build(),
+            Metric.builder().name("pipeline_water_pressure").min(50d).max(100d).sensorId("pressure").build(),
+            Metric.builder().name("pipeline_water_tassels").min(50d).max(100d).sensorId("flow").build(),
+            Metric.builder().name("pipeline_water_temperature_increase").min(50d).max(100d).sensorId("temperature").build(),
+            Metric.builder().name("pipeline_water_pressure_increase").min(50d).max(100d).sensorId("pressure").build(),
+            Metric.builder().name("pipeline_water_level").min(50d).max(100d).sensorId("flow").build(),
+            Metric.builder().name("pipeline_out_temperature").min(50d).max(100d).sensorId("temperature_out").build(),
+            Metric.builder().name("pipeline_valve_state").min(0d).max(3d).sensorId("valve").clazz(Integer.class).build(),
+            Metric.builder().name("component_up").min(0d).max(0d).clazz(Integer.class).build()
     );
 
     @SneakyThrows
@@ -56,6 +57,7 @@ public class Pipe extends Thread {
                             .lon(component.getLon())
                             .lat(component.getLat())
                             .type(component.getType())
+                            .sensorId(metric.getSensorId() + component.getSensorSuffix())
                             .metricName(metric.getName())
                             .metricValue(metric.getRandomNumber())
                             .build());

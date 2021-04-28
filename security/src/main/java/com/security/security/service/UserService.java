@@ -15,7 +15,7 @@ public interface UserService extends IService<User> {
 
     User getUser(String username, String password);
 
-    User getUserByEmail(String username, String email);
+    boolean getUserByEmail(String username, String email);
 
     /**
      * 设置新密码
