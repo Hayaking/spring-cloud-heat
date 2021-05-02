@@ -15,12 +15,21 @@
         <module name="heat-sensor" />
         <module name="heat-collector" />
         <module name="zuul" />
-        <module name="user-service" />
         <module name="user" />
         <module name="config" />
         <module name="consumer-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="user-service" target="1.8" />
+      <module name="wrapper (1)" target="1.5" />
+      <module name="wrapper (2)" target="1.5" />
+      <module name="wrapper (3)" target="1.5" />
+      <module name="wrapper (4)" target="1.5" />
+      <module name="wrapper (5)" target="1.5" />
+      <module name="wrapper (6)" target="1.5" />
+      <module name="wrapper (7)" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

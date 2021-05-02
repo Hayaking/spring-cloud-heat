@@ -16,7 +16,7 @@ public interface DruidMapper extends BaseMapper<HeatDataDTO> {
     List<HeatDataDTO> test();
 
     List<HeatDataDTO> selectByComponentIdList(@Param("idList") List<Integer> idList,
-                                              @Param("type") Integer[] type);
+                                              @Param("type") Integer type);
 
     List<HeatDataDTO> getPipeLineWaterFlow(@Param("druidParam") DruidParam druidParam);
 

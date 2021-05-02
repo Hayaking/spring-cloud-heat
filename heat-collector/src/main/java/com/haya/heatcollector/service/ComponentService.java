@@ -7,7 +7,5 @@ import com.haya.heatcollector.entity.Component;
 
 public interface ComponentService extends IService<Component> {
 
-    Component insertToCache(Component component);
-
     Component selectElseInsert(HeatData heatData);
 }

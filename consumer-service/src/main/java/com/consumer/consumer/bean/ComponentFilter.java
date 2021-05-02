@@ -8,6 +8,6 @@ public class ComponentFilter {
     private Integer up;
     private Integer pageSize;
     private Integer pageNum;
-    private Integer[] type;
+    private Integer type;
 
 }

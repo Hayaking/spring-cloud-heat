@@ -9,11 +9,14 @@ import pojo.Component;
 public class ComponentVO extends Component {
     private String aliasName;
     private Double flow;
+    private Double flowSpeed;
     private Double temperature;
+    private Double temperatureSpeed;
+    private Double temperatureOut;
     private Double pressure;
+    private Double pressureSpeed;
+    private Double waterLevel;
     private Double watt;
     private Double voltage;
-    private Double eQuantity;
-    private Long upTime;
     private Integer state;
 }

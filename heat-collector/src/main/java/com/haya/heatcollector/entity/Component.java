@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author haya
@@ -27,6 +28,7 @@ public class Component extends Model<Component> implements Serializable {
     private Integer up;
     private String area;
     private String street;
+    private Date ctime;
 
     public String getCacheKey() {
         return lon + ":" + lat;

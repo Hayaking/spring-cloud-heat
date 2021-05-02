@@ -30,11 +30,8 @@
         select __time,id,metricName,avg(metricValue/counter) as metricValue
         FROM HEAT_DATA_MINUTE
         where 1=1
-        <if test="type!=null and type.length > 0">
-            and type in
-            <foreach item="item" index="index" collection="type" open="(" separator="," close=")">
-                #{item}
-            </foreach>
+        <if test="type!=null">
+            and type = #{type}
         </if>
         <if test="idList!=null and idList.size > 0">
             and id in

@@ -1,12 +1,11 @@
 package com.consumer.consumer.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.consumer.consumer.bean.vo.PipelineVo;
 import com.consumer.consumer.service.PipelineService;
 import msg.Message;
 import msg.MessageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import pojo.Pipeline;
 
@@ -19,7 +18,8 @@ public class PipelineController {
     private PipelineService pipelineService;
 
     @PostMapping("/save")
-    public Message save(@RequestBody Pipeline pipeline) {
+    public Message save(@RequestBody PipelineVo pipeline) {
+        pipelineService.savePipeline( pipeline );
         return MessageFactory.message(pipelineService.saveOrUpdate(pipeline));
     }
 
@@ -36,11 +36,7 @@ public class PipelineController {
     public Message getAllByPage(@PathVariable Integer pageNum,
                                 @PathVariable Integer pageSize,
                                 @PathVariable(required = false) String key) {
-        QueryWrapper<Pipeline> wrapper = new QueryWrapper<>();
-        if (!StringUtils.isEmpty(key)) {
-            wrapper.like("name", key);
-        }
-        Page<Pipeline> page = pipelineService.page(new Page<>(pageNum, pageSize), wrapper);
+        Page<PipelineVo> page = pipelineService.getPage( pageNum, pageSize, key );
         return MessageFactory.message(true, page);
     }
 

@@ -8,7 +8,7 @@
       <sshConfig authType="PASSWORD" host="39.105.163.41" id="6a11df56-e0ad-4da1-936e-4d82ebcbb4c5" port="22" customName="aliyun" nameFormat="CUSTOM" username="root">
         <option name="customName" value="aliyun" />
       </sshConfig>
-      <sshConfig authType="PASSWORD" host="39.105.163.41" id="8d3dafe1-591f-40fd-bb42-9621a230da9e" port="22" customName="aliyun" nameFormat="CUSTOM">
+      <sshConfig authType="PASSWORD" connectionConfig="{&quot;serverAliveInterval&quot;:300}" host="39.105.163.41" id="8d3dafe1-591f-40fd-bb42-9621a230da9e" port="22" customName="aliyun" nameFormat="CUSTOM">
         <option name="customName" value="aliyun" />
       </sshConfig>
     </configs>

@@ -17,7 +17,6 @@ import com.consumer.consumer.mapper.mysql.PicMapper;
 import com.consumer.consumer.service.ComponentService;
 import com.consumer.consumer.util.ComponentUtil;
 import com.consumer.consumer.util.DoubleFormatUtil;
-import com.consumer.consumer.util.LineUtil;
 import com.consumer.consumer.util.MapUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +61,7 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
     @Override
     public Page<ComponentVO> getComponentPage(ComponentFilter filter) {
         QueryWrapper<Component> wrapper = new QueryWrapper<>();
-        wrapper.in("type", asList(filter.getType()));
+        wrapper.eq( "type", filter.getType() );
         if (!StringUtils.isEmpty(filter.getName())) {
             wrapper.like("name", filter.getName());
         }
@@ -100,26 +99,32 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
                                 vo.setFlow(DoubleFormatUtil.halfUp(metricValue));
                             } else if (pipeline_water_temperature.name().equals(metricName)) {
                                 vo.setTemperature(DoubleFormatUtil.halfUp(metricValue));
-                            } else if (pipeline_water_pressure.name().equals(metricName)) {
-                                vo.setPressure(DoubleFormatUtil.halfUp(metricValue));
-                            } else if (station_water_temperature.name().equals(metricName)) {
-                                vo.setTemperature(DoubleFormatUtil.halfUp(metricValue));
-                            } else if (station_water_flow.name().equals(metricName)) {
-                                vo.setFlow(DoubleFormatUtil.halfUp(metricValue));
-                            } else if (station_water_pressure.name().equals(metricName)) {
-                                vo.setPressure(DoubleFormatUtil.halfUp(metricValue));
-                            } else if (pump_watt.name().equals(metricName)) {
-                                vo.setWatt(DoubleFormatUtil.halfUp(metricValue));
-                            } else if (pump_voltage.name().equals(metricName)) {
-                                vo.setVoltage(DoubleFormatUtil.halfUp(metricValue));
-                            } else if (pump_state.name().equals(metricName)) {
-                                vo.setState(metricValue.intValue());
-                            } else if (sensor_state.name().equals(metricName)) {
-                                vo.setState(metricValue.intValue());
-                            } else if (sensor_e_quantity.name().equals(metricName)) {
-                                vo.setEQuantity(DoubleFormatUtil.halfUp(metricValue));
-                            } else if (sensor_up_time.name().equals(metricName)) {
-                                vo.setUpTime(metricValue.longValue());
+                            } else if (pipeline_water_temperature_increase.name().equals( metricName )) {
+                                vo.setTemperatureSpeed( DoubleFormatUtil.halfUp( metricValue ) );
+                            } else if (pipeline_out_temperature.name().equals( metricName )) {
+                                vo.setTemperatureOut( DoubleFormatUtil.halfUp( metricValue ) );
+                            } else if (pipeline_water_pressure.name().equals( metricName )) {
+                                vo.setPressure( DoubleFormatUtil.halfUp( metricValue ) );
+                            } else if (pipeline_water_pressure_increase.name().equals( metricName )) {
+                                vo.setPressureSpeed( DoubleFormatUtil.halfUp( metricValue ) );
+                            } else if (station_water_temperature.name().equals( metricName )) {
+                                vo.setTemperature( DoubleFormatUtil.halfUp( metricValue ) );
+                            } else if (station_water_flow.name().equals( metricName )) {
+                                vo.setFlow( DoubleFormatUtil.halfUp( metricValue ) );
+                            }  else if (pipeline_water_tassels.name().equals( metricName )) {
+                                vo.setFlowSpeed( DoubleFormatUtil.halfUp( metricValue ) );
+                            } else if (station_water_pressure.name().equals( metricName )) {
+                                vo.setPressure( DoubleFormatUtil.halfUp( metricValue ) );
+                            } else if (pump_watt.name().equals( metricName )) {
+                                vo.setWatt( DoubleFormatUtil.halfUp( metricValue ) );
+                            } else if (pump_voltage.name().equals( metricName )) {
+                                vo.setVoltage( DoubleFormatUtil.halfUp( metricValue ) );
+                            } else if (pump_state.name().equals( metricName )) {
+                                vo.setState( metricValue.intValue() );
+                            } else if (pipeline_water_level.name().equals( metricName )) {
+                                vo.setWaterLevel( DoubleFormatUtil.halfUp( metricValue ) );
+                            }else if (pipeline_valve_state.name().equals( metricName )) {
+                                vo.setState( metricValue.intValue() );
                             }
                         });
                     }
@@ -312,35 +317,35 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
     public List<HeatMapData> getHeatMap() {
         List<HeatMapData> result = new LinkedList<>();
         List<HeatDataDTO> dataList = druidMapper.getHeatMapDataList();
-        Map<Integer, List<HeatDataDTO>> dataMap = dataList.stream().collect(Collectors.groupingBy(HeatDataDTO::getId));
-        List<Integer> componentIdList = dataList.stream().map(HeatDataDTO::getId).collect(Collectors.toList());
-        List<Component> componentList = componentMapper.selectBatchIds(componentIdList);
-        for (Component component : componentList) {
-            Integer nextId = component.getNextId();
-            if (nextId == null) {
-                continue;
-            }
-            Component next = componentMapper.selectById(nextId);
-            if (next == null) {
-                continue;
-            }
-            List<HeatDataDTO> valueList = dataMap.get(component.getId());
-            List<HeatDataDTO> values = MapUtil.getLastTimeMetric(valueList);
-            HeatDataDTO data = values.get(0);
-            result.addAll(LineUtil.addPoint(
-                    component.getLat(), component.getLon(),
-                    next.getLat(), next.getLon(),
-                    data.getMetricValue()
-            ));
-        }
-        return result;
-//        return dataList.stream().map(item -> {
-//            HeatMapData data = new HeatMapData();
-//            data.setLat(item.getLat());
-//            data.setLng(item.getLon());
-//            data.setCount(item.getMetricValue());
-//            return data;
-//        }).collect(Collectors.toList());
+//        Map<Integer, List<HeatDataDTO>> dataMap = dataList.stream().collect(Collectors.groupingBy(HeatDataDTO::getId));
+//        List<Integer> componentIdList = dataList.stream().map(HeatDataDTO::getId).collect(Collectors.toList());
+//        List<Component> componentList = componentMapper.selectBatchIds(componentIdList);
+//        for (Component component : componentList) {
+//            Integer nextId = component.getNextId();
+//            if (nextId == null) {
+//                continue;
+//            }
+//            Component next = componentMapper.selectById(nextId);
+//            if (next == null) {
+//                continue;
+//            }
+//            List<HeatDataDTO> valueList = dataMap.get(component.getId());
+//            List<HeatDataDTO> values = MapUtil.getLastTimeMetric(valueList);
+//            HeatDataDTO data = values.get(0);
+//            result.addAll(LineUtil.addPoint(
+//                    component.getLat(), component.getLon(),
+//                    next.getLat(), next.getLon(),
+//                    data.getMetricValue()
+//            ));
+//        }
+//        return result;
+        return dataList.stream().map(item -> {
+            HeatMapData data = new HeatMapData();
+            data.setLat(item.getLat());
+            data.setLng(item.getLon());
+            data.setCount(item.getMetricValue());
+            return data;
+        }).collect(Collectors.toList());
     }
 
     @Override

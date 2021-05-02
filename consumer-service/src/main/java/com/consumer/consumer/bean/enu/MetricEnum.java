@@ -4,13 +4,13 @@ public enum MetricEnum {
 
     component_up("健康度"),
     pipeline_water_temperature("管道温度"),
-    pipeline_water_flow("管道流量"),
-    pipeline_water_pressure("管道压力"),
-    pipeline_water_tassels("管道流速"),
     pipeline_water_temperature_increase(" 管道温度增速"),
-    pipeline_water_pressure_increase("管道压力增速"),
-    pipeline_water_level("管道水位"),
     pipeline_out_temperature("管道外温度"),
+    pipeline_water_flow("管道流量"),
+    pipeline_water_tassels("管道流速"),
+    pipeline_water_level("管道水位"),
+    pipeline_water_pressure("管道压力"),
+    pipeline_water_pressure_increase("管道压力增速"),
     pipeline_valve_state("管道阀门开度"),
 
     station_water_temperature("热站水温"),

@@ -1,8 +1,5 @@
 import client.Client;
-import task.Pipe;
-import task.Pump;
-import task.Sensor;
-import task.Station;
+import sensor.*;
 
 import static java.util.Arrays.asList;
 
@@ -13,10 +10,11 @@ public class Main {
     public static void main(String[] args){
         Client client = new Client();
         client.start("127.0.0.1", 9616, asList(
-                new Pipe(),
-                new Station(),
-                new Pump(),
-                new Sensor()
+                new PipeFlowSensor(),
+                new PipePressureSensor(),
+                new PipeTemperatureSensor(),
+                new PipeValveSensor(),
+                new PumpSensor()
         ));
     }
 }

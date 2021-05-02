@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -22,8 +21,8 @@ class ConsumerServiceApplicationTests {
 
     @Test
     void getComponentByIdList() {
-        ArrayList<Integer> idList = new ArrayList<>();
-        List<HeatDataDTO> test = druidMapper.selectByComponentIdList(idList, new Integer[]{1});
-        System.out.println( test.size() );
+//        ArrayList<Integer> idList = new ArrayList<>();
+//        List<HeatDataDTO> test = druidMapper.selectByComponentIdList(idList, new Integer[]{1});
+//        System.out.println( test.size() );
     }
 }

@@ -67,7 +67,7 @@ public class ComponentController {
         wrapper.set("note", componentVO.getNote());
         wrapper.set("area", componentVO.getArea());
         wrapper.set("street", componentVO.getStreet());
-        wrapper.set("next_id", componentVO.getNextId());
+        wrapper.set("pipe_id", componentVO.getPipeId());
         boolean isUpdate = componentService.update(wrapper);
         return MessageFactory.message(isUpdate);
     }

@@ -23,5 +23,5 @@ public class Component extends Model<Component> {
     private String area;
     private String street;
     private String note;
-    private Integer nextId;
+    private Integer pipeId;
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.consumer.consumer.mapper.mysql.ComponentMapper">
+    <update id="updatePipeId">
+        UPDATE component
+        set pipe_id = #{pipeId}
+        where id in
+        <foreach collection="idList" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+    <select id="getIdListByPipeId" resultType="java.lang.Integer">
+        SELECT id
+        from component
+        where pipe_id = #{pipeId}
+    </select>
+</mapper>
