@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.net.InetSocketAddress;
 import static io.netty.channel.ChannelHandler.Sharable;
 
 /**
@@ -34,8 +35,14 @@ public class Handler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
+//        System.out.println(msg);
         HeatData heatData = JSON.parseObject( String.valueOf( msg ), HeatData.class );
-        metricHandle.handle( heatData );
+        InetSocketAddress address = (InetSocketAddress) ctx.channel().remoteAddress();
+        String ip = address.getAddress().getHostAddress();
+        int port = address.getPort();
+        heatData.setIp( ip );
+        heatData.setPort( port );
+        metricHandle.handle(heatData );
         ctx.flush();
     }
 

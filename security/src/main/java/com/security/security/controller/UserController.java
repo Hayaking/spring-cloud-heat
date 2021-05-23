@@ -2,7 +2,8 @@ package com.security.security.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.security.security.bean.ComponentFilter;
+import com.security.security.bean.vo.UserVo;
 import com.security.security.service.JWTService;
 import com.security.security.service.UserService;
 import msg.Message;
@@ -35,15 +36,10 @@ public class UserController {
         return userService.list();
     }
 
-    @GetMapping(value = {
-            "/page/{pageNo}/{pageSize}",
-            "/page/{pageNo}/{pageSize}/{key}"
-    })
-    public Object getByPage(@PathVariable Integer pageNo,
-                            @PathVariable Integer pageSize,
-                            @PathVariable(required = false) String key) {
-        IPage<User> page = userService.getUserPage(new Page<>(pageNo, pageSize), key);
-        return MessageFactory.message(true, page);
+    @PostMapping("/page")
+    public Object getByPage(@RequestBody ComponentFilter filter) {
+        IPage<UserVo> page = userService.getUserPage( filter );
+        return MessageFactory.message( true, page );
     }
 
     @PostMapping(value = "/save")

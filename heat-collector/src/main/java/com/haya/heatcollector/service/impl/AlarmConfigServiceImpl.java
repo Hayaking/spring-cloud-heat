@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author haya
+ */
 @CacheConfig(cacheNames = "alarm:config")
 @Service
 public class AlarmConfigServiceImpl extends ServiceImpl<AlarmConfigMapper, AlarmConfig> implements AlarmConfigService {
@@ -21,7 +24,7 @@ public class AlarmConfigServiceImpl extends ServiceImpl<AlarmConfigMapper, Alarm
     @Autowired
     private AlarmConfigMapper alarmConfigMapper;
 
-    @Cacheable(key = "#component.id+':'+#metric.id")
+    @Cacheable(key = "#component.id+':'+#metric.id", condition = "#result!=null")
     @Override
     public List<AlarmConfig> select(Component component, Metric metric) {
         QueryWrapper<AlarmConfig> wrapper = new QueryWrapper<>();

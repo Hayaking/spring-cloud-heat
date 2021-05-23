@@ -15,15 +15,15 @@ spring:
     host: smtp.qq.com
 
 server:
-  port: 7999
+  port: 8082
 eureka:
   instance:
     preferIpAddress: true
-    hostname: 127.0.0.1
+    hostname: 127.0.0.1:8081
     ip-address: 127.0.0.1
   client:
     service-url:
-      defaultZone: http://${eureka.instance.hostname}:8080/eureka
+      defaultZone: http://${eureka.instance.hostname}/eureka
 
 
 feign:

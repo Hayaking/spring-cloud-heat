@@ -3,6 +3,8 @@ package com.security.security.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.security.security.bean.ComponentFilter;
+import com.security.security.bean.vo.UserVo;
 import pojo.User;
 
 import java.util.List;
@@ -29,7 +31,7 @@ public interface UserService extends IService<User> {
 
     boolean setPassword(int id, String email);
 
-    IPage<User> getUserPage(IPage<User> page, String key);
+    IPage<UserVo> getUserPage(ComponentFilter filter);
 
     Boolean setUserEnable(Integer id);
 

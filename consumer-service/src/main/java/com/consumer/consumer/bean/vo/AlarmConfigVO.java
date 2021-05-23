@@ -1,7 +1,10 @@
 package com.consumer.consumer.bean.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import pojo.AlarmConfig;
+
+import java.util.Date;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -13,4 +16,8 @@ public class AlarmConfigVO extends AlarmConfig {
     private Integer componentType;
     private String metricName;
     private String userName;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date ctime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date mtime;
 }

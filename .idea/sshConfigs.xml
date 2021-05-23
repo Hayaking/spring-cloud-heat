@@ -2,7 +2,7 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig authType="PASSWORD" host="39.105.163.41" id="fbf7a662-820b-497c-919b-dd985b536657" port="22" customName="aliyun" nameFormat="CUSTOM" username="root">
+      <sshConfig authType="PASSWORD" connectionConfig="{&quot;serverAliveInterval&quot;:300}" host="39.105.163.41" id="fbf7a662-820b-497c-919b-dd985b536657" port="22" customName="aliyun" nameFormat="CUSTOM" username="root">
         <option name="customName" value="aliyun" />
       </sshConfig>
       <sshConfig authType="PASSWORD" host="39.105.163.41" id="6a11df56-e0ad-4da1-936e-4d82ebcbb4c5" port="22" customName="aliyun" nameFormat="CUSTOM" username="root">

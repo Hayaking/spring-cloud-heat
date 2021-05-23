@@ -19,4 +19,7 @@ public class ComponentVO extends Component {
     private Double watt;
     private Double voltage;
     private Integer state;
+    private Boolean isStation;
+    private Integer up;
+
 }

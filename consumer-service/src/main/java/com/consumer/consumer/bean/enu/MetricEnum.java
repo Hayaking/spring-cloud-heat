@@ -46,4 +46,8 @@ public enum MetricEnum {
         }
         return "";
     }
+
+    public String getDescribe() {
+        return describe;
+    }
 }

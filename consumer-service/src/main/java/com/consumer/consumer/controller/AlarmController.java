@@ -1,6 +1,7 @@
 package com.consumer.consumer.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.consumer.consumer.bean.ComponentFilter;
 import com.consumer.consumer.bean.vo.AlarmConfigVO;
 import com.consumer.consumer.bean.vo.AlarmVO;
 import com.consumer.consumer.service.AlarmConfigService;
@@ -29,29 +30,27 @@ public class AlarmController {
         return MessageFactory.message(true, page);
     }
 
-    @GetMapping(value = "/list/{pageNum}/{pageSize}")
-    public Message getList(@PathVariable Integer pageNum,
-                           @PathVariable Integer pageSize) {
-        Page<AlarmVO> page = alarmService.getAlarmPage(new Page<>(pageNum, pageSize), null);
-        return MessageFactory.message(true, page);
+    @PostMapping(value = "/list")
+    public Message getList(@RequestBody ComponentFilter filter) {
+        Page<AlarmVO> page = alarmService.getAlarmPage( filter );
+        return MessageFactory.message( true, page );
     }
 
-    @GetMapping(value = "/list/config/{pageNum}/{pageSize}")
-    public Message getConfigList(@PathVariable Integer pageNum,
-                                 @PathVariable Integer pageSize) {
-        Page<AlarmConfigVO> page = alarmConfigService.getAlarmConfigPage(new Page<>(pageNum, pageSize));
+    @PostMapping(value = "/list/config")
+    public Message getConfigList(@RequestBody ComponentFilter filter) {
+        Page<AlarmConfigVO> page = alarmConfigService.getAlarmConfigPage(filter);
         return MessageFactory.message(true, page);
     }
 
     @PostMapping(value = "/save")
     public Message save(@RequestBody AlarmConfig config) {
-        boolean isSave = alarmConfigService.saveOrUpdate(config);
+        boolean isSave = alarmConfigService.saveConfig(config);
         return MessageFactory.message(isSave);
     }
 
     @DeleteMapping(value = "/config/batch")
     public Message delete(@RequestBody List<Integer> idList) {
-        boolean isDelete = alarmConfigService.removeByIds(idList);
+        boolean isDelete = alarmConfigService.deleteByIds( idList );
         return MessageFactory.message(isDelete);
     }
 

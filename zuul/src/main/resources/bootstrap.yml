@@ -6,10 +6,10 @@ server:
 eureka:
   instance:
     preferIpAddress: true
-    hostname: localhost
+    hostname: localhost:8081
   client:
     service-url:
-      defaultZone: http://${eureka.instance.hostname}:8080/eureka
+      defaultZone: http://${eureka.instance.hostname}/eureka
 
 zuul:
   # 转发request不清空header

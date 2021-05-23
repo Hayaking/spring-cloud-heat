@@ -11,13 +11,13 @@ import java.util.concurrent.BlockingQueue;
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class Producer extends Thread{
-    private final BlockingQueue<HeatData> queue = Common.getQueue();
+    private static final BlockingQueue<HeatData> QUEUE = Common.getQueue();
     protected Channel channel;
 
     @Override
     public void run() {
         while (true) {
-            HeatData data = queue.poll();
+            HeatData data = QUEUE.poll();
             if (data == null) {
                 continue;
             }

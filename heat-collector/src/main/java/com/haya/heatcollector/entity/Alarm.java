@@ -17,12 +17,14 @@ import java.util.Date;
 @Data
 @TableName("alarm")
 public class Alarm extends Model<Alarm> implements Serializable {
+    private static final long serialVersionUID = 1L;
     @TableId(type = IdType.AUTO)
     private Integer id;
     private Integer level;
     private Integer componentId;
     private Integer configId;
     private Integer metricId;
+    private String metricName;
     private Double metricValue;
 
     private Date ctime;

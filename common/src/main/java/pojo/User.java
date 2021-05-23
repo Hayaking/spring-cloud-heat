@@ -21,7 +21,8 @@ public class User extends Model<User> {
     private String phone;
     private String email;
     private Integer roleId;
-    private Date createDate;
+    private Date ctime;
+    private Date mtime;
     private Boolean enable;
     @TableLogic
     private Integer deleted;

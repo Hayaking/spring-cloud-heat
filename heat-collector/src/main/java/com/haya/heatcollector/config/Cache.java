@@ -45,7 +45,7 @@ public class Cache {
                         // 不缓存null
                         .disableCachingNullValues()
                         // 缓存数据保存1小时
-                        .entryTtl(Duration.ofMinutes(5));
+                        .entryTtl(Duration.ofMinutes(600));
 
         // 够着一个redis缓存管理器
         return RedisCacheManager.RedisCacheManagerBuilder

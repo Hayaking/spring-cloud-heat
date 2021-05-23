@@ -43,10 +43,10 @@ server:
 eureka:
   instance:
     preferIpAddress: true
-    hostname: localhost
+    hostname: localhost:8081
   client:
     service-url:
-      defaultZone: http://${eureka.instance.hostname}:8080/eureka
+      defaultZone: http://${eureka.instance.hostname}/eureka
 
 mybatis-plus:
   mapper-locations: classpath:/com/consumer/consumer/mapper/druid/*.xml

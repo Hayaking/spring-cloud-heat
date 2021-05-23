@@ -1,0 +1,316 @@
+2021-05-22 23:08:04.071 [main] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Fetching config from server at : http://localhost:8888
+2021-05-22 23:08:06.243 [main] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Connect Timeout Exception on Url - http://localhost:8888. Will be trying the next url if available
+2021-05-22 23:08:06.243 [main] WARN  o.s.c.c.client.ConfigServicePropertySourceLocator - Could not locate PropertySource: I/O error on GET request for "http://localhost:8888/eureka-001/default": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-05-22 23:08:06.246 [main] INFO  com.haya.eureka.EurekaApplication - No active profile set, falling back to default profiles: default
+2021-05-22 23:08:07.306 [main] WARN  o.springframework.boot.actuate.endpoint.EndpointId - Endpoint ID 'service-registry' contains invalid characters, please migrate to a valid format.
+2021-05-22 23:08:07.489 [main] INFO  o.springframework.cloud.context.scope.GenericScope - BeanFactory id=16c17a22-5d0c-34af-b70f-aff6427cd218
+2021-05-22 23:08:07.967 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8081 (http)
+2021-05-22 23:08:07.985 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2021-05-22 23:08:07.985 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-05-22 23:08:07.986 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.31]
+2021-05-22 23:08:08.195 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-05-22 23:08:08.195 [main] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 1926 ms
+2021-05-22 23:08:08.311 [main] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2021-05-22 23:08:08.311 [main] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2021-05-22 23:08:08.325 [main] INFO  com.netflix.config.DynamicPropertyFactory - DynamicPropertyFactory is initialized with configuration sources: com.netflix.config.ConcurrentCompositeConfiguration@122d6c22
+2021-05-22 23:08:09.513 [main] INFO  c.s.j.server.impl.application.WebApplicationImpl - Initiating Jersey application, version 'Jersey: 1.19.1 03/11/2016 02:08 PM'
+2021-05-22 23:08:09.590 [main] INFO  c.n.discovery.provider.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+2021-05-22 23:08:09.592 [main] INFO  c.n.discovery.provider.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+2021-05-22 23:08:09.742 [main] INFO  c.n.discovery.provider.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+2021-05-22 23:08:09.743 [main] INFO  c.n.discovery.provider.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+2021-05-22 23:08:10.177 [main] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2021-05-22 23:08:10.177 [main] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2021-05-22 23:08:10.366 [main] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-22 23:08:11.431 [main] WARN  o.s.c.l.c.BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger - You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2021-05-22 23:08:11.497 [main] INFO  o.s.cloud.netflix.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+2021-05-22 23:08:11.529 [main] INFO  com.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+2021-05-22 23:08:11.530 [main] INFO  com.netflix.discovery.DiscoveryClient - Client configured to neither register nor query for data.
+2021-05-22 23:08:11.542 [main] INFO  com.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1621696091539 with initial instances count: 0
+2021-05-22 23:08:11.585 [main] INFO  com.netflix.eureka.DefaultEurekaServerContext - Initializing ...
+2021-05-22 23:08:11.587 [main] INFO  com.netflix.eureka.cluster.PeerEurekaNodes - Adding new peer nodes [http://localhost:8081/eureka/]
+2021-05-22 23:08:12.179 [main] INFO  c.n.discovery.provider.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+2021-05-22 23:08:12.180 [main] INFO  c.n.discovery.provider.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+2021-05-22 23:08:12.180 [main] INFO  c.n.discovery.provider.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+2021-05-22 23:08:12.180 [main] INFO  c.n.discovery.provider.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+2021-05-22 23:08:12.322 [main] INFO  com.netflix.eureka.cluster.PeerEurekaNodes - Replica node URL:  http://localhost:8081/eureka/
+2021-05-22 23:08:12.334 [main] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Finished initializing remote region registries. All known remote regions: []
+2021-05-22 23:08:12.335 [main] INFO  com.netflix.eureka.DefaultEurekaServerContext - Initialized
+2021-05-22 23:08:12.354 [main] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+2021-05-22 23:08:12.446 [main] INFO  o.s.c.n.e.serviceregistry.EurekaServiceRegistry - Registering application EUREKA-001 with eureka with status UP
+2021-05-22 23:08:12.449 [Thread-30] INFO  o.s.c.netflix.eureka.server.EurekaServerBootstrap - Setting the eureka configuration..
+2021-05-22 23:08:12.450 [Thread-30] INFO  o.s.c.netflix.eureka.server.EurekaServerBootstrap - Eureka data center value eureka.datacenter is not set, defaulting to default
+2021-05-22 23:08:12.451 [Thread-30] INFO  o.s.c.netflix.eureka.server.EurekaServerBootstrap - Eureka environment value eureka.environment is not set, defaulting to test
+2021-05-22 23:08:12.468 [Thread-30] INFO  o.s.c.netflix.eureka.server.EurekaServerBootstrap - isAws returned false
+2021-05-22 23:08:12.469 [Thread-30] INFO  o.s.c.netflix.eureka.server.EurekaServerBootstrap - Initialized server context
+2021-05-22 23:08:12.469 [Thread-30] INFO  c.n.eureka.registry.PeerAwareInstanceRegistryImpl - Got 1 instances from neighboring DS node
+2021-05-22 23:08:12.469 [Thread-30] INFO  c.n.eureka.registry.PeerAwareInstanceRegistryImpl - Renew threshold is: 1
+2021-05-22 23:08:12.469 [Thread-30] INFO  c.n.eureka.registry.PeerAwareInstanceRegistryImpl - Changing status to UP
+2021-05-22 23:08:12.473 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2021-05-22 23:08:12.479 [Thread-30] INFO  o.s.c.n.e.s.EurekaServerInitializerConfiguration - Started Eureka Server
+2021-05-22 23:08:12.511 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8081 (http) with context path ''
+2021-05-22 23:08:12.513 [main] INFO  o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 8081
+2021-05-22 23:08:13.149 [main] INFO  com.haya.eureka.EurekaApplication - Started EurekaApplication in 12.461 seconds (JVM running for 14.465)
+2021-05-22 23:08:13.492 [RMI TCP Connection(1)-192.168.75.1] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Fetching config from server at : http://localhost:8888
+2021-05-22 23:08:14.025 [RMI TCP Connection(3)-192.168.75.1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-05-22 23:08:14.025 [RMI TCP Connection(3)-192.168.75.1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-05-22 23:08:14.034 [RMI TCP Connection(3)-192.168.75.1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 9 ms
+2021-05-22 23:08:15.506 [RMI TCP Connection(1)-192.168.75.1] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Connect Timeout Exception on Url - http://localhost:8888. Will be trying the next url if available
+2021-05-22 23:08:15.506 [RMI TCP Connection(1)-192.168.75.1] WARN  o.s.c.c.client.ConfigServicePropertySourceLocator - Could not locate PropertySource: I/O error on GET request for "http://localhost:8888/eureka-001/default": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-05-22 23:09:12.477 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:09:23.615 [main] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Fetching config from server at : http://localhost:8888
+2021-05-22 23:09:25.964 [main] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Connect Timeout Exception on Url - http://localhost:8888. Will be trying the next url if available
+2021-05-22 23:09:25.966 [main] WARN  o.s.c.c.client.ConfigServicePropertySourceLocator - Could not locate PropertySource: I/O error on GET request for "http://localhost:8888/zuul/default": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-05-22 23:09:25.969 [main] INFO  com.haya.zuul.ZuulApplication - No active profile set, falling back to default profiles: default
+2021-05-22 23:09:28.151 [main] WARN  o.springframework.boot.actuate.endpoint.EndpointId - Endpoint ID 'service-registry' contains invalid characters, please migrate to a valid format.
+2021-05-22 23:09:28.203 [main] WARN  o.springframework.boot.actuate.endpoint.EndpointId - Endpoint ID 'hystrix.stream' contains invalid characters, please migrate to a valid format.
+2021-05-22 23:09:28.622 [main] INFO  o.springframework.cloud.context.scope.GenericScope - BeanFactory id=c4fb403d-5efd-3f31-85ee-4c658387cb71
+2021-05-22 23:09:30.000 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8083 (http)
+2021-05-22 23:09:30.016 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8083"]
+2021-05-22 23:09:30.018 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-05-22 23:09:30.018 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.31]
+2021-05-22 23:09:30.140 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-05-22 23:09:30.140 [main] INFO  org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization completed in 4142 ms
+2021-05-22 23:09:30.346 [main] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2021-05-22 23:09:30.347 [main] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2021-05-22 23:09:30.366 [main] INFO  com.netflix.config.DynamicPropertyFactory - DynamicPropertyFactory is initialized with configuration sources: com.netflix.config.ConcurrentCompositeConfiguration@6015a4a5
+2021-05-22 23:09:34.204 [main] WARN  com.netflix.config.sources.URLConfigurationSource - No URLs will be polled as dynamic configuration sources.
+2021-05-22 23:09:34.204 [main] INFO  com.netflix.config.sources.URLConfigurationSource - To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2021-05-22 23:09:35.257 [main] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-22 23:09:36.512 [main] WARN  o.s.c.l.c.BlockingLoadBalancerClientAutoConfiguration$BlockingLoadBalancerClientRibbonWarnLogger - You already have RibbonLoadBalancerClient on your classpath. It will be used by default. As Spring Cloud Ribbon is in maintenance mode. We recommend switching to BlockingLoadBalancerClient instead. In order to use it, set the value of `spring.cloud.loadbalancer.ribbon.enabled` to `false` or remove spring-cloud-starter-netflix-ribbon from your project.
+2021-05-22 23:09:37.968 [main] INFO  o.s.cloud.netflix.zuul.ZuulFilterInitializer - Starting filter initializer
+2021-05-22 23:09:37.991 [main] INFO  o.s.b.actuate.endpoint.web.EndpointLinksResolver - Exposing 2 endpoint(s) beneath base path '/actuator'
+2021-05-22 23:09:38.155 [main] INFO  o.s.cloud.netflix.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+2021-05-22 23:09:38.235 [main] INFO  com.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+2021-05-22 23:09:38.347 [main] INFO  c.n.discovery.provider.DiscoveryJerseyProvider - Using JSON encoding codec LegacyJacksonJson
+2021-05-22 23:09:38.347 [main] INFO  c.n.discovery.provider.DiscoveryJerseyProvider - Using JSON decoding codec LegacyJacksonJson
+2021-05-22 23:09:38.615 [main] INFO  c.n.discovery.provider.DiscoveryJerseyProvider - Using XML encoding codec XStreamXml
+2021-05-22 23:09:38.615 [main] INFO  c.n.discovery.provider.DiscoveryJerseyProvider - Using XML decoding codec XStreamXml
+2021-05-22 23:09:39.022 [main] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2021-05-22 23:09:39.525 [main] INFO  com.netflix.discovery.DiscoveryClient - Disable delta property : false
+2021-05-22 23:09:39.525 [main] INFO  com.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+2021-05-22 23:09:39.525 [main] INFO  com.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+2021-05-22 23:09:39.525 [main] INFO  com.netflix.discovery.DiscoveryClient - Application is null : false
+2021-05-22 23:09:39.525 [main] INFO  com.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+2021-05-22 23:09:39.525 [main] INFO  com.netflix.discovery.DiscoveryClient - Application version is -1: true
+2021-05-22 23:09:39.525 [main] INFO  com.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+2021-05-22 23:09:40.054 [main] INFO  com.netflix.discovery.DiscoveryClient - The response status is 200
+2021-05-22 23:09:40.057 [main] INFO  com.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+2021-05-22 23:09:40.060 [main] INFO  com.netflix.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+2021-05-22 23:09:40.066 [main] INFO  com.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1621696180064 with initial instances count: 0
+2021-05-22 23:09:40.069 [main] INFO  o.s.c.n.e.serviceregistry.EurekaServiceRegistry - Registering application ZUUL with eureka with status UP
+2021-05-22 23:09:40.070 [main] INFO  com.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1621696180070, current=UP, previous=STARTING]
+2021-05-22 23:09:40.073 [DiscoveryClient-InstanceInfoReplicator-0] INFO  com.netflix.discovery.DiscoveryClient - DiscoveryClient_ZUUL/DESKTOP-R5JPITF:zuul:8083: registering service...
+2021-05-22 23:09:40.101 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8083"]
+2021-05-22 23:09:40.147 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8083 (http) with context path ''
+2021-05-22 23:09:40.148 [main] INFO  o.s.c.n.e.s.EurekaAutoServiceRegistration - Updating port to 8083
+2021-05-22 23:09:40.207 [http-nio-8081-exec-3] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Registered instance ZUUL/DESKTOP-R5JPITF:zuul:8083 with status UP (replication=false)
+2021-05-22 23:09:40.216 [DiscoveryClient-InstanceInfoReplicator-0] INFO  com.netflix.discovery.DiscoveryClient - DiscoveryClient_ZUUL/DESKTOP-R5JPITF:zuul:8083 - registration status: 204
+2021-05-22 23:09:40.918 [http-nio-8081-exec-2] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Registered instance ZUUL/DESKTOP-R5JPITF:zuul:8083 with status UP (replication=true)
+2021-05-22 23:09:41.147 [main] INFO  com.haya.zuul.ZuulApplication - Started ZuulApplication in 21.43 seconds (JVM running for 22.902)
+2021-05-22 23:09:41.798 [http-nio-8081-exec-5] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Registered instance CONSUMER-SERVICE/DESKTOP-R5JPITF:consumer-service:8084 with status UP (replication=false)
+2021-05-22 23:09:42.126 [RMI TCP Connection(2)-192.168.75.1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-05-22 23:09:42.127 [RMI TCP Connection(2)-192.168.75.1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-05-22 23:09:42.141 [RMI TCP Connection(1)-192.168.75.1] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Fetching config from server at : http://localhost:8888
+2021-05-22 23:09:42.143 [RMI TCP Connection(2)-192.168.75.1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 16 ms
+2021-05-22 23:09:42.312 [http-nio-8081-exec-6] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Registered instance CONSUMER-SERVICE/DESKTOP-R5JPITF:consumer-service:8084 with status UP (replication=true)
+2021-05-22 23:09:44.302 [RMI TCP Connection(1)-192.168.75.1] INFO  o.s.c.c.client.ConfigServicePropertySourceLocator - Connect Timeout Exception on Url - http://localhost:8888. Will be trying the next url if available
+2021-05-22 23:09:44.302 [RMI TCP Connection(1)-192.168.75.1] WARN  o.s.c.c.client.ConfigServicePropertySourceLocator - Could not locate PropertySource: I/O error on GET request for "http://localhost:8888/zuul/default": Connection refused: connect; nested exception is java.net.ConnectException: Connection refused: connect
+2021-05-22 23:09:50.795 [http-nio-8081-exec-8] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Registered instance SECURITY/DESKTOP-R5JPITF:security:8082 with status UP (replication=false)
+2021-05-22 23:09:51.312 [http-nio-8081-exec-9] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Registered instance SECURITY/DESKTOP-R5JPITF:security:8082 with status UP (replication=true)
+2021-05-22 23:10:10.060 [DiscoveryClient-CacheRefreshExecutor-0] INFO  com.netflix.discovery.DiscoveryClient - Disable delta property : false
+2021-05-22 23:10:10.060 [DiscoveryClient-CacheRefreshExecutor-0] INFO  com.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+2021-05-22 23:10:10.060 [DiscoveryClient-CacheRefreshExecutor-0] INFO  com.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+2021-05-22 23:10:10.060 [DiscoveryClient-CacheRefreshExecutor-0] INFO  com.netflix.discovery.DiscoveryClient - Application is null : false
+2021-05-22 23:10:10.060 [DiscoveryClient-CacheRefreshExecutor-0] INFO  com.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+2021-05-22 23:10:10.060 [DiscoveryClient-CacheRefreshExecutor-0] INFO  com.netflix.discovery.DiscoveryClient - Application version is -1: false
+2021-05-22 23:10:10.060 [DiscoveryClient-CacheRefreshExecutor-0] INFO  com.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+2021-05-22 23:10:10.083 [DiscoveryClient-CacheRefreshExecutor-0] INFO  com.netflix.discovery.DiscoveryClient - The response status is 200
+2021-05-22 23:10:12.471 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:11:12.472 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:12:12.472 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:13:12.472 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:14:12.472 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:14:39.537 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2021-05-22 23:15:12.472 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:15:31.682 [http-nio-8083-exec-2] INFO  com.netflix.config.ChainedDynamicProperty - Flipping property: security.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2021-05-22 23:15:31.715 [http-nio-8083-exec-2] INFO  com.netflix.util.concurrent.ShutdownEnabledTimer - Shutdown hook installed for: NFLoadBalancer-PingTimer-security
+2021-05-22 23:15:31.716 [http-nio-8083-exec-2] INFO  com.netflix.loadbalancer.BaseLoadBalancer - Client: security instantiated a LoadBalancer: DynamicServerListLoadBalancer:{NFLoadBalancer:name=security,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+2021-05-22 23:15:31.727 [http-nio-8083-exec-2] INFO  c.n.loadbalancer.DynamicServerListLoadBalancer - Using serverListUpdater PollingServerListUpdater
+2021-05-22 23:15:31.755 [http-nio-8083-exec-2] INFO  com.netflix.config.ChainedDynamicProperty - Flipping property: security.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2021-05-22 23:15:31.757 [http-nio-8083-exec-2] INFO  c.n.loadbalancer.DynamicServerListLoadBalancer - DynamicServerListLoadBalancer for client security initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=security,current list of Servers=[127.0.0.1:8082],Load balancer stats=Zone stats: {defaultzone=[Zone:defaultzone;	Instance count:1;	Active connections count: 0;	Circuit breaker tripped count: 0;	Active connections per server: 0.0;]
+},Server stats: [[Server:127.0.0.1:8082;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Thu Jan 01 08:00:00 CST 1970;	First connection made: Thu Jan 01 08:00:00 CST 1970;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@7f009c0b
+2021-05-22 23:15:31.781 [http-nio-8083-exec-2] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:15:32.729 [PollingServerListUpdater-0] INFO  com.netflix.config.ChainedDynamicProperty - Flipping property: security.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2021-05-22 23:15:32.862 [http-nio-8083-exec-3] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:15:32.922 [http-nio-8083-exec-5] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:15:32.965 [http-nio-8083-exec-6] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:15:33.325 [http-nio-8083-exec-5] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:15:33.387 [http-nio-8083-exec-1] INFO  com.netflix.config.ChainedDynamicProperty - Flipping property: consumer-service.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2021-05-22 23:15:33.391 [http-nio-8083-exec-1] INFO  com.netflix.util.concurrent.ShutdownEnabledTimer - Shutdown hook installed for: NFLoadBalancer-PingTimer-consumer-service
+2021-05-22 23:15:33.391 [http-nio-8083-exec-1] INFO  com.netflix.loadbalancer.BaseLoadBalancer - Client: consumer-service instantiated a LoadBalancer: DynamicServerListLoadBalancer:{NFLoadBalancer:name=consumer-service,current list of Servers=[],Load balancer stats=Zone stats: {},Server stats: []}ServerList:null
+2021-05-22 23:15:33.395 [http-nio-8083-exec-1] INFO  c.n.loadbalancer.DynamicServerListLoadBalancer - Using serverListUpdater PollingServerListUpdater
+2021-05-22 23:15:33.397 [http-nio-8083-exec-1] INFO  com.netflix.config.ChainedDynamicProperty - Flipping property: consumer-service.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2021-05-22 23:15:33.399 [http-nio-8083-exec-1] INFO  c.n.loadbalancer.DynamicServerListLoadBalancer - DynamicServerListLoadBalancer for client consumer-service initialized: DynamicServerListLoadBalancer:{NFLoadBalancer:name=consumer-service,current list of Servers=[192.168.75.1:8084],Load balancer stats=Zone stats: {defaultzone=[Zone:defaultzone;	Instance count:1;	Active connections count: 0;	Circuit breaker tripped count: 0;	Active connections per server: 0.0;]
+},Server stats: [[Server:192.168.75.1:8084;	Zone:defaultZone;	Total Requests:0;	Successive connection failure:0;	Total blackout seconds:0;	Last connection made:Thu Jan 01 08:00:00 CST 1970;	First connection made: Thu Jan 01 08:00:00 CST 1970;	Active Connections:0;	total failure count in last (1000) msecs:0;	average resp time:0.0;	90 percentile resp time:0.0;	95 percentile resp time:0.0;	min resp time:0.0;	max resp time:0.0;	stddev resp time:0.0]
+]}ServerList:org.springframework.cloud.netflix.ribbon.eureka.DomainExtractingServerList@68f00b97
+2021-05-22 23:15:33.410 [http-nio-8083-exec-1] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:15:33.410 [http-nio-8083-exec-2] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:15:33.410 [http-nio-8083-exec-3] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:15:33.411 [http-nio-8083-exec-4] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:15:33.729 [http-nio-8083-exec-10] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:15:33.737 [http-nio-8083-exec-8] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:15:34.397 [PollingServerListUpdater-0] INFO  com.netflix.config.ChainedDynamicProperty - Flipping property: consumer-service.ribbon.ActiveConnectionsLimit to use NEXT property: niws.loadbalancer.availabilityFilteringRule.activeConnectionsLimit = 2147483647
+2021-05-22 23:16:12.473 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:17:12.474 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:18:12.475 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 1ms
+2021-05-22 23:18:27.362 [http-nio-8083-exec-5] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:27.987 [http-nio-8083-exec-7] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:28.887 [http-nio-8083-exec-6] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:29.479 [http-nio-8083-exec-10] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:29.904 [http-nio-8083-exec-4] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:30.378 [http-nio-8083-exec-3] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:32.440 [http-nio-8083-exec-1] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:32.854 [http-nio-8083-exec-5] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:32.861 [http-nio-8083-exec-9] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:32.869 [http-nio-8083-exec-7] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:32.872 [http-nio-8083-exec-8] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:32.872 [http-nio-8083-exec-6] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:32.882 [http-nio-8083-exec-10] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:35.727 [http-nio-8083-exec-4] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:36.037 [http-nio-8083-exec-2] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:37.386 [http-nio-8083-exec-1] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:38.699 [http-nio-8083-exec-3] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:39.697 [http-nio-8083-exec-10] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:40.666 [http-nio-8083-exec-8] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:41.612 [http-nio-8083-exec-9] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:43.183 [http-nio-8083-exec-5] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:43.436 [http-nio-8083-exec-10] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:43.437 [http-nio-8083-exec-8] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:43.438 [http-nio-8083-exec-5] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:43.438 [http-nio-8083-exec-7] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:43.441 [http-nio-8083-exec-9] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:18:43.450 [http-nio-8083-exec-2] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:19:12.476 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:19:39.546 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2021-05-22 23:20:12.476 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:20:34.196 [http-nio-8083-exec-1] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:20:36.134 [http-nio-8083-exec-3] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:20:36.508 [http-nio-8083-exec-6] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:20:36.513 [http-nio-8083-exec-9] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:20:36.513 [http-nio-8083-exec-7] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:20:36.513 [http-nio-8083-exec-4] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:20:36.513 [http-nio-8083-exec-2] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:20:36.517 [http-nio-8083-exec-8] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:21:12.477 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:21:51.782 [http-nio-8083-exec-9] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:21:57.919 [http-nio-8083-exec-7] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:21:58.159 [http-nio-8083-exec-2] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:07.459 [http-nio-8083-exec-10] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:07.689 [http-nio-8083-exec-5] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:09.648 [http-nio-8083-exec-3] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:09.962 [http-nio-8083-exec-8] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:09.982 [http-nio-8083-exec-1] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:09.985 [http-nio-8083-exec-4] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:09.991 [http-nio-8083-exec-6] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:09.992 [http-nio-8083-exec-9] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:09.997 [http-nio-8083-exec-7] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:11.028 [http-nio-8083-exec-2] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:11.213 [http-nio-8083-exec-10] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:12.082 [http-nio-8083-exec-5] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:12.477 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:22:13.358 [http-nio-8083-exec-3] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:15.223 [http-nio-8083-exec-9] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:15.431 [http-nio-8083-exec-8] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:15.432 [http-nio-8083-exec-7] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:15.433 [http-nio-8083-exec-6] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:15.451 [http-nio-8083-exec-2] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:15.458 [http-nio-8083-exec-10] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:25.592 [http-nio-8083-exec-5] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:26.525 [http-nio-8083-exec-3] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:28.012 [http-nio-8083-exec-9] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:28.277 [http-nio-8083-exec-4] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:28.277 [http-nio-8083-exec-1] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:28.296 [http-nio-8083-exec-7] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:22:28.300 [http-nio-8083-exec-8] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:23:12.337 [ReplicaAwareInstanceRegistry - RenewalThresholdUpdater] INFO  c.n.eureka.registry.PeerAwareInstanceRegistryImpl - Current renewal threshold is : 6
+2021-05-22 23:23:12.477 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:23:30.944 [http-nio-8083-exec-4] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:23:31.495 [http-nio-8083-exec-1] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:23:31.503 [http-nio-8083-exec-6] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:23:31.525 [http-nio-8083-exec-5] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:23:31.526 [http-nio-8083-exec-9] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:23:31.526 [http-nio-8083-exec-7] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:23:31.539 [http-nio-8083-exec-10] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:23:32.160 [http-nio-8083-exec-8] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:23:35.269 [http-nio-8083-exec-2] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:23:35.578 [http-nio-8083-exec-4] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:23:40.244 [http-nio-8083-exec-9] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:23:40.402 [http-nio-8083-exec-8] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:23:43.613 [http-nio-8083-exec-6] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:23:44.820 [http-nio-8083-exec-7] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:23:45.068 [http-nio-8083-exec-1] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:23:45.762 [http-nio-8083-exec-5] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:24:12.477 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:24:39.549 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2021-05-22 23:25:12.478 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:26:12.478 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:27:12.479 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:28:12.479 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:29:12.481 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 1ms
+2021-05-22 23:29:39.551 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2021-05-22 23:30:12.481 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:31:12.481 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:32:12.481 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:33:12.482 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:34:12.482 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:34:39.557 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2021-05-22 23:35:12.482 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:36:12.483 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:37:12.483 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:38:12.380 [ReplicaAwareInstanceRegistry - RenewalThresholdUpdater] INFO  c.n.eureka.registry.PeerAwareInstanceRegistryImpl - Current renewal threshold is : 6
+2021-05-22 23:38:12.484 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:39:12.484 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:39:39.559 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2021-05-22 23:40:12.485 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:41:12.485 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:42:12.486 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:43:12.496 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 8ms
+2021-05-22 23:44:12.495 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:44:39.562 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2021-05-22 23:45:12.496 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:46:12.496 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:47:12.497 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:48:12.497 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:48:13.898 [http-nio-8083-exec-7] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:48:14.611 [http-nio-8083-exec-1] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:49:12.497 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:49:39.570 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2021-05-22 23:50:12.498 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:51:12.498 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:51:28.943 [http-nio-8083-exec-10] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:52:00.229 [http-nio-8081-exec-9] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Registered instance CONSUMER-SERVICE/DESKTOP-R5JPITF:consumer-service:8084 with status UP (replication=false)
+2021-05-22 23:52:00.763 [http-nio-8081-exec-6] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Registered instance CONSUMER-SERVICE/DESKTOP-R5JPITF:consumer-service:8084 with status UP (replication=true)
+2021-05-22 23:52:12.498 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:52:30.798 [http-nio-8083-exec-8] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:52:31.274 [http-nio-8083-exec-7] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:52:45.540 [http-nio-8083-exec-3] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:52:46.131 [http-nio-8083-exec-10] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:52:48.400 [http-nio-8083-exec-6] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:52:48.601 [http-nio-8083-exec-7] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:53:12.369 [ReplicaAwareInstanceRegistry - RenewalThresholdUpdater] INFO  c.n.eureka.registry.PeerAwareInstanceRegistryImpl - Current renewal threshold is : 6
+2021-05-22 23:53:12.498 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:54:06.197 [http-nio-8083-exec-10] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:54:12.499 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:54:39.572 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2021-05-22 23:55:12.499 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:55:39.643 [http-nio-8083-exec-1] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:55:44.832 [http-nio-8083-exec-3] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command security is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:55:45.507 [http-nio-8083-exec-10] WARN  o.s.c.n.z.f.route.support.AbstractRibbonCommand - The Hystrix timeout of 600000ms for the command consumer-service is set lower than the combination of the Ribbon read and connect timeout, 1620000ms.
+2021-05-22 23:56:12.500 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 1ms
+2021-05-22 23:57:12.500 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:58:12.293 [http-nio-8081-exec-2] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Registered instance CONSUMER-SERVICE/DESKTOP-R5JPITF:consumer-service:8084 with status UP (replication=false)
+2021-05-22 23:58:12.500 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:58:12.837 [http-nio-8081-exec-9] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Registered instance CONSUMER-SERVICE/DESKTOP-R5JPITF:consumer-service:8084 with status UP (replication=true)
+2021-05-22 23:59:12.501 [Eureka-EvictionTimer] INFO  c.netflix.eureka.registry.AbstractInstanceRegistry - Running the evict task with compensationTime 0ms
+2021-05-22 23:59:39.575 [AsyncResolver-bootstrap-executor-0] INFO  c.n.d.shared.resolver.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration

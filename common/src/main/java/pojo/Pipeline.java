@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author haya
@@ -21,4 +22,7 @@ public class Pipeline extends Model<Pipeline> implements Serializable {
     private String path;
     private String name;
     private String color;
+    private Integer type;
+    private Double length;
+    private Date createDate;
 }

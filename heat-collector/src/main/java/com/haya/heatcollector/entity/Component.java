@@ -17,6 +17,7 @@ import java.util.Date;
 @Data
 @TableName("component")
 public class Component extends Model<Component> implements Serializable {
+    private static final long serialVersionUID = 1L;
     @TableId(type = IdType.AUTO)
     private Integer id;
     private String name;
@@ -25,9 +26,9 @@ public class Component extends Model<Component> implements Serializable {
     private Integer stationId;
     private String sensorId;
     private Integer type;
-    private Integer up;
     private String area;
     private String street;
+    private String address;
     private Date ctime;
 
     public String getCacheKey() {

@@ -14,6 +14,7 @@ import java.util.Date;
 @Data
 @TableName("user")
 public class User extends Model<User> {
+    private static final long serialVersionUID = 1L;
     @TableId(type = IdType.AUTO)
     private int id;
     private String username;
@@ -21,7 +22,8 @@ public class User extends Model<User> {
     private String phone;
     private String email;
     private Integer roleId;
-    private Date createDate;
+    private Date ctime;
+    private Date mtime;
     private Boolean enable;
     @TableLogic
     private Integer deleted;

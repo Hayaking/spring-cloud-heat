@@ -1,8 +1,5 @@
 package com.consumer.consumer.controller;
 
-import annotation.LogInfo;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.consumer.consumer.bean.ComponentFilter;
 import com.consumer.consumer.bean.DruidParam;
@@ -20,8 +17,6 @@ import pojo.Component;
 
 import java.util.List;
 
-import static java.util.Arrays.asList;
-
 @RequestMapping("/component")
 @RestController
 public class ComponentController {
@@ -30,45 +25,33 @@ public class ComponentController {
     @Autowired
     private ComponentService componentService;
 
-    @GetMapping("/test")
-    public Object test() {
-        return druidMapper.test();
-    }
-
-    @LogInfo(type = "post", value = "获取监控实例分页列表")
+//    @LogInfo(type = "post", value = "获取监控实例分页列表")
     @PostMapping("/page")
     public Message getComponentPage(@RequestBody ComponentFilter filter) {
         Page<ComponentVO> componentPage = componentService.getComponentPage(filter);
         return MessageFactory.message(true, componentPage);
     }
 
-    @LogInfo(type = "get", value = "获取首页监控实列列表")
-    @GetMapping("/list")
-    public Message getComponentList() {
-        QueryWrapper<Component> wrapper = new QueryWrapper<>();
-        wrapper.notIn("type", asList(9, 10, 11));
-        List<Component> list = componentService.list(wrapper);
+//    @LogInfo(type = "get", value = "获取首页监控实列列表")
+    @GetMapping(value = {
+            "/list",
+            "/list/name/{name}"
+    })
+    public Message getComponentList(@PathVariable(required = false) String name) {
+        List<ComponentVO> list = componentService.getHomeComponentList(name);
         return MessageFactory.message(true, list);
     }
 
-    @LogInfo(type = "get", value = "根据名字搜索监控实例")
-    @GetMapping("/list/name/{name}")
-    public Message getComponentList(@PathVariable String name) {
-        QueryWrapper<Component> wrapper = new QueryWrapper<>();
-        wrapper.like("name", name);
-        return MessageFactory.message(true, componentService.list(wrapper));
+    @GetMapping(value = "/list/sensor")
+    public Message getComponentList() {
+        List<Component> list = componentService.list();
+        return MessageFactory.message(true, list);
     }
 
     @PostMapping("/update")
     public Message update(@RequestBody ComponentVO componentVO) {
-        UpdateWrapper<Component> wrapper = new UpdateWrapper<>();
-        wrapper.eq("id", componentVO.getId());
-        wrapper.set("name", componentVO.getName());
-        wrapper.set("note", componentVO.getNote());
-        wrapper.set("area", componentVO.getArea());
-        wrapper.set("street", componentVO.getStreet());
-        wrapper.set("pipe_id", componentVO.getPipeId());
-        boolean isUpdate = componentService.update(wrapper);
+        Boolean isUpdate = componentService.updateComponent( componentVO );
+
         return MessageFactory.message(isUpdate);
     }
 

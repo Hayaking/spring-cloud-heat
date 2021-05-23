@@ -24,6 +24,7 @@ public class HeatData implements Serializable {
     private Integer stationId;
     // 传感器id
     private String sensorId;
+    private String collectorName;
     private String metricName;
     private Double metricValue;
     private Integer type;
@@ -35,5 +36,8 @@ public class HeatData implements Serializable {
     // 纬度
     private Double lat;
     private String componentName;
+    private String ip;
+    private Integer port;
+    private String address;
 
 }

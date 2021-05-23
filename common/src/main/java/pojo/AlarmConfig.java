@@ -20,10 +20,14 @@ public class AlarmConfig extends Model<AlarmConfig> {
     private Integer id;
     private Integer level;
     private Integer componentId;
+    private String componentName;
+    private Integer componentType;
     private Integer metricId;
+    private String metricName;
     private Double top;
     private Double bottom;
     private Integer userId;
+    private String userName;
     private Date ctime;
     private Date mtime;
 }

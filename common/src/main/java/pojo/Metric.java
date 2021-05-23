@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.Date;
+
 /**
  * @author haya
  */
@@ -20,4 +22,6 @@ public class Metric extends Model<Metric> {
     private Integer type;
     private String unit;
     private String note;
+    private String aliasName;
+    private Date ctime;
 }

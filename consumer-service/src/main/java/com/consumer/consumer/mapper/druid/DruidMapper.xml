@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.consumer.consumer.mapper.druid.DruidMapper">
+
     <sql id="rangeDateTime">
         AND __time >= TIME_FORMAT(MILLIS_TO_TIMESTAMP( ${druidParam.startTimeStamp}),'yyyy-MM-dd HH:mm','Asia/Shanghai')
         AND __time &lt; TIME_FORMAT(MILLIS_TO_TIMESTAMP( ${druidParam.endTimeStamp}),'yyyy-MM-dd HH:mm','Asia/Shanghai')
@@ -20,6 +21,18 @@
     <sql id="range60Minute">
         AND __time >= CURRENT_TIMESTAMP + INTERVAL '8' hour - INTERVAL '60' Minute
 	    AND __time &lt;  CURRENT_TIMESTAMP + INTERVAL '8' hour
+    </sql>
+
+    <sql id="from">
+        <if test="druidParam.range >= 7*24*60*60*1000  ">
+            from HEAT_DATA_DAY
+        </if>
+        <if test="druidParam.range >= 6*60*60*1000  and druidParam.range  &lt; 7*24*60*60*1000 ">
+            from HEAT_DATA_HOUR
+        </if>
+        <if test="6*60*60*1000 > druidParam.range">
+            from HEAT_DATA_MINUTE
+        </if>
     </sql>
 
     <select id="test" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
@@ -45,7 +58,7 @@
 
     <select id="getPipeLineWaterFlow" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
         select __time,id,metricName,avg(metricValue/counter) as metricValue
-        FROM HEAT_DATA_MINUTE
+        <include refid="from"/>
         where 1=1
         and id = #{druidParam.id}
         and metricName = #{druidParam.metricName}
@@ -53,10 +66,15 @@
         group by __time,id,metricName
     </select>
     <select id="getPipeLineBaseInfo" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
-        select __time,id,metricName,sensorId,(metricValue/counter) as metricValue
+        select id,metricName,max(metricValue/counter) as metricValue
         FROM HEAT_DATA_MINUTE
         where 1=1
-        and id = #{id}
+        <if test="idList!=null and idList.size > 0">
+            and id in
+            <foreach item="item" index="index" collection="idList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
         and metricName in(
             'pipeline_water_temperature',
             'pipeline_water_flow',
@@ -64,10 +82,11 @@
             'pipeline_water_level'
         )
         <include refid="range2Minute"/>
+        group by id,metricName
     </select>
     <select id="getComponentUP" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
         select __time,id,metricName,max(metricValue/counter) as metricValue
-        FROM HEAT_DATA_MINUTE
+        <include refid="from"/>
         where 1=1
         and id = #{druidParam.id}
         and metricName = #{druidParam.metricName}
@@ -77,7 +96,7 @@
 
     <select id="getStationChartDataList" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
         select __time,id,metricName,childType, avg(metricValue/counter) as metricValue
-        FROM HEAT_DATA_MINUTE
+        <include refid="from"/>
         where 1=1
         and id = #{druidParam.id}
         and metricName = #{druidParam.metricName}
@@ -132,13 +151,111 @@
     </select>
 
     <select id="selectTop5" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
-        select __time,id,componentName,metricName,avg(metricValue/counter) as metricValue
+        select id,componentName,metricName,avg(metricValue/counter) as metricValue
         FROM HEAT_DATA_MINUTE
         where 1=1
         and metricName in(#{metric})
         <include refid="range60Minute"/>
-        group by __time,id,componentName,metricName
+        group by id,componentName,metricName
         order by metricValue DESC
         LIMIT 5
+    </select>
+
+    <select id="getPipeLineChart" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
+        select __time,id,metricName,componentName,avg(metricValue/counter) as metricValue
+        <include refid="from"/>
+        where 1=1
+        and metricName in( #{druidParam.metricName})
+        <if test="idList!=null and idList.size > 0">
+            and id in
+            <foreach item="item" index="index" collection="idList" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <include refid="rangeDateTime"/>
+        group by __time,id,metricName,componentName
+    </select>
+
+    <select id="getTempSensorBaseInfo" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
+        select __time,id,metricName,sensorId,(metricValue/counter) as metricValue
+        FROM HEAT_DATA_MINUTE
+        where 1=1
+        and id = #{id}
+        and metricName in(
+        'pipeline_water_temperature',
+        'pipeline_water_temperature_increase',
+        'sensor_e_quantity',
+        'sensor_up_time'
+        )
+        <include refid="range2Minute"/>
+    </select>
+    <select id="getFlowSensorBaseInfo" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
+        select __time,id,metricName,sensorId,(metricValue/counter) as metricValue
+        FROM HEAT_DATA_MINUTE
+        where 1=1
+        and id = #{id}
+        and metricName in(
+        'pipeline_water_flow',
+        'pipeline_water_level',
+        'sensor_e_quantity',
+        'sensor_up_time'
+        )
+        <include refid="range2Minute"/>
+    </select>
+    <select id="getPressureSensorBaseInfo" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
+        select __time,id,metricName,sensorId,(metricValue/counter) as metricValue
+        FROM HEAT_DATA_MINUTE
+        where 1=1
+        and id = #{id}
+        and metricName in(
+        'pipeline_water_pressure',
+        'pipeline_water_pressure_increase',
+        'sensor_e_quantity',
+        'sensor_up_time'
+        )
+        <include refid="range2Minute"/>
+    </select>
+    <select id="getValveSensorBaseInfo" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
+        select __time,id,metricName,sensorId,(metricValue/counter) as metricValue
+        FROM HEAT_DATA_MINUTE
+        where 1=1
+        and id = #{id}
+        and metricName in(
+        'pipeline_valve_state',
+        'sensor_e_quantity',
+        'sensor_up_time'
+        )
+        <include refid="range2Minute"/>
+    </select>
+    <select id="gePumpSensorBaseInfo" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
+        select __time,id,metricName,sensorId,(metricValue/counter) as metricValue
+        FROM HEAT_DATA_MINUTE
+        where 1=1
+        and id = #{id}
+        and metricName in(
+        'pump_watt',
+        'pump_voltage',
+        'sensor_e_quantity',
+        'sensor_up_time'
+        )
+        <include refid="range2Minute"/>
+    </select>
+    <select id="getMetricComponentDataList" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
+        select id,componentName
+        FROM HEAT_DATA_MINUTE
+        where 1=1
+        and metricName in(#{metricName} )
+        <include refid="range30Minute"/>
+        group by id,componentName
+    </select>
+    <select id="getCollectorList" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
+        SELECT collectorName,id,componentName,max(__time) as __time
+        FROM HEAT_DATA_MINUTE
+        WHERE 1=1
+        <if test="name!=null ">
+            and name like concat('%',#{name},'%')
+        </if>
+        <include refid="range2Minute"/>
+        GROUP BY collectorName,id,componentName
     </select>
 </mapper>

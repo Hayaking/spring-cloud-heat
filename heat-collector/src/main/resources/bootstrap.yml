@@ -1,8 +1,12 @@
+collector:
+  name: c-001
+  ip: 127.0.0.1
+  port: 8086
 spring:
   application:
     name: heat-collector
   kafka:
-    bootstrap-servers: kafka:9092
+    bootstrap-servers: 192.168.75.11:9092
     producer:
       acks: 1
       batch-size: 100
@@ -24,12 +28,12 @@ spring:
       time-to-live: 5m
       use-key-prefix: true
     type: Redis
-    cache-names: metric,component,alarmConfig
+    cache-names: metric,component,alarmConfig,geo
 logging:
   level:
     root: info
 server:
-  port: 9617
+  port: 8085
 
 
 

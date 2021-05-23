@@ -23,6 +23,7 @@ public class Alarm extends Model<Alarm> implements Serializable {
     private Integer level;
     private Integer configId;
     private Integer metricId;
+    private String metricName;
     private Double metricValue;
 
     private Date ctime;

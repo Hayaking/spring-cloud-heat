@@ -19,14 +19,6 @@ public interface ComponentService extends IService<Component> {
 
     ComponentBaseInfoVO getBaseInfo(Integer id);
 
-    void setPipeBaseInfo(Integer id, ComponentBaseInfoVO baseInfo);
-
-    void setPumpBaseInfo(Integer id, ComponentBaseInfoVO baseInfo);
-
-    void setSensorBaseInfo(Integer id, ComponentBaseInfoVO baseInfo);
-
-    void setStationBaseInfo(Integer id, ComponentBaseInfoVO baseInfo);
-
     ChartResponse druid(DruidParam druidParam);
 
     List<HeatMapData> getHeatMap();
@@ -34,4 +26,8 @@ public interface ComponentService extends IService<Component> {
     Double sumHourFlow();
 
     List getTop5(String metric);
+
+    List<ComponentVO> getHomeComponentList(String name);
+
+    Boolean updateComponent(ComponentVO componentVO);
 }

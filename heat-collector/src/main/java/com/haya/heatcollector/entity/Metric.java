@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author haya
@@ -16,11 +17,13 @@ import java.io.Serializable;
 @Data
 @TableName("metric")
 public class Metric extends Model<Metric> implements Serializable {
-
+    private static final long serialVersionUID = 1L;
     @TableId(type = IdType.AUTO)
     private Integer id;
     private String name;
     private Integer type;
     private String unit;
     private String note;
+    private String aliasName;
+    private Date ctime;
 }

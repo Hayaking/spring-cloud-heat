@@ -1,6 +1,7 @@
 package com.haya.heatcollector;
 
 import com.haya.heatcollector.entity.Metric;
+import com.haya.heatcollector.service.BaiduGeoService;
 import com.haya.heatcollector.service.MetricService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ class HeatCollectorApplicationTests {
 
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private BaiduGeoService baiduGeoService;
 
     @Test
     void contextLoads() {
@@ -25,17 +28,21 @@ class HeatCollectorApplicationTests {
         }
     }
 
-    @Test
-    void get() {
-        Metric metric = (Metric) redisTemplate.opsForValue().get("metric::1:test");
-        System.out.println(metric);
-    }
+//    @Test
+//    void get() {
+//        Metric metric = (Metric) redisTemplate.opsForValue().get("metric::1:test");
+//        System.out.println(metric);
+//    }
 
     @Test
     void merge() {
         contextLoads();
-        get();
+//        get();
     }
 
+    @Test
+    void get() {
+        System.out.println( baiduGeoService.getGeoInfoByPoint( 121.498840, 31.225696 ) );
+    }
 
 }

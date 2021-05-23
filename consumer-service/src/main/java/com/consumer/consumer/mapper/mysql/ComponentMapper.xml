@@ -9,9 +9,33 @@
             #{item}
         </foreach>
     </update>
+    <update id="updateStationId">
+        UPDATE component
+        set station_id = #{stationId}
+        where id in
+        <foreach collection="idList" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+
     <select id="getIdListByPipeId" resultType="java.lang.Integer">
         SELECT id
         from component
         where pipe_id = #{pipeId}
+    </select>
+    <select id="getIdListByStationId" resultType="java.lang.Integer">
+        SELECT id
+        from component
+        where station_id = #{pipeId}
+    </select>
+    <select id="likeByName" resultType="com.consumer.consumer.bean.vo.ComponentVO">
+        SELECT id,name,lat,lon
+        FROM component t1
+        where name  LIKE concat(concat('%',#{name}),'%')
+          and station_id is  null
+        UNION
+        SELECT id,name,lat,lon
+        FROM station
+        where  name LIKE concat(concat('%',#{name}),'%')
     </select>
 </mapper>
