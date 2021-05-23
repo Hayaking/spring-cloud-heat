@@ -27,11 +27,11 @@ public class PipeValveSensor extends TimerTask {
     private static final int TYPE = ComponetType.ValveSensor.getType();
     private static final BlockingQueue<HeatData> QUEUE = Common.getQueue();
     private static final List<Metric> METRIC_LIST = asList(
-            Metric.builder().name( pipeline_valve_state.name() ).min( 50d ).max( 100d ).build(),
-            Metric.builder().name( sensor_e_quantity.name() ).min( 50d ).max( 100d ).build(),
-            Metric.builder().name( sensor_state.name() ).min( 50d ).max( 100d ).build(),
-            Metric.builder().name( sensor_up_time.name() ).min( 50d ).max( 100d ).build(),
-            Metric.builder().name( component_up.name() ).min( 0d ).max( 0d ).build()
+            Metric.builder().min( 50d ).max( 100d ).build().setMetric( pipeline_valve_state ),
+            Metric.builder().min( 50d ).max( 100d ).build().setMetric( sensor_e_quantity ),
+            Metric.builder().min( 50d ).max( 100d ).build().setMetric( sensor_state ),
+            Metric.builder().min( 50d ).max( 100d ).build().setMetric( sensor_up_time ),
+            Metric.builder().min( 0d ).max( 0d ).build().setMetric( component_up )
     );
     private double lon;
     private double lat;
@@ -39,16 +39,18 @@ public class PipeValveSensor extends TimerTask {
     @SneakyThrows
     @Override
     public void run() {
-            for (Metric metric : METRIC_LIST) {
-                QUEUE.add( HeatData.builder()
-                        .time( new Date() )
-                        .lon( lon )
-                        .lat( lat )
-                        .type( TYPE )
-                        .metricName( metric.getName() )
-                        .metricValue( metric.getRandomNumber() )
-                        .build() );
-            }
-            log.info("PipeValveSensor done");
+        for (Metric metric : METRIC_LIST) {
+            QUEUE.add( HeatData.builder()
+                    .time( new Date() )
+                    .lon( lon )
+                    .lat( lat )
+                    .type( TYPE )
+                    .metricName( metric.getName() )
+                    .aliasName( metric.getAliasName() )
+                    .unit( metric.getUnit() )
+                    .metricValue( metric.getRandomNumber() )
+                    .build() );
+        }
+        log.info( "PipeValveSensor done" );
     }
 }

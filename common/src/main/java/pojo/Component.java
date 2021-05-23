@@ -22,6 +22,7 @@ public class Component extends Model<Component> {
 //    private Integer up;
     private String area;
     private String street;
+    private String address;
     private String note;
     private Integer pipeId;
 }

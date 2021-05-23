@@ -10,6 +10,7 @@ public class DruidParam {
     private long startTimeStamp;
     private long endTimeStamp;
     private long range;
+    private int type;
 
     public long getRange() {
         return endTimeStamp - startTimeStamp;

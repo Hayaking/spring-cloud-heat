@@ -53,16 +53,6 @@ public class AlarmServiceImpl extends ServiceImpl<AlarmMapper, Alarm> implements
             AlarmVO vo = new AlarmVO();
             BeanUtils.copyProperties(item, vo);
             vo.setMetricValue(DoubleFormatUtil.halfUp(item.getMetricValue()));
-//            AlarmConfig config = alarmConfigMapper.selectById(item.getConfigId());
-//            Component component = componentService.getById(item.getComponentId());
-//            Metric metric = metricService.getById(item.getMetricId());
-//            vo.setLevel(config.getLevel());
-//            vo.setMetricName(metric.getName());
-//            if (component != null) {
-//                vo.setComponentId(component.getId());
-//                vo.setComponentType(component.getType());
-//                vo.setComponentName(component.getName());
-//            }
             return vo;
         }).collect(Collectors.toList());
         result.setRecords(collect);

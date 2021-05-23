@@ -244,6 +244,7 @@
         select id,componentName
         FROM HEAT_DATA_MINUTE
         where 1=1
+        and type = #{type}
         and metricName in(#{metricName} )
         <include refid="range30Minute"/>
         group by id,componentName

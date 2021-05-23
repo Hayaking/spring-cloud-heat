@@ -12,6 +12,7 @@ import com.consumer.consumer.mapper.druid.DruidMapper;
 import com.consumer.consumer.mapper.mysql.MetricMapper;
 import com.consumer.consumer.service.ComponentService;
 import com.consumer.consumer.service.MetricService;
+import com.consumer.consumer.util.WrapperUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -56,8 +57,9 @@ public class MetricServiceImpl extends ServiceImpl<MetricMapper, Metric> impleme
     @Override
     public Page<MetricVO> getMetricPage(ComponentFilter filter) {
         QueryWrapper<Metric> wrapper = new QueryWrapper<>();
-
-        Page<Metric> page = page( new Page<>( filter.getPageNum(), filter.getPageSize() ) );
+        WrapperUtil.buildCondition( filter, wrapper );
+        wrapper.orderByDesc( "ctime" );
+        Page<Metric> page = page( new Page<>( filter.getPageNum(), filter.getPageSize() ), wrapper );
         Page<MetricVO> result = new Page<>();
         result.setSize( page.getSize() );
         result.setTotal( page.getTotal() );
@@ -74,7 +76,7 @@ public class MetricServiceImpl extends ServiceImpl<MetricMapper, Metric> impleme
     @Override
     public List<Component> getComponentListById(Integer id) {
         Metric metric = getById( id );
-        List<HeatDataDTO> dataList = druidMapper.getMetricComponentDataList( metric.getName() );
+        List<HeatDataDTO> dataList = druidMapper.getMetricComponentDataList( metric.getName() ,metric.getType());
         return dataList.stream().map( item->{
             Component component = new Component();
             component.setId( item.getId() );

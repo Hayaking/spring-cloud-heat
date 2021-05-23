@@ -17,6 +17,7 @@ import com.haya.heatcollector.utils.RedisLock;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -24,6 +25,8 @@ import org.springframework.util.CollectionUtils;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author haya
@@ -45,7 +48,8 @@ public class MetricHandle {
     private BaiduGeoService geoService;
     @Autowired
     private ThreadPoolExecutor taskExecutePoll;
-
+    @Autowired
+    private RedisTemplate<String,String> redisTemplate;
 
     public void handle(HeatData heatData) {
         heatData.setCollectorName( collectorName );
@@ -57,37 +61,43 @@ public class MetricHandle {
         heatData.setAddress( geoInfo.getAddress() );
         String lockKey = "lock:" + heatData.getType() + ":" + lon + ":" + lat;
         String uuid = UUID.randomUUID().toString();
-        Component componentPrototype = null;
+        AtomicReference<Component> componentAtomicReference = new AtomicReference<>();
         try {
             RedisLock.tryLock( lockKey, uuid, 5, 10 );
-            componentPrototype = componentService.selectElseInsert( heatData );
+            componentAtomicReference.set( componentService.selectElseInsert( heatData ) );
+
         } catch (Exception ignored) {
             System.out.println(ignored);
             return;
         } finally {
             RedisLock.releaseLock( lockKey, uuid );
         }
-        Component component = componentPrototype;
-        String key = "component:up:set:" + componentPrototype.getId();
+        Component component = componentAtomicReference.get();
         Metric metric = registerMetric( heatData );
+        String key = "component:up:set:" + component.getId();
 
         // 处理component_up指标
         if ("component_up".equals( metric.getName() )) {
             taskExecutePoll.execute( () -> ComponentUpUtil.makeComponentUp( key, component, heatData ) );
         } else {
-            List<AlarmConfig> configList = alarmConfigService.select( component, metric );
+            List<AlarmConfig> configList = alarmConfigService.select( component, metric);
             if (!CollectionUtils.isEmpty( configList )) {
                 for (AlarmConfig config : configList) {
                     Double bottom = config.getBottom();
                     Double top = config.getTop();
                     Double metricValue = heatData.getMetricValue();
                     if (metricValue >= top || metricValue <= bottom) {
-                        // 保存告警
-                        taskExecutePoll.execute( () -> AlarmUtil.saveAlarm( config, component, metricValue, metric ) );
+                        String isExist = redisTemplate.opsForValue().get( "alarm:exist" + config.getId() );
                         // 添加异常状态到set
                         taskExecutePoll.execute( () -> ComponentUpUtil.saveUptoZSet( key, config ) );
-                        // 发送邮件
-                        taskExecutePoll.execute( () -> AlarmUtil.sendMail( component, metric, metricValue, config ) );
+                        if (isExist == null) {
+                            redisTemplate.opsForValue().set( "alarm:exist" + config.getId(), "" );
+                            redisTemplate.expire( "alarm:exist" + config.getId(), 5, TimeUnit.MINUTES );
+                            // 保存告警
+                            taskExecutePoll.execute( () -> AlarmUtil.saveAlarm( config, component, metricValue, metric ) );
+                            // 发送邮件
+                            taskExecutePoll.execute( () -> AlarmUtil.sendMail( component, metric, metricValue, config ) );
+                        }
                     }
                 }
             }
@@ -113,6 +123,8 @@ public class MetricHandle {
         Metric metric = new Metric() {{
             setType( heatData.getType() );
             setName( heatData.getMetricName() );
+            setAliasName( heatData.getAliasName() );
+            setUnit( heatData.getUnit() );
         }};
         // 指标注册
         return metricService.selectElseInsert( metric );

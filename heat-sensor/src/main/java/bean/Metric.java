@@ -17,6 +17,8 @@ import java.util.Random;
 public class Metric {
     private static final Random RANDOM = new Random();
     private String name;
+    private String aliasName;
+    private String unit;
     private Double min;
     private Double max;
     private Class clazz = Double.class;
@@ -53,6 +55,13 @@ public class Metric {
             return (RANDOM.nextDouble()*10000) % (max - min) + min;
         }
 
+    }
+
+    public Metric setMetric(MetricName metricName) {
+        setName( metricName.name() );
+        setAliasName( metricName.getAliasName() );
+        setUnit( metricName.getUnit() );
+        return this;
     }
 
     public static void main(String[] args) {

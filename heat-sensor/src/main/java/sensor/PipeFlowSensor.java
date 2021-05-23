@@ -27,13 +27,13 @@ public class PipeFlowSensor extends TimerTask {
     private static final int TYPE = ComponetType.FlowSensor.getType();
     private static final BlockingQueue<HeatData> QUEUE = Common.getQueue();
     private static final List<Metric> METRIC_LIST = asList(
-            Metric.builder().name( pipeline_water_flow.name() ).min( 50d ).max( 100d ).build(),
-            Metric.builder().name( pipeline_water_tassels.name() ).min( 50d ).max( 100d ).build(),
-            Metric.builder().name( pipeline_water_level.name() ).min( 50d ).max( 100d ).build(),
-            Metric.builder().name( sensor_e_quantity.name() ).min( 50d ).max( 100d ).build(),
-            Metric.builder().name( sensor_state.name() ).min( 50d ).max( 100d ).build(),
-            Metric.builder().name( sensor_up_time.name() ).min( 50d ).max( 100d ).build(),
-            Metric.builder().name( component_up.name() ).min( 0d ).max( 0d ).build()
+            Metric.builder().min( 50d ).max( 100d ).build().setMetric( pipeline_water_flow ),
+            Metric.builder().min( 50d ).max( 100d ).build().setMetric( pipeline_water_tassels ),
+            Metric.builder().min( 50d ).max( 100d ).build().setMetric( pipeline_water_level ),
+            Metric.builder().min( 50d ).max( 100d ).build().setMetric( sensor_e_quantity ),
+            Metric.builder().min( 50d ).max( 100d ).build().setMetric( sensor_state ),
+            Metric.builder().min( 50d ).max( 100d ).build().setMetric( sensor_up_time ),
+            Metric.builder().min( 0d ).max( 0d ).build().setMetric( component_up )
     );
     private double lon;
     private double lat;
@@ -48,9 +48,11 @@ public class PipeFlowSensor extends TimerTask {
                     .lat( lat )
                     .type( TYPE )
                     .metricName( metric.getName() )
+                    .aliasName( metric.getAliasName() )
+                    .unit( metric.getUnit() )
                     .metricValue( metric.getRandomNumber() )
                     .build() );
         }
-        log.info("PipeFlowSensor done");
+        log.info( "PipeFlowSensor done" );
     }
 }

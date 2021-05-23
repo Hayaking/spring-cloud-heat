@@ -50,7 +50,8 @@ public interface DruidMapper extends BaseMapper<HeatDataDTO> {
 
     List<HeatDataDTO> gePumpSensorBaseInfo(@Param("id") Integer id);
 
-    List<HeatDataDTO> getMetricComponentDataList(@Param("metricName") String metricName);
+    List<HeatDataDTO> getMetricComponentDataList(@Param("metricName") String metricName,
+                                                 @Param("type") Integer type);
 
     List<HeatDataDTO> getCollectorList(@Param("name") String name);
 }

@@ -39,5 +39,6 @@ public class HeatData implements Serializable {
     private String ip;
     private Integer port;
     private String address;
-
+    private String aliasName;
+    private String unit;
 }

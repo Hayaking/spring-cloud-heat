@@ -17,6 +17,7 @@ import com.consumer.consumer.service.PipelineService;
 import com.consumer.consumer.util.DoubleFormatUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -40,6 +41,11 @@ public class PipelineServiceImpl extends ServiceImpl<PipelineMapper, Pipeline> i
 
     @Autowired
     private DruidMapper druidMapper;
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
+
+    private static final String[] TYPE_ARRAY = {"","温度传感器", "流量传感器", "压力传感器", "阀门传感器", "泵传感器"};
+
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -99,8 +105,17 @@ public class PipelineServiceImpl extends ServiceImpl<PipelineMapper, Pipeline> i
         return result;
     }
 
+
     @Override
     public ChartResponse druid(DruidParam druidParam) {
+        if ("sensor_pie".equals( druidParam.getMetricName() )) {
+            return druidSensorPieChart(druidParam);
+        }
+        return druidChart( druidParam );
+    }
+
+
+    public ChartResponse druidChart(DruidParam druidParam) {
         ChartResponse chartResponse = new ChartResponse();
         int pipeLineId = druidParam.getId();
         List<Integer> sensorIdList = componentMapper.getIdListByPipeId( pipeLineId );
@@ -115,6 +130,17 @@ public class PipelineServiceImpl extends ServiceImpl<PipelineMapper, Pipeline> i
                             DoubleFormatUtil.halfUp( data.getMetricValue()
                             ) ) );
                 } );
+        return chartResponse;
+    }
+
+    public ChartResponse druidSensorPieChart(DruidParam druidParam) {
+        ChartResponse chartResponse = new ChartResponse();
+        QueryWrapper<Component> wrapper = new QueryWrapper<>();
+        wrapper.eq( "pipe_id", druidParam.getId() );
+        List<Component> componentList = componentMapper.selectList( wrapper );
+        Map<Integer, List<Component>> typeMap = componentList.stream().collect( Collectors.groupingBy( Component::getType ) );
+        ChartResponse.Serie serie = chartResponse.addSerie( "传感器占比", ChartResponse.SerieType.pie );
+        typeMap.forEach( (type, list) -> serie.addData( TYPE_ARRAY[type], Double.valueOf( list.size() ) ) );
         return chartResponse;
     }
 
@@ -180,6 +206,12 @@ public class PipelineServiceImpl extends ServiceImpl<PipelineMapper, Pipeline> i
                 .map( item -> {
                     ComponentVO vo = new ComponentVO();
                     BeanUtils.copyProperties( item, vo );
+                    String up = redisTemplate.opsForValue().get( "component:up:" + item.getId() );
+                    if (StringUtils.isEmpty( up )) {
+                        vo.setUp( 2 );
+                    } else {
+                        vo.setUp( Integer.valueOf( up ) );
+                    }
                     return vo;
                 } ).collect( Collectors.toList() );
         page.setRecords( result );

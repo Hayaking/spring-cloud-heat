@@ -31,5 +31,7 @@ public class HeatData implements Serializable {
     // 纬度
     private Double lat;
     private String componentName;
+    private String aliasName;
+    private String unit;
 
 }
