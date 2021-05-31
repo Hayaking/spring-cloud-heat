@@ -1,4 +1,4 @@
-package com.haya.spark
+package com.haya.spark.util
 
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 

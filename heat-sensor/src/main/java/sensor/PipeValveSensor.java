@@ -30,7 +30,7 @@ public class PipeValveSensor extends TimerTask {
             Metric.builder().min( 50d ).max( 100d ).build().setMetric( pipeline_valve_state ),
             Metric.builder().min( 50d ).max( 100d ).build().setMetric( sensor_e_quantity ),
             Metric.builder().min( 50d ).max( 100d ).build().setMetric( sensor_state ),
-            Metric.builder().min( 50d ).max( 100d ).build().setMetric( sensor_up_time ),
+            Metric.builder().build().setMetric( sensor_up_time ),
             Metric.builder().min( 0d ).max( 0d ).build().setMetric( component_up )
     );
     private double lon;

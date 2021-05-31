@@ -9,11 +9,14 @@ import com.consumer.consumer.bean.vo.ComponentBaseInfoVO;
 import com.consumer.consumer.bean.vo.ComponentVO;
 import com.consumer.consumer.bean.vo.HeatMapData;
 import pojo.Component;
+import pojo.Metric;
 
 import java.util.List;
 
 public interface ComponentService extends IService<Component> {
     void drawChart();
+
+    ChartResponse draw(DruidParam druidParam, Metric metric);
 
     Page<ComponentVO> getComponentPage(ComponentFilter filter);
 

@@ -1,17 +1,16 @@
-package com.haya.spark
+package com.haya.spark.util
 
-import com.haya.spark.Checker.{check, kafkaProducer, rangeCache, topic}
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 
-object DataSender extends Serializable{
+object DataSender extends Serializable {
   val topic = "topic.q3"
   var rangeCache: Map[Int, List[BigDecimal]] = _
   var kafkaProducer: KafkaProducer[String, String] = _
 
-  def send(value:String): Unit = {
-//    println("=================")
-//    println(value)
-//    println("=================")
+  def send(value: String): Unit = {
+    //    println("=================")
+    //    println(value)
+    //    println("=================")
     kafkaProducer.send(new ProducerRecord[String, String](topic, value))
   }
 }

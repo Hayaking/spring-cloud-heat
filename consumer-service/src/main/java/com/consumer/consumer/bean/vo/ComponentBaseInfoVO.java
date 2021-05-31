@@ -24,4 +24,7 @@ public class ComponentBaseInfoVO extends Component {
     private Integer up;
     private List<String> picList;
     private List<Component> sensorList;
+    private String collectorName;
+    private String stationName;
+    private String pipelineName;
 }

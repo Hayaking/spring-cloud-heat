@@ -8,7 +8,7 @@ import com.consumer.consumer.bean.DruidParam;
 import com.consumer.consumer.bean.dto.HeatDataDTO;
 import com.consumer.consumer.bean.vo.ChartResponse;
 import com.consumer.consumer.bean.vo.MetricVO;
-import com.consumer.consumer.mapper.druid.DruidMapper;
+import com.consumer.consumer.mapper.phoenix.PhoenixMapper;
 import com.consumer.consumer.mapper.mysql.MetricMapper;
 import com.consumer.consumer.service.ComponentService;
 import com.consumer.consumer.service.MetricService;
@@ -33,7 +33,7 @@ public class MetricServiceImpl extends ServiceImpl<MetricMapper, Metric> impleme
     @Autowired
     private MetricMapper metricMapper;
     @Autowired
-    private DruidMapper druidMapper;
+    private PhoenixMapper phoenixMapper;
     @Autowired
     private ComponentService componentService;
 
@@ -76,7 +76,7 @@ public class MetricServiceImpl extends ServiceImpl<MetricMapper, Metric> impleme
     @Override
     public List<Component> getComponentListById(Integer id) {
         Metric metric = getById( id );
-        List<HeatDataDTO> dataList = druidMapper.getMetricComponentDataList( metric.getName() ,metric.getType());
+        List<HeatDataDTO> dataList = phoenixMapper.getMetricComponentDataList( metric.getName() ,metric.getType());
         return dataList.stream().map( item->{
             Component component = new Component();
             component.setId( item.getId() );
@@ -87,6 +87,24 @@ public class MetricServiceImpl extends ServiceImpl<MetricMapper, Metric> impleme
 
     @Override
     public ChartResponse getDetailChart(DruidParam druidParam) {
-        return componentService.druid( druidParam );
+        Integer metricId = druidParam.getMetricId();
+        Metric metric = metricMapper.selectById( metricId );
+        druidParam.setMetricName( metric.getName() );
+        return componentService.draw( druidParam, metric );
+    }
+
+    @Override
+    public Metric getByNameAndType(int type, String metricName) {
+        QueryWrapper<Metric> wrapper = new QueryWrapper<>();
+        wrapper.eq( "type", type );
+        wrapper.eq( "name", metricName );
+        return getOne( wrapper );
+    }
+
+    @Override
+    public Metric getByName(String metricName) {
+        QueryWrapper<Metric> wrapper = new QueryWrapper<>();
+        wrapper.eq( "name", metricName );
+        return getOne( wrapper );
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.consumer.consumer.mapper.druid.DruidMapper">
+<mapper namespace="com.consumer.consumer.mapper.phoenix.PhoenixMapper">
 
     <sql id="rangeDateTime">
         AND __time >= TIME_FORMAT(MILLIS_TO_TIMESTAMP( ${druidParam.startTimeStamp}),'yyyy-MM-dd HH:mm','Asia/Shanghai')
@@ -25,7 +25,8 @@
 
     <sql id="from">
         <if test="druidParam.range >= 7*24*60*60*1000  ">
-            from HEAT_DATA_DAY
+--             from HEAT_DATA_DAY
+            from HEAT_DATA_HOUR
         </if>
         <if test="druidParam.range >= 6*60*60*1000  and druidParam.range  &lt; 7*24*60*60*1000 ">
             from HEAT_DATA_HOUR
@@ -57,13 +58,13 @@
     </select>
 
     <select id="getPipeLineWaterFlow" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
-        select __time,id,metricName,avg(metricValue/counter) as metricValue
+        select __time,id,metricName,isAlarm,avg(metricValue/counter) as metricValue
         <include refid="from"/>
         where 1=1
         and id = #{druidParam.id}
         and metricName = #{druidParam.metricName}
         <include refid="rangeDateTime"/>
-        group by __time,id,metricName
+        group by __time,id,metricName,isAlarm
     </select>
     <select id="getPipeLineBaseInfo" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
         select id,metricName,max(metricValue/counter) as metricValue
@@ -177,7 +178,7 @@
     </select>
 
     <select id="getTempSensorBaseInfo" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
-        select __time,id,metricName,sensorId,(metricValue/counter) as metricValue
+        select __time,id,metricName,sensorId,collectorName,(metricValue/counter) as metricValue
         FROM HEAT_DATA_MINUTE
         where 1=1
         and id = #{id}
@@ -190,7 +191,7 @@
         <include refid="range2Minute"/>
     </select>
     <select id="getFlowSensorBaseInfo" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
-        select __time,id,metricName,sensorId,(metricValue/counter) as metricValue
+        select __time,id,metricName,sensorId,collectorName,(metricValue/counter) as metricValue
         FROM HEAT_DATA_MINUTE
         where 1=1
         and id = #{id}
@@ -203,7 +204,7 @@
         <include refid="range2Minute"/>
     </select>
     <select id="getPressureSensorBaseInfo" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
-        select __time,id,metricName,sensorId,(metricValue/counter) as metricValue
+        select __time,id,metricName,sensorId,collectorName,(metricValue/counter) as metricValue
         FROM HEAT_DATA_MINUTE
         where 1=1
         and id = #{id}
@@ -216,7 +217,7 @@
         <include refid="range2Minute"/>
     </select>
     <select id="getValveSensorBaseInfo" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
-        select __time,id,metricName,sensorId,(metricValue/counter) as metricValue
+        select __time,id,metricName,sensorId,collectorName,(metricValue/counter) as metricValue
         FROM HEAT_DATA_MINUTE
         where 1=1
         and id = #{id}
@@ -228,7 +229,7 @@
         <include refid="range2Minute"/>
     </select>
     <select id="gePumpSensorBaseInfo" resultType="com.consumer.consumer.bean.dto.HeatDataDTO">
-        select __time,id,metricName,sensorId,(metricValue/counter) as metricValue
+        select __time,id,metricName,sensorId,collectorName,(metricValue/counter) as metricValue
         FROM HEAT_DATA_MINUTE
         where 1=1
         and id = #{id}

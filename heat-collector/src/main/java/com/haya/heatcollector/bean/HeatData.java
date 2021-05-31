@@ -41,4 +41,5 @@ public class HeatData implements Serializable {
     private String address;
     private String aliasName;
     private String unit;
+    private Boolean isAlarm;
 }

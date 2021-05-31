@@ -16,7 +16,7 @@ import org.springframework.kafka.annotation.EnableKafka;
 @EnableEurekaClient
 @MapperScans( value = {
         @MapperScan(basePackages = "com.consumer.consumer.mapper.mysql",sqlSessionFactoryRef = "mysqlSqlSessionFactory"),
-        @MapperScan(basePackages = "com.consumer.consumer.mapper.druid",sqlSessionFactoryRef = "druidSqlSessionFactory")
+        @MapperScan(basePackages = "com.consumer.consumer.mapper.phoenix",sqlSessionFactoryRef = "phoenixSqlSessionFactory")
 })
 @SpringBootApplication
 public class ConsumerServiceApplication {

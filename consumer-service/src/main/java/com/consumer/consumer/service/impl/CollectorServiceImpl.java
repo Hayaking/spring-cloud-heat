@@ -4,7 +4,7 @@ import com.consumer.consumer.bean.ComponentFilter;
 import com.consumer.consumer.bean.dto.HeatDataDTO;
 import com.consumer.consumer.bean.vo.CollectorVO;
 import com.consumer.consumer.bean.vo.SensorVO;
-import com.consumer.consumer.mapper.druid.DruidMapper;
+import com.consumer.consumer.mapper.phoenix.PhoenixMapper;
 import com.consumer.consumer.service.CollectorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 @Service
 public class CollectorServiceImpl implements CollectorService {
     @Autowired
-    private DruidMapper druidMapper;
+    private PhoenixMapper phoenixMapper;
 
 
     @Override
     public List<CollectorVO> getPage(ComponentFilter filter) {
         String name = null;
-        List<HeatDataDTO> collectorList = druidMapper.getCollectorList( name);
+        List<HeatDataDTO> collectorList = phoenixMapper.getCollectorList( name);
         List<CollectorVO> result = new LinkedList<>();
         if (CollectionUtils.isEmpty( collectorList )) {
             return result;

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.consumer.consumer.bean.DruidParam;
 import com.consumer.consumer.bean.vo.ChartResponse;
 import com.consumer.consumer.bean.vo.ComponentVO;
+import com.consumer.consumer.bean.vo.PipelineVo;
 import com.consumer.consumer.bean.vo.StationVO;
 import com.consumer.consumer.service.StationService;
 import msg.Message;
@@ -52,6 +53,14 @@ public class StationController {
         return MessageFactory.message(true, list);
     }
 
+    @GetMapping("/pipeline/list/{id}/{pageNum}/{pageSize}")
+    public Message getPipelineList(@PathVariable Integer id,
+                                 @PathVariable Integer pageNum,
+                                 @PathVariable Integer pageSize) {
+        Page<PipelineVo> list = stationService.getPipelineList(new Page<>(pageNum,pageSize),id);
+        return MessageFactory.message(true, list);
+    }
+
     @GetMapping("/baseInfo/{id}")
     public Message baseInfo(@PathVariable Integer id) {
         StationVO baseInfo = stationService.getBaseInfo(id);
@@ -62,6 +71,12 @@ public class StationController {
     public Message deleteBatch(@RequestBody List<Integer> idList) {
         boolean res = stationService.deleteBatch(idList);
         return MessageFactory.message(res);
+    }
+
+    @GetMapping("/component/unbind/{id}")
+    public Message unbind(@PathVariable Integer id) {
+        boolean flag = stationService.unbindByComponentId( id );
+        return MessageFactory.message(flag);
     }
 
 }

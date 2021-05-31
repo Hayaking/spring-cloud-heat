@@ -34,5 +34,11 @@ public class HeatDataDTO implements Serializable {
     // 纬度
     private Double lat;
     private String componentName;
+    private String ip;
+    private Integer port;
+    private String address;
+    private String aliasName;
+    private String unit;
+    private String isAlarm;
 
 }

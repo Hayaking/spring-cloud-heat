@@ -12,11 +12,13 @@ import com.consumer.consumer.bean.vo.ChartResponse;
 import com.consumer.consumer.bean.vo.ComponentBaseInfoVO;
 import com.consumer.consumer.bean.vo.ComponentVO;
 import com.consumer.consumer.bean.vo.HeatMapData;
-import com.consumer.consumer.mapper.druid.DruidMapper;
+import com.consumer.consumer.mapper.phoenix.PhoenixMapper;
 import com.consumer.consumer.mapper.mysql.ComponentMapper;
 import com.consumer.consumer.mapper.mysql.PicMapper;
 import com.consumer.consumer.mapper.mysql.StationMapper;
 import com.consumer.consumer.service.ComponentService;
+import com.consumer.consumer.service.MetricService;
+import com.consumer.consumer.service.PipelineService;
 import com.consumer.consumer.util.DoubleFormatUtil;
 import com.consumer.consumer.util.MapUtil;
 import com.consumer.consumer.util.RedisLock;
@@ -28,9 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-import pojo.Component;
-import pojo.Pic;
-import pojo.Station;
+import pojo.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -50,13 +50,18 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
     @Autowired
     private ComponentMapper componentMapper;
     @Autowired
-    private DruidMapper druidMapper;
+    private PhoenixMapper phoenixMapper;
     @Autowired
     private PicMapper picMapper;
     @Autowired
     private StationMapper stationMapper;
     @Autowired
+    private PipelineService pipelineService;
+    @Autowired
     private RedisTemplate<String, String> redisTemplate;
+
+    @Autowired
+    private MetricService metricService;
 
     @Override
     public void drawChart() {
@@ -82,7 +87,7 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
                 .map( Component::getId )
                 .collect( Collectors.toList() );
         // 查druid
-        List<HeatDataDTO> dataList = druidMapper.selectByComponentIdList( ids, filter.getType() );
+        List<HeatDataDTO> dataList = phoenixMapper.selectByComponentIdList( ids, filter.getType() );
         Map<Integer, List<HeatDataDTO>> dataMap = dataList.stream().collect( Collectors.groupingBy( HeatDataDTO::getId ) );
         List<ComponentVO> resultList = componentList.stream()
                 .map( component -> {
@@ -136,10 +141,19 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
         return resultPage;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public ComponentBaseInfoVO getBaseInfo(Integer id) {
         ComponentBaseInfoVO baseInfo = new ComponentBaseInfoVO();
         Component component = componentMapper.selectById( id );
+        if (component.getStationId() != null) {
+            Station station = stationMapper.selectById( component.getStationId() );
+            baseInfo.setStationName(  station.getName());
+        }
+        if (component.getPipeId() != null) {
+            Pipeline pipeline = pipelineService.getById( component.getPipeId() );
+            baseInfo.setPipelineName(  pipeline.getName());
+        }
         Integer type = component.getType();
         BeanUtils.copyProperties( component, baseInfo );
         switch (type) {
@@ -174,13 +188,14 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
     }
 
     private void setPumpBaseInfo(Integer id, ComponentBaseInfoVO baseInfo) {
-        List<HeatDataDTO> dataList = druidMapper.gePumpSensorBaseInfo( id );
+        List<HeatDataDTO> dataList = phoenixMapper.gePumpSensorBaseInfo( id );
         if (!CollectionUtils.isEmpty( dataList )) {
             Map<String, List<HeatDataDTO>> list = dataList.stream().collect( Collectors.groupingBy( HeatDataDTO::getMetricName ) );
             list.forEach( (metricName, metricValues) -> {
                 List<HeatDataDTO> values = MapUtil.getLastTimeMetric( metricValues );
                 HeatDataDTO data = values.get( 0 );
                 Double metricValue = data.getMetricValue();
+                baseInfo.setCollectorName( data.getCollectorName() );
                 if (pump_voltage.name().equals( metricName )) {
                     baseInfo.setVoltage( DoubleFormatUtil.halfUp( metricValue ) );
                 } else if (pump_watt.name().equals( metricName )) {
@@ -195,13 +210,14 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
     }
 
     private void setValveBaseInfo(Integer id, ComponentBaseInfoVO baseInfo) {
-        List<HeatDataDTO> dataList = druidMapper.getValveSensorBaseInfo( id );
+        List<HeatDataDTO> dataList = phoenixMapper.getValveSensorBaseInfo( id );
         if (!CollectionUtils.isEmpty( dataList )) {
             Map<String, List<HeatDataDTO>> list = dataList.stream().collect( Collectors.groupingBy( HeatDataDTO::getMetricName ) );
             list.forEach( (metricName, metricValues) -> {
                 List<HeatDataDTO> values = MapUtil.getLastTimeMetric( metricValues );
                 HeatDataDTO data = values.get( 0 );
                 Double metricValue = data.getMetricValue();
+                baseInfo.setCollectorName( data.getCollectorName() );
                 if (pipeline_valve_state.name().equals( metricName )) {
                     baseInfo.setValve( metricValue.longValue() );
                 } else if (sensor_e_quantity.name().equals( metricName )) {
@@ -214,13 +230,14 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
     }
 
     private void setPressureBaseInfo(Integer id, ComponentBaseInfoVO baseInfo) {
-        List<HeatDataDTO> dataList = druidMapper.getPressureSensorBaseInfo( id );
+        List<HeatDataDTO> dataList = phoenixMapper.getPressureSensorBaseInfo( id );
         if (!CollectionUtils.isEmpty( dataList )) {
             Map<String, List<HeatDataDTO>> list = dataList.stream().collect( Collectors.groupingBy( HeatDataDTO::getMetricName ) );
             list.forEach( (metricName, metricValues) -> {
                 List<HeatDataDTO> values = MapUtil.getLastTimeMetric( metricValues );
                 HeatDataDTO data = values.get( 0 );
                 Double metricValue = data.getMetricValue();
+                baseInfo.setCollectorName( data.getCollectorName() );
                 if (pipeline_water_pressure_increase.name().equals( metricName )) {
                     baseInfo.setPressure( DoubleFormatUtil.halfUp( metricValue ) );
                 } else if (pipeline_water_pressure.name().equals( metricName )) {
@@ -235,13 +252,14 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
     }
 
     private void setFlowBaseInfo(Integer id, ComponentBaseInfoVO baseInfo) {
-        List<HeatDataDTO> dataList = druidMapper.getFlowSensorBaseInfo( id );
+        List<HeatDataDTO> dataList = phoenixMapper.getFlowSensorBaseInfo( id );
         if (!CollectionUtils.isEmpty( dataList )) {
             Map<String, List<HeatDataDTO>> list = dataList.stream().collect( Collectors.groupingBy( HeatDataDTO::getMetricName ) );
             list.forEach( (metricName, metricValues) -> {
                 List<HeatDataDTO> values = MapUtil.getLastTimeMetric( metricValues );
                 HeatDataDTO data = values.get( 0 );
                 Double metricValue = data.getMetricValue();
+                baseInfo.setCollectorName( data.getCollectorName() );
                 if (pipeline_water_flow.name().equals( metricName )) {
                     baseInfo.setFlow( DoubleFormatUtil.halfUp( metricValue ) );
                 } else if (pipeline_water_level.name().equals( metricName )) {
@@ -256,13 +274,14 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
     }
 
     private void setTempBaseInfo(Integer id, ComponentBaseInfoVO baseInfo) {
-        List<HeatDataDTO> dataList = druidMapper.getTempSensorBaseInfo( id );
+        List<HeatDataDTO> dataList = phoenixMapper.getTempSensorBaseInfo( id );
         if (!CollectionUtils.isEmpty( dataList )) {
             Map<String, List<HeatDataDTO>> list = dataList.stream().collect( Collectors.groupingBy( HeatDataDTO::getMetricName ) );
             list.forEach( (metricName, metricValues) -> {
                 List<HeatDataDTO> values = MapUtil.getLastTimeMetric( metricValues );
                 HeatDataDTO data = values.get( 0 );
                 Double metricValue = data.getMetricValue();
+                baseInfo.setCollectorName( data.getCollectorName() );
                 if (pipeline_water_temperature.name().equals( metricName )) {
                     baseInfo.setTemperature( DoubleFormatUtil.halfUp( metricValue ) );
                 } else if (pipeline_out_temperature.name().equals( metricName )) {
@@ -283,22 +302,9 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
             return drawComponentUp( druidParam );
         } else if (metricName.startsWith( "station_" )) {
             return drawStationChart( druidParam );
-        } else if (pipeline_water_flow.name().equals( metricName )) {
-            return draw( druidParam, null );
-        } else if (pipeline_water_temperature.name().equals( metricName )) {
-            return draw( druidParam, Collections.singletonList(
-                    ChartResponse.YAxis.addTickUnit( "立方米/分钟" )
-            ) );
-        } else if (pipeline_water_temperature_increase.name().equals( metricName )) {
-            return draw( druidParam, Collections.singletonList(
-                    ChartResponse.YAxis.addTickUnit( "立方米/分钟" )
-            ) );
-        } else if (pipeline_out_temperature.name().equals( metricName )) {
-            return draw( druidParam, Collections.singletonList(
-                    ChartResponse.YAxis.addTickUnit( "立方米/分钟" )
-            ) );
-        } else {
-            return draw( druidParam, null );
+        }  else {
+            Metric metric = metricService.getByName( druidParam.getMetricName() );
+            return draw( druidParam, metric);
         }
     }
 
@@ -306,7 +312,7 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
     @Override
     public List<HeatMapData> getHeatMap() {
         List<HeatMapData> result = new LinkedList<>();
-        List<HeatDataDTO> dataList = druidMapper.getHeatMapDataList();
+        List<HeatDataDTO> dataList = phoenixMapper.getHeatMapDataList();
 //        Map<Integer, List<HeatDataDTO>> dataMap = dataList.stream().collect(Collectors.groupingBy(HeatDataDTO::getId));
 //        List<Integer> componentIdList = dataList.stream().map(HeatDataDTO::getId).collect(Collectors.toList());
 //        List<Component> componentList = componentMapper.selectBatchIds(componentIdList);
@@ -340,7 +346,7 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
 
     @Override
     public Double sumHourFlow() {
-        HeatDataDTO data = druidMapper.selectSumHourFlow();
+        HeatDataDTO data = phoenixMapper.selectSumHourFlow();
         if (data != null) {
             return DoubleFormatUtil.halfUp( data.getMetricValue() );
         }
@@ -349,7 +355,7 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
 
     @Override
     public List getTop5(String metric) {
-        return druidMapper.selectTop5( metric ).stream().map( item -> {
+        return phoenixMapper.selectTop5( metric ).stream().map( item -> {
             item.setMetricValue( DoubleFormatUtil.halfUp( item.getMetricValue() ) );
             return item;
         } ).collect( Collectors.toList() );
@@ -414,7 +420,7 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
 
     private ChartResponse drawStationChart(DruidParam druidParam) {
         ChartResponse response = new ChartResponse();
-        List<HeatDataDTO> dataList = druidMapper.getStationChartDataList( druidParam );
+        List<HeatDataDTO> dataList = phoenixMapper.getStationChartDataList( druidParam );
         Map<Integer, List<HeatDataDTO>> dataMap = dataList.stream().collect( Collectors.groupingBy( HeatDataDTO::getChildType ) );
         dataMap.forEach( (childType, list) -> {
             ChartResponse.Serie serie = response.addSerie( childTypeMap.get( childType ), ChartResponse.SerieType.line );
@@ -426,7 +432,7 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
     private ChartResponse drawComponentUp(DruidParam druidParam) {
         ChartResponse response = new ChartResponse();
         response.setYAxis( asList( ChartResponse.YAxis.addTickUnit( "" ).setMax( 1L ) ) );
-        List<HeatDataDTO> dataList = druidMapper.getComponentUP( druidParam );
+        List<HeatDataDTO> dataList = phoenixMapper.getComponentUP( druidParam );
         ChartResponse.Serie serie = response.addSerie( MetricEnum.getMetricChName( druidParam.getMetricName() ), ChartResponse.SerieType.column );
         HashMap<Double, String> colorMap = new HashMap<Double, String>() {{
             put( 0d, "#07F531" );
@@ -444,12 +450,33 @@ public class ComponentServiceImpl extends ServiceImpl<ComponentMapper, Component
     }
 
     // 管道流量
-    private ChartResponse draw(DruidParam druidParam, List<ChartResponse.YAxis> units) {
+    @Override
+    public ChartResponse draw(DruidParam druidParam, Metric metric) {
+        if (component_up.name().equals( metric.getName() )) {
+            return drawComponentUp( druidParam );
+        }
         ChartResponse response = new ChartResponse();
-        response.setYAxis( units );
-        List<HeatDataDTO> dataList = druidMapper.getPipeLineWaterFlow( druidParam );
-        ChartResponse.Serie serie = response.addSerie( MetricEnum.getMetricChName( druidParam.getMetricName() ), ChartResponse.SerieType.line );
-        dataList.forEach( data -> serie.addData( data.get__time().getTime(), DoubleFormatUtil.halfUp( data.getMetricValue() ) ) );
+        response.setYAxis(  Collections.singletonList(
+                ChartResponse.YAxis.addTickUnit( metric.getUnit() )
+        ) );
+        List<HeatDataDTO> dataList = phoenixMapper.getPipeLineWaterFlow( druidParam );
+        ChartResponse.Serie serie = response.addSerie( metric.getAliasName(), ChartResponse.SerieType.line );
+        ChartResponse.Annotation annotation = new ChartResponse.Annotation();
+
+        dataList.forEach( data -> {
+            if (Boolean.parseBoolean( data.getIsAlarm() )) {
+                List<ChartResponse.Label> labels = annotation.getLabels();
+                ChartResponse.Label label = new ChartResponse.Label();
+                ChartResponse.Point point = new ChartResponse.Point();
+                point.setX( data.get__time().getTime() );
+                point.setY( DoubleFormatUtil.halfUp( data.getMetricValue() ) );
+                label.setPoint( point );
+                labels.add( label );
+                annotation.setLabels( labels );
+            }
+            serie.addData( data.get__time().getTime(), DoubleFormatUtil.halfUp( data.getMetricValue() ) );
+        } );
+        response.getData().getAnnotations().add( annotation );
         return response;
     }
 }

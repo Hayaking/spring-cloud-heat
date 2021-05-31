@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class DruidParam {
     private int id;
+    private Integer metricId;
     private String metricName;
 
     private long startTimeStamp;

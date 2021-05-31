@@ -7,7 +7,7 @@ import com.consumer.consumer.bean.vo.ChartResponse;
 import com.consumer.consumer.bean.vo.ComponentBaseInfoVO;
 import com.consumer.consumer.bean.vo.ComponentVO;
 import com.consumer.consumer.bean.vo.HeatMapData;
-import com.consumer.consumer.mapper.druid.DruidMapper;
+import com.consumer.consumer.mapper.phoenix.PhoenixMapper;
 import com.consumer.consumer.service.ComponentService;
 import msg.Message;
 import msg.MessageFactory;
@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 public class ComponentController {
     @Autowired
-    private DruidMapper druidMapper;
+    private PhoenixMapper phoenixMapper;
     @Autowired
     private ComponentService componentService;
 

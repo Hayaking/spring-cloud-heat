@@ -20,8 +20,8 @@ import javax.sql.DataSource;
 @Configuration
 public class ApacheDruidConfig {
 
-    @Bean(name = "druidDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.druid")
+    @Bean(name = "phoenixDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.phoenix")
     public DataSource dataSource() {
         return new DruidDataSource();
     }
@@ -31,9 +31,8 @@ public class ApacheDruidConfig {
         return new MybatisConfiguration();
     }
 
-    @Bean(name = "druidSqlSessionFactory")
-
-    public SqlSessionFactory sqlSessionFactory(@Qualifier("druidDataSource") DataSource dataSource) throws Exception {
+    @Bean(name = "phoenixSqlSessionFactory")
+    public SqlSessionFactory sqlSessionFactory(@Qualifier("phoenixDataSource") DataSource dataSource) throws Exception {
         return new MybatisSqlSessionFactoryBean() {{
             MybatisConfiguration config = new MybatisConfiguration();
             config.setMapUnderscoreToCamelCase(false);
@@ -43,13 +42,13 @@ public class ApacheDruidConfig {
         }}.getObject();
     }
 
-    @Bean(name = "druidTransactionManager")
-    public DataSourceTransactionManager transactionManager(@Qualifier("druidDataSource") DataSource dataSource) {
+    @Bean(name = "phoenixTransactionManager")
+    public DataSourceTransactionManager transactionManager(@Qualifier("phoenixDataSource") DataSource dataSource) {
         return new DataSourceTransactionManager( dataSource );
     }
 
-    @Bean(name = "druidSqlSessionTemplate")
-    public SqlSessionTemplate sqlSessionTemplate(@Qualifier("druidSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
+    @Bean(name = "phoenixSqlSessionTemplate")
+    public SqlSessionTemplate sqlSessionTemplate(@Qualifier("phoenixSqlSessionFactory") SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate( sqlSessionFactory );
     }
 

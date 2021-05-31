@@ -32,7 +32,7 @@ public class PumpSensor extends TimerTask {
             Metric.builder().min( 0d ).max( 3d ).build().setMetric( pump_state ),
             Metric.builder().min( 50d ).max( 100d ).build().setMetric( sensor_e_quantity ),
             Metric.builder().min( 50d ).max( 100d ).build().setMetric( sensor_state ),
-            Metric.builder().min( 50d ).max( 100d ).build().setMetric( sensor_up_time ),
+            Metric.builder().build().setMetric( sensor_up_time ),
             Metric.builder().min( 0D ).max( 0d ).build().setMetric( component_up )
     );
 

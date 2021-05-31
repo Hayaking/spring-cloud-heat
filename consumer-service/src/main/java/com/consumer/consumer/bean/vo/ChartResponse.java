@@ -24,7 +24,6 @@ public class ChartResponse {
     private int code = 200;
     private List<MetricNote> metricNoteList = new LinkedList<>();
     private ChartData data = new ChartData();
-
     public ChartResponse() {
     }
 
@@ -194,9 +193,9 @@ public class ChartResponse {
         private String reportName;
         private String aggr;
         private String unit;
-        @NonNull
+//        @NonNull
         private String name;
-        @NonNull
+//        @NonNull
         private ChartResponse.SerieType type;
         @JsonProperty("yAxis")
         private int yAxis;
@@ -364,8 +363,41 @@ public class ChartResponse {
         private List<XAxis> xAxis;
         @JsonProperty("yAxis")
         private List<YAxis> yAxis = new ArrayList<>();
-
+        private List<Annotation> annotations = new LinkedList<>();
         public ChartData() {
         }
+    }
+
+    @Setter
+    @Getter
+    public static class Annotation {
+        private LabelOptions labelOptions = new LabelOptions();
+        private List<Label> labels = new LinkedList<>();
+    }
+
+    @Setter
+    @Getter
+    public static class LabelOptions {
+        private String backgroundColor = "rgba(255,255,255,0.5)";
+        private String verticalAlign = "top";
+        private Integer y = 15;
+    }
+
+    @Setter
+    @Getter
+    public static class Label {
+        private Point point;
+        private String text = "异常";
+    }
+
+    @Setter
+    @Getter
+    public static class Point {
+        @JsonProperty("xAxis")
+        private Long xAxis = 0l;
+        @JsonProperty("yAxis")
+        private Double yAxis = 0d;
+        private Long x = 0L;
+        private Double y = 0D;
     }
 }

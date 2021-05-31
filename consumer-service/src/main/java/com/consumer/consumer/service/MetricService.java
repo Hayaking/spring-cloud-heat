@@ -19,4 +19,8 @@ public interface MetricService extends IService<Metric> {
     List<Component> getComponentListById(Integer id);
 
     ChartResponse getDetailChart(DruidParam druidParam);
+
+    Metric getByNameAndType(int type, String metricName);
+
+    Metric getByName( String metricName);
 }

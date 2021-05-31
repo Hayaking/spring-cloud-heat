@@ -13,8 +13,6 @@ trait Handler {
   var stream: InputDStream[ConsumerRecord[String, String]] = _
   var sparkSession: SparkSession = _
   var hBaseHost: String = _
-  @transient
-  var dataProducer: KafkaProducer[String, String] = _
 
   def handle(): Handler
 
@@ -23,7 +21,6 @@ trait Handler {
     this.sparkSession = stater.sparkSession
     this.hBaseHost = stater.hBaseHost
     this.name = topicName
-    this.dataProducer = stater.kafkaProducer
     stream = stater.getStream(topicName)
     this
   }

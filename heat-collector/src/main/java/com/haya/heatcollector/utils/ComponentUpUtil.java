@@ -16,8 +16,9 @@ public class ComponentUpUtil {
     private static final RedisTemplate<String, String> redisTemplate = SpringBeanUtil.getBean( StringRedisTemplate.class );
 
     public static void saveUptoZSet(String key, AlarmConfig config) {
-        redisTemplate.opsForZSet().add( key, config.getLevel().toString(), config.getLevel() );
-        redisTemplate.expire( key, 30, TimeUnit.SECONDS );
+        redisTemplate.opsForSet().add( key, config.getLevel().toString() );
+//        redisTemplate.opsForZSet().add( key, config.getLevel().toString(), config.getLevel() );
+        redisTemplate.expire( key, 50, TimeUnit.SECONDS );
     }
 
 
@@ -28,7 +29,8 @@ public class ComponentUpUtil {
      * @param heatData
      */
     public static void makeComponentUp(String key, Component component, HeatData heatData) {
-        Set<String> upSet = redisTemplate.opsForZSet().rangeByScore( key, 0, 3 );
+        Set<String> upSet = redisTemplate.opsForSet().members( key );
+//        Set<String> upSet = redisTemplate.opsForZSet().rangeByScore( key, 0, 3 );
         double up = 0D;
         if (!CollectionUtils.isEmpty( upSet )) {
             up = upSet.stream()
@@ -36,7 +38,8 @@ public class ComponentUpUtil {
                     .max()
                     .orElse( 0 );
         }
-        redisTemplate.opsForZSet().removeRange( key, 0, 3 );
+        redisTemplate.delete( key );
+//        redisTemplate.opsForZSet().removeRange( key, 0, 3 );
         heatData.setMetricValue( up );
         redisTemplate.opsForValue().set( "component:up:" + component.getId(), String.valueOf( (int) up ) );
         redisTemplate.expire( "component:up:" + component.getId(), 70, TimeUnit.SECONDS );

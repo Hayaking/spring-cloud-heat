@@ -1,7 +1,6 @@
-package com.consumer.consumer.mapper.druid;
+package com.consumer.consumer.mapper.phoenix;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.consumer.consumer.bean.ComponentFilter;
 import com.consumer.consumer.bean.DruidParam;
 import com.consumer.consumer.bean.dto.HeatDataDTO;
 import org.apache.ibatis.annotations.Mapper;
@@ -13,7 +12,7 @@ import java.util.List;
  * @author haya
  */
 @Mapper
-public interface DruidMapper extends BaseMapper<HeatDataDTO> {
+public interface PhoenixMapper extends BaseMapper<HeatDataDTO> {
     List<HeatDataDTO> test();
 
     List<HeatDataDTO> selectByComponentIdList(@Param("idList") List<Integer> idList,

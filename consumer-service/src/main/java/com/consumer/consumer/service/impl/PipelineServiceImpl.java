@@ -9,10 +9,11 @@ import com.consumer.consumer.bean.vo.ChartResponse;
 import com.consumer.consumer.bean.vo.ComponentVO;
 import com.consumer.consumer.bean.vo.PipelineVo;
 import com.consumer.consumer.bean.vo.StationVO;
-import com.consumer.consumer.mapper.druid.DruidMapper;
+import com.consumer.consumer.mapper.phoenix.PhoenixMapper;
 import com.consumer.consumer.mapper.mysql.ComponentMapper;
 import com.consumer.consumer.mapper.mysql.PipelineMapper;
 import com.consumer.consumer.mapper.mysql.StationMapper;
+import com.consumer.consumer.service.MetricService;
 import com.consumer.consumer.service.PipelineService;
 import com.consumer.consumer.util.DoubleFormatUtil;
 import org.springframework.beans.BeanUtils;
@@ -23,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import pojo.Component;
+import pojo.Metric;
 import pojo.Pipeline;
 import pojo.Station;
 
@@ -40,10 +42,11 @@ public class PipelineServiceImpl extends ServiceImpl<PipelineMapper, Pipeline> i
     private StationMapper stationMapper;
 
     @Autowired
-    private DruidMapper druidMapper;
+    private PhoenixMapper phoenixMapper;
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
-
+    @Autowired
+    private MetricService metricService;
     private static final String[] TYPE_ARRAY = {"","温度传感器", "流量传感器", "压力传感器", "阀门传感器", "泵传感器"};
 
 
@@ -78,7 +81,7 @@ public class PipelineServiceImpl extends ServiceImpl<PipelineMapper, Pipeline> i
             PipelineVo vo = new PipelineVo();
             BeanUtils.copyProperties( item, vo );
             List<Integer> sensorIdList = componentMapper.getIdListByPipeId( item.getId() );
-            List<HeatDataDTO> dataList = druidMapper.getPipeLineBaseInfo( sensorIdList );
+            List<HeatDataDTO> dataList = phoenixMapper.getPipeLineBaseInfo( sensorIdList );
             if (!CollectionUtils.isEmpty( dataList )) {
                 Map<String, List<HeatDataDTO>> list = dataList.stream().collect( Collectors.groupingBy( HeatDataDTO::getMetricName ) );
                 list.forEach( (metricName, metricValues) -> {
@@ -111,15 +114,19 @@ public class PipelineServiceImpl extends ServiceImpl<PipelineMapper, Pipeline> i
         if ("sensor_pie".equals( druidParam.getMetricName() )) {
             return druidSensorPieChart(druidParam);
         }
-        return druidChart( druidParam );
+        Metric metric = metricService.getByName( druidParam.getMetricName() );
+        return druidChart( druidParam, metric );
     }
 
 
-    public ChartResponse druidChart(DruidParam druidParam) {
+    public ChartResponse druidChart(DruidParam druidParam, Metric metric) {
         ChartResponse chartResponse = new ChartResponse();
+        chartResponse.setYAxis(  Collections.singletonList(
+                ChartResponse.YAxis.addTickUnit( metric.getUnit() )
+        ) );
         int pipeLineId = druidParam.getId();
         List<Integer> sensorIdList = componentMapper.getIdListByPipeId( pipeLineId );
-        List<HeatDataDTO> dataList = druidMapper.getPipeLineChart( sensorIdList, druidParam );
+        List<HeatDataDTO> dataList = phoenixMapper.getPipeLineChart( sensorIdList, druidParam );
         dataList.stream()
                 .collect( Collectors.groupingBy( HeatDataDTO::getId ) )
                 .forEach( (id, list) -> {
@@ -150,7 +157,15 @@ public class PipelineServiceImpl extends ServiceImpl<PipelineMapper, Pipeline> i
         PipelineVo vo = new PipelineVo();
         BeanUtils.copyProperties( pipeline, vo );
         List<Integer> sensorIdList = componentMapper.getIdListByPipeId( id );
-        List<HeatDataDTO> dataList = druidMapper.getPipeLineBaseInfo( sensorIdList );
+        if (CollectionUtils.isEmpty( sensorIdList )) {
+            return vo;
+        }
+        List<Component> componentList = componentMapper.selectBatchIds( sensorIdList );
+        Set<String> areaSet = componentList.stream().map( Component::getArea ).collect( Collectors.toSet() );
+        vo.setAreaList( areaSet );
+        Set<String> streetSet = componentList.stream().map( Component::getStreet ).collect( Collectors.toSet() );
+        vo.setStreetList( streetSet );
+        List<HeatDataDTO> dataList = phoenixMapper.getPipeLineBaseInfo( sensorIdList );
         if (!CollectionUtils.isEmpty( dataList )) {
             Map<String, List<HeatDataDTO>> list = dataList.stream().collect( Collectors.groupingBy( HeatDataDTO::getMetricName ) );
             list.forEach( (metricName, metricValues) -> {

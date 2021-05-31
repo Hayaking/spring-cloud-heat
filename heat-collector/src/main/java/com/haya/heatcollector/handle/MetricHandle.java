@@ -75,10 +75,10 @@ public class MetricHandle {
         Component component = componentAtomicReference.get();
         Metric metric = registerMetric( heatData );
         String key = "component:up:set:" + component.getId();
-
+        Boolean isAlarm = false;
         // 处理component_up指标
         if ("component_up".equals( metric.getName() )) {
-            taskExecutePoll.execute( () -> ComponentUpUtil.makeComponentUp( key, component, heatData ) );
+            ComponentUpUtil.makeComponentUp( key, component, heatData );
         } else {
             List<AlarmConfig> configList = alarmConfigService.select( component, metric);
             if (!CollectionUtils.isEmpty( configList )) {
@@ -87,6 +87,7 @@ public class MetricHandle {
                     Double top = config.getTop();
                     Double metricValue = heatData.getMetricValue();
                     if (metricValue >= top || metricValue <= bottom) {
+                        isAlarm = true;
                         String isExist = redisTemplate.opsForValue().get( "alarm:exist" + config.getId() );
                         // 添加异常状态到set
                         taskExecutePoll.execute( () -> ComponentUpUtil.saveUptoZSet( key, config ) );
@@ -109,6 +110,7 @@ public class MetricHandle {
         heatData.setId( component.getId() );
         heatData.setArea( component.getArea() );
         heatData.setStreet( component.getStreet() );
+        heatData.setIsAlarm( isAlarm );
         template.send( "data1", JSON.toJSONString( heatData ) );
     }
 

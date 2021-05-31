@@ -17,6 +17,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import pojo.AlarmConfig;
 import pojo.Component;
 import pojo.Metric;
@@ -84,7 +85,7 @@ public class AlarmConfigServiceImpl extends ServiceImpl<AlarmConfigMapper, Alarm
         Metric metric = metricService.getById( metricId );
         Component component = componentService.getById( componentId );
         config.setUserName( user.getUsername() );
-        config.setMetricName( metric.getName() );
+        config.setMetricName( StringUtils.isEmpty( metric.getAliasName() ) ? metric.getName() : metric.getAliasName() );
         config.setComponentType( component.getType() );
         config.setComponentName( component.getName() );
         boolean flag = saveOrUpdate( config );

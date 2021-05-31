@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.Random;
 
+import static bean.MetricName.sensor_up_time;
+
 /**
  * @author haya
  */
@@ -15,6 +17,7 @@ import java.util.Random;
 @AllArgsConstructor
 @Data
 public class Metric {
+    private final long START_TIME = System.currentTimeMillis();
     private static final Random RANDOM = new Random();
     private String name;
     private String aliasName;
@@ -45,7 +48,9 @@ public class Metric {
     }
 
     public Double getRandomNumber() {
-
+        if (sensor_up_time.name().equals( name )) {
+            return (double) (System.currentTimeMillis() - START_TIME);
+        }
         if (clazz == Integer.class) {
             if (max == 0) {
                 return 0d;

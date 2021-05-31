@@ -7,6 +7,7 @@ import pojo.Pipeline;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author haya
@@ -21,6 +22,9 @@ public class PipelineVo extends Pipeline {
     private Double level;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date createDate;
+
+    private Set<String> areaList;
+    private Set<String> streetList;
 
 
 }
