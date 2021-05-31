@@ -6,14 +6,11 @@ import org.apache.spark.streaming.Minutes
 import java.text.SimpleDateFormat
 
 
-class HeatHandler extends Handler with Serializable {
+class HeatHandler(tableName: String, windowSize: Long) extends Handler with Serializable {
   var colNames: Array[String] = Array("code","metricValue","counter","id","metricName","__time","lat","lon","street","area","address","type","componentName","collectorName","ip","port","isAlarm")
 
   override def handle(): Handler = {
     val sqlContext = sparkSession.sqlContext
-    val MINUTE_TABLE_NAME = "HEAT_DATA_MINUTE"
-    val HOUR_TABLE_NAME = "HEAT_DATA_HOUR"
-    val DAY_TABLE_NAME = "HEAT_DATA_DAY"
     import org.apache.spark.sql._
     import org.apache.spark.sql.types._
     val schema = StructType(
@@ -48,31 +45,36 @@ class HeatHandler extends Handler with Serializable {
       var dim = jsonValue match {
         case Some(map: Map[String, Any]) => map
       }
+      println(dim)
       val metricValue: Double = dim("metricValue").toString.toDouble
-//      val time: String = dim("time").toString.toDouble
+      val fm = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+      val dt = fm.parse(dim("time").toString)
+
+      val time: Long = dt.getTime
       val counter = 1D
       dim -= "metricValue"
-//      dim -= "time"
-      (dim, (metricValue, counter))
+      dim -= "time"
+      (dim, (metricValue, counter,time))
     })
       // 预聚合
-    val preAgg = struct.reduceByKeyAndWindow((a: (Double, Double), b: (Double, Double)) => {
+    val preAgg = struct.reduceByKeyAndWindow((a: (Double, Double,Long), b: (Double, Double,Long)) => {
         val v1 = a._1
         val v2 = b._1
         val c1 = a._2
         val c2 = b._2
-        (v1 + v2, c1 + c2)
-      }, Minutes(1), Minutes(1))
+        val t1 = a._3
+        val t2 = b._3
+        (v1 + v2, c1 + c2, Math.min(t1,t2))
+      }, Minutes(windowSize), Minutes(windowSize))
     preAgg.foreachRDD(data=>{
       val rdd = data.map(item => {
-//        val _time =
         Row(
           item.hashCode().toString,
           item._2._1.toString.toDouble,
           item._2._2.toString.toDouble,
           item._1("id").toString,
           item._1("metricName").toString,
-          item._1("time").toString,
+          item._2._3.toString,
           item._1("lat").toString.toDouble,
           item._1("lon").toString.toDouble,
           item._1("street").toString,
@@ -87,7 +89,7 @@ class HeatHandler extends Handler with Serializable {
         )
       })
       val df = sparkSession.createDataFrame(rdd,schema)
-      df.saveToPhoenix(Map("table" -> MINUTE_TABLE_NAME, "zkUrl" -> hBaseHost))
+      df.saveToPhoenix(Map("table" -> tableName, "zkUrl" -> hBaseHost))
     })
       // 保存到hbase
 //    val t1 = preAgg.transform(data =>  {

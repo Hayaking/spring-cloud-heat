@@ -26,8 +26,12 @@ class SparkStater(hBase: String, kafka: String) extends Serializable {
 
   def ready(): SparkStater = {
     streamingContext.checkpoint(checkpointPath)
-    val handler = new HeatHandler()
-    handler.register("data1", SparkStater.this).handle()
+    val minuteHandle = new HeatHandler("HEAT_DATA_MINUTE",1)
+//    val hourHandle = new HeatHandler("HEAT_DATA_HOUR",60)
+//    val dayHandle = new HeatHandler("HEAT_DATA_DAY",60*24)
+    minuteHandle.register("data1", SparkStater.this).handle()
+//    hourHandle.register("data1", SparkStater.this).handle()
+//    dayHandle.register("data1", SparkStater.this).handle()
     this
   }
 
